@@ -1,0 +1,46 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A lush green forest with sunlight filtering through the trees.",
+      "imageUrl": "https://images.unsplash.com/photo-1725598944195-99151cc8932e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsdXNoJTIwZm9yZXN0fGVufDB8fHx8MTc2OTM1Mjg1M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lush forest"
+    },
+    {
+      "id": "tip-home",
+      "description": "A person adding vegetable scraps to a kitchen compost bin.",
+      "imageUrl": "https://images.unsplash.com/photo-1760445278086-d26317282e10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxraXRjaGVuJTIwY29tcG9zdHxlbnwwfHx8fDE3NjkzNTI4NTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kitchen compost"
+    },
+    {
+      "id": "tip-garden",
+      "description": "Hands planting a small green sprout in a garden.",
+      "imageUrl": "https://images.unsplash.com/photo-1631949454974-d041bb53c328?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwbGFudGluZyUyMHNwcm91dHxlbnwwfHx8fDE3NjkzNTI4NTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "planting sprout"
+    },
+    {
+      "id": "tip-out",
+      "description": "A person shopping with a reusable cloth bag.",
+      "imageUrl": "https://images.unsplash.com/photo-1607011753273-5a3cc90fca78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxyZXVzYWJsZSUyMGJhZ3xlbnwwfHx8fDE3NjkyNzIxMDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "reusable bag"
+    },
+    {
+      "id": "testimonial-1",
+      "description": "Portrait of a smiling person.",
+      "imageUrl": "https://images.unsplash.com/photo-1579047917338-a6a69144fe63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxoYXBweSUyMHBlcnNvbnxlbnwwfHx8fDE3NjkyNzcwMjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy person"
+    },
+    {
+      "id": "testimonial-2",
+      "description": "Portrait of a person outdoors.",
+      "imageUrl": "https://images.unsplash.com/photo-1631377307475-9acfa929b062?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzbWlsaW5nJTIwcGVyc29ufGVufDB8fHx8MTc2OTI4MDU1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smiling person"
+    },
+    {
+      "id": "testimonial-3",
+      "description": "A person enjoying nature.",
+      "imageUrl": "https://images.unsplash.com/photo-1520991888732-5a1fbd8aa98f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxuYXR1cmUlMjBsb3ZlcnxlbnwwfHx8fDE3NjkzNTI4NTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nature lover"
+    }
+  ]
+}
