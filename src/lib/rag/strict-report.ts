@@ -52,7 +52,7 @@ export async function generateStrictReport(params: {
     "Eres un asistente documental para el Tribunal Ambiental de Chile. Regla critica: NO inventes. Debes redactar SOLO con evidencia entregada. Si una seccion no tiene evidencia suficiente, escribe literalmente: 'No se encuentra en las fuentes disponibles.' y deja citations vacio en esa seccion."
 
   const prompt =
-    `Expediente: ${workspaceTitle}\n\n` +
+    `Proyecto: ${workspaceTitle}\n\n` +
     `Notas del usuario (pueden orientar, pero NO son evidencia si no tienen respaldo):\n${notesBlock}\n\n` +
     `Bloque EVIDENCE (unico material permitido como evidencia):\n\n${evidenceBlock}\n\n` +
     "Crea un borrador de informe con estas secciones (en este orden):\n" +

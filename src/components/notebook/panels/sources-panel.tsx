@@ -368,7 +368,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
         <div className="min-w-0">
           <div className="text-sm font-semibold">Fuentes</div>
           <div className="text-[11px] text-muted-foreground">
-            {sources.length} fuentes compartidas - disponibles en todos tus expedientes
+            {sources.length} fuentes compartidas - disponibles en todos tus proyectos
           </div>
         </div>
         <Button size="sm" className="gap-2" onClick={() => setIsAddOpen(true)}>
@@ -505,7 +505,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
                   )}
                   {r.workspaceTitle && (
                     <div className="mt-1 text-[11px] text-muted-foreground">
-                      Expediente: {r.workspaceTitle}
+                      Proyecto: {r.workspaceTitle}
                     </div>
                   )}
                 </button>
@@ -568,7 +568,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
                   )}
                   {s.workspace_title && (
                     <div className="mt-1 truncate text-[11px] text-muted-foreground">
-                      Expediente: {s.workspace_title}
+                      Proyecto: {s.workspace_title}
                     </div>
                   )}
                   {s.status === "error" && s.last_error && (
@@ -612,7 +612,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
                 placeholder="https://..."
               />
               <p className="text-xs text-muted-foreground">
-                Las fuentes quedan disponibles para todos tus expedientes y el asistente responde con evidencia de ese repositorio compartido.
+                Las fuentes quedan disponibles para todos tus proyectos y el asistente responde con evidencia de ese repositorio compartido.
               </p>
             </TabsContent>
 

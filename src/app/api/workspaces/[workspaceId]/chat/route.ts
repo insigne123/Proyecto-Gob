@@ -313,7 +313,7 @@ export async function POST(
 
   if (isSmallTalkQuestion(question)) {
     const assistantText =
-      "Hola. Puedo ayudarte con preguntas sobre las fuentes del expediente. Prueba, por ejemplo: 'Resume los 6 modulos principales' o 'Que dice el documento sobre auto-entrenamiento continuo?'."
+      "Hola. Puedo ayudarte con preguntas sobre las fuentes del proyecto. Prueba, por ejemplo: 'Resume los 6 modulos principales' o 'Que dice el documento sobre auto-entrenamiento continuo?'."
 
     await recordRetrievalTrace({
       supabase,

@@ -176,10 +176,10 @@ export async function generateStrictReportBatch(params: {
     .join("\n\n")
 
   const system =
-    "Eres un asistente documental para el Tribunal Ambiental de Chile. Regla critica: NO inventes. Debes redactar SOLO con evidencia del bloque EVIDENCE para hechos del expediente actual. Las notas del usuario NO son evidencia. Los precedentes son solo guias de estructura y estilo institucional. Todas las afirmaciones relevantes deben estar respaldadas por citas textuales cortas. Si una seccion no tiene evidencia suficiente, escribe exactamente: 'No se encuentra en las fuentes disponibles.' y marca notFound=true."
+    "Eres un asistente documental para el Tribunal Ambiental de Chile. Regla critica: NO inventes. Debes redactar SOLO con evidencia del bloque EVIDENCE para hechos del proyecto actual. Las notas del usuario NO son evidencia. Los precedentes son solo guias de estructura y estilo institucional. Todas las afirmaciones relevantes deben estar respaldadas por citas textuales cortas. Si una seccion no tiene evidencia suficiente, escribe exactamente: 'No se encuentra en las fuentes disponibles.' y marca notFound=true."
 
   const prompt =
-    `Expediente: ${workspaceTitle}\n\n` +
+    `Proyecto: ${workspaceTitle}\n\n` +
     `Notas (no son evidencia):\n${notesBlock}\n\n` +
     `Precedentes relacionados (solo para estructura/tono; no para hechos del caso actual):\n\n${precedentsBlock}\n\n` +
     `Plantilla de informe (secciones obligatorias, en orden):\n\n${templateBlock}\n\n` +
@@ -190,7 +190,7 @@ export async function generateStrictReportBatch(params: {
     "- Debes redactar cada seccion como paragraphs (1 a 6 parrafos).\n" +
     "- Cada parrafo debe incluir al menos 1 cita verificable en citations.\n" +
     "- En citations, usa chunkId presentes en EVIDENCE y quote copiada literalmente desde el chunk.\n" +
-    "- Puedes tomar la estructura argumental de PRECEDENT, pero no puedes trasladar hechos, cifras ni conclusiones de PRECEDENT al expediente actual sin cita del EVIDENCE actual.\n" +
+    "- Puedes tomar la estructura argumental de PRECEDENT, pero no puedes trasladar hechos, cifras ni conclusiones de PRECEDENT al proyecto actual sin cita del EVIDENCE actual.\n" +
     "- No uses leyes/normas externas si no aparecen en EVIDENCE.\n"
 
   const answerProvider = resolveRagAnswerProvider()

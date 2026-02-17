@@ -553,7 +553,7 @@ async function main() {
 
       // 12) Fetch report page HTML as authenticated user
       {
-        const res = await fetch(`${baseUrl}/workspaces/${workspaceB}/reports/${newReportId}`, {
+        const res = await fetch(`${baseUrl}/projects/${workspaceB}/reports/${newReportId}`, {
           headers: { cookie: buildCookieHeader(jar) },
           redirect: "manual",
         })
@@ -564,13 +564,13 @@ async function main() {
         }
       }
 
-      // 13) Smoke: watchlists page renders
+      // 13) Smoke: excel monitor page renders
       {
-        const res = await fetch(`${baseUrl}/workspaces/${workspaceB}/watchlists`, {
+        const res = await fetch(`${baseUrl}/excel/${workspaceB}`, {
           headers: { cookie: buildCookieHeader(jar) },
           redirect: "manual",
         })
-        if (!res.ok) throw new Error(`watchlists page failed: ${res.status}`)
+        if (!res.ok) throw new Error(`excel page failed: ${res.status}`)
       }
 
       // eslint-disable-next-line no-console

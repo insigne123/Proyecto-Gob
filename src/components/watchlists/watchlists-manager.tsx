@@ -529,11 +529,11 @@ export function WatchlistsManager({
     <div className="mx-auto w-full max-w-7xl px-4 py-8">
       <div className="mb-5">
         <Link
-          href={`/workspaces/${workspaceId}`}
+          href="/excel"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" />
-          Volver al cuaderno
+          Volver a Excel
         </Link>
       </div>
 
@@ -556,15 +556,13 @@ export function WatchlistsManager({
           <CardContent className="space-y-3">
             <div className="flex flex-wrap gap-2">
               <Button asChild variant="outline" size="sm">
-                <a href={`/api/oauth/google/start?next=${encodeURIComponent(`/workspaces/${workspaceId}/watchlists`)}`}>
+                <a href={`/api/oauth/google/start?next=${encodeURIComponent(`/excel/${workspaceId}`)}`}>
                   Conectar Google Drive
                 </a>
               </Button>
               <Button asChild variant="outline" size="sm">
                 <a
-                  href={`/api/oauth/microsoft/start?next=${encodeURIComponent(
-                    `/workspaces/${workspaceId}/watchlists`
-                  )}`}
+                  href={`/api/oauth/microsoft/start?next=${encodeURIComponent(`/excel/${workspaceId}`)}`}
                 >
                   Conectar OneDrive
                 </a>
@@ -1065,7 +1063,7 @@ export function WatchlistsManager({
                   className="rounded-xl border border-border/55 bg-background/20 px-3 py-2"
                 >
                   <Link
-                    href={`/workspaces/${workspaceId}/watchlists/${watchlist.id}`}
+                    href={`/excel/${workspaceId}/${watchlist.id}`}
                     className="block rounded-md px-1 py-1 hover:bg-background/30"
                   >
                     <div className="text-sm font-medium">{watchlist.file_name || "Archivo"}</div>

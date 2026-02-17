@@ -19,11 +19,13 @@ export function WatchlistActions({
   watchlistId,
   status,
   fileName,
+  basePath,
 }: {
   workspaceId: string
   watchlistId: string
   status: string
   fileName: string
+  basePath?: string
 }) {
   const router = useRouter()
   const [busyKind, setBusyKind] = useState<ActionKind | null>(null)
@@ -75,7 +77,7 @@ export function WatchlistActions({
       }
 
       if (kind === "delete") {
-        router.replace(`/workspaces/${workspaceId}/watchlists`)
+        router.replace(basePath || `/excel/${workspaceId}`)
         router.refresh()
         return
       }

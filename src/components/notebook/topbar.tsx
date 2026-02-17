@@ -48,11 +48,11 @@ export function Topbar({
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/65 backdrop-blur supports-[backdrop-filter]:bg-background/45">
       <div className="mx-auto flex h-14 w-full max-w-[1800px] items-center gap-3 px-3 md:px-4">
         <Link
-          href="/workspaces"
+          href="/projects"
           className="flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
         >
           <PanelsTopLeft className="h-4 w-4" />
-          Expedientes
+          Proyectos
         </Link>
 
         <div className="h-5 w-px bg-border/70" />
@@ -78,7 +78,10 @@ export function Topbar({
             <DropdownMenuContent align="end" className="w-64">
               <DropdownMenuLabel>Sesion</DropdownMenuLabel>
               <DropdownMenuItem asChild>
-                <Link href="/workspaces">Volver a expedientes</Link>
+                <Link href="/workspaces">Inicio de modulos</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/projects">Volver a proyectos</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/audit">Auditoria</Link>
@@ -88,21 +91,21 @@ export function Topbar({
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/workspaces/${workspaceId}/expediente`}
+                  href={`/projects/${workspaceId}/expediente`}
                   className="flex items-center"
                 >
                   <FileText className="mr-2 h-4 w-4" />
-                  Ficha expediente
+                  Ficha proyecto
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/workspaces/${workspaceId}/ops`} className="flex items-center">
+                <Link href={`/projects/${workspaceId}/ops`} className="flex items-center">
                   <Activity className="mr-2 h-4 w-4" />
                   Operaciones
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/workspaces/${workspaceId}/watchlists`} className="flex items-center">
+                <Link href={`/excel/${workspaceId}`} className="flex items-center">
                   <FileSpreadsheet className="mr-2 h-4 w-4" />
                   Monitor Excel
                 </Link>

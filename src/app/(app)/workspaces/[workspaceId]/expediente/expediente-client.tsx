@@ -352,7 +352,7 @@ export default function ExpedienteClient(props: Props) {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="bg-card/70 lg:col-span-2">
           <CardHeader>
-            <CardTitle className="text-base">Metadatos del expediente</CardTitle>
+            <CardTitle className="text-base">Metadatos del proyecto</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-3 md:grid-cols-2">

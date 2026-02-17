@@ -17,7 +17,7 @@ export default function AcceptInviteClient() {
   const [error, setError] = useState<string | null>(null)
 
   const nextLoginUrl = useMemo(() => {
-    const next = token ? `/invites/accept?token=${encodeURIComponent(token)}` : "/workspaces"
+    const next = token ? `/invites/accept?token=${encodeURIComponent(token)}` : "/projects"
     return `/login?next=${encodeURIComponent(next)}`
   }, [token])
 
@@ -42,7 +42,7 @@ export default function AcceptInviteClient() {
         if (!res.ok) throw new Error(json?.error || "No se pudo aceptar la invitacion")
         const workspaceId = String(json?.workspaceId || "")
         if (!workspaceId) throw new Error("Respuesta invalida")
-        router.replace(`/workspaces/${workspaceId}`)
+        router.replace(`/projects/${workspaceId}`)
         router.refresh()
       })
       .catch((err: any) => {
@@ -66,7 +66,7 @@ export default function AcceptInviteClient() {
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">Falta el parametro `token`.</p>
             <Button asChild variant="outline">
-              <Link href="/workspaces">Volver</Link>
+              <Link href="/projects">Volver</Link>
             </Button>
           </CardContent>
         </Card>
@@ -96,7 +96,7 @@ export default function AcceptInviteClient() {
 
           <div className="flex items-center justify-between">
             <Button asChild variant="outline">
-              <Link href="/workspaces">Ir a expedientes</Link>
+              <Link href="/projects">Ir a proyectos</Link>
             </Button>
             <Button asChild variant="ghost">
               <Link href={nextLoginUrl}>Iniciar sesion</Link>

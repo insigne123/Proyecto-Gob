@@ -20,7 +20,7 @@ export function NotebookShell({ workspace }: { workspace: NotebookWorkspace }) {
     "chat"
   )
 
-  const title = useMemo(() => workspace.title || "Expediente", [workspace.title])
+  const title = useMemo(() => workspace.title || "Proyecto", [workspace.title])
 
   return (
     <div className="min-h-svh">

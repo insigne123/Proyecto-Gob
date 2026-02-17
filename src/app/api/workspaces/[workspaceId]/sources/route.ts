@@ -131,7 +131,7 @@ export async function GET(
       .in("id", sourceWorkspaceIds)
 
     for (const row of wsRows || []) {
-      workspaceTitleById.set(String((row as any).id), String((row as any).title || "Expediente"))
+      workspaceTitleById.set(String((row as any).id), String((row as any).title || "Proyecto"))
     }
   }
 
@@ -140,7 +140,7 @@ export async function GET(
     return {
       ...row,
       workspace_id: wsId || null,
-      workspace_title: wsId ? workspaceTitleById.get(wsId) || "Expediente" : null,
+      workspace_title: wsId ? workspaceTitleById.get(wsId) || "Proyecto" : null,
     }
   })
 

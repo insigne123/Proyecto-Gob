@@ -19,21 +19,21 @@ export const TEMPLATE_INFORME_EVALUACION: ReportTemplate = {
       key: "resumen_ejecutivo",
       heading: "Resumen ejecutivo",
       instruction:
-        "Sintetiza en formato ejecutivo el objeto del expediente, hallazgos centrales y conclusion preliminar. Debe ser factual y breve.",
+        "Sintetiza en formato ejecutivo el objeto del proyecto, hallazgos centrales y conclusion preliminar. Debe ser factual y breve.",
       minSimilarity: 0.2,
     },
     {
       key: "antecedentes",
       heading: "Antecedentes y contexto del proyecto",
       instruction:
-        "Describe antecedentes administrativos y tecnicos del expediente en modo extractivo. No agregues interpretaciones juridicas no sustentadas.",
+        "Describe antecedentes administrativos y tecnicos del proyecto en modo extractivo. No agregues interpretaciones juridicas no sustentadas.",
       minSimilarity: 0.23,
     },
     {
       key: "marco_normativo",
       heading: "Marco normativo aplicable",
       instruction:
-        "Identifica normas, exigencias y criterios regulatorios que aparezcan en las fuentes del expediente. Evita citar normas externas no incluidas.",
+        "Identifica normas, exigencias y criterios regulatorios que aparezcan en las fuentes del proyecto. Evita citar normas externas no incluidas.",
       minSimilarity: 0.25,
     },
     {
@@ -47,7 +47,7 @@ export const TEMPLATE_INFORME_EVALUACION: ReportTemplate = {
       key: "impactos",
       heading: "Identificacion y evaluacion de impactos",
       instruction:
-        "Describe impactos directos, indirectos y acumulativos solo cuando esten explicitamente sustentados por evidencia del expediente.",
+        "Describe impactos directos, indirectos y acumulativos solo cuando esten explicitamente sustentados por evidencia del proyecto.",
       minSimilarity: 0.3,
     },
     {
@@ -68,7 +68,7 @@ export const TEMPLATE_INFORME_EVALUACION: ReportTemplate = {
       key: "monitoreo",
       heading: "Plan de monitoreo y seguimiento",
       instruction:
-        "Describe indicadores, frecuencias, responsables y mecanismos de seguimiento mencionados en los antecedentes del expediente.",
+        "Describe indicadores, frecuencias, responsables y mecanismos de seguimiento mencionados en los antecedentes del proyecto.",
       minSimilarity: 0.27,
     },
     {

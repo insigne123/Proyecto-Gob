@@ -163,7 +163,7 @@ export async function GET(
           .in("id", ids)
 
         for (const ws of workspaces || []) {
-          workspaceTitleById.set(String((ws as any).id), String((ws as any).title || "Expediente"))
+          workspaceTitleById.set(String((ws as any).id), String((ws as any).title || "Proyecto"))
         }
       }
 
@@ -179,7 +179,7 @@ export async function GET(
             typeof src.year === "number" ? src.year : src.year ? Number(src.year) : null,
           workspaceId: src.workspace_id ? String(src.workspace_id) : null,
           workspaceTitle: src.workspace_id
-            ? workspaceTitleById.get(String(src.workspace_id)) || "Expediente"
+            ? workspaceTitleById.get(String(src.workspace_id)) || "Proyecto"
             : null,
         })
       }

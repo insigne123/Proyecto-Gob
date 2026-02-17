@@ -285,10 +285,10 @@ export async function emailDigestJob(params: { supabase: any; job: any }) {
 
   const appBase = process.env.APP_PUBLIC_URL || null
   const appUrl = appBase
-    ? `${appBase}/workspaces/${watch.workspace_id}/watchlists/${watchlistId}`
+    ? `${appBase}/excel/${watch.workspace_id}/${watchlistId}`
     : null
   const runUrl = appBase
-    ? `${appBase}/workspaces/${watch.workspace_id}/watchlists/${watchlistId}/runs/${changedRuns[0]?.id}`
+    ? `${appBase}/excel/${watch.workspace_id}/${watchlistId}/runs/${changedRuns[0]?.id}`
     : null
 
   let highlights: any = null

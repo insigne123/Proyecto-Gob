@@ -141,12 +141,12 @@ export function StudioPanel({ workspaceId }: { workspaceId: string }) {
       <div className="flex items-center justify-between gap-3 border-b border-border/60 px-4 py-3">
         <div>
           <div className="text-sm font-semibold">Studio</div>
-          <div className="text-[11px] text-muted-foreground">Notas e informes del expediente</div>
+          <div className="text-[11px] text-muted-foreground">Notas e informes del proyecto</div>
         </div>
 
         <div className="flex items-center gap-2">
           <Button asChild variant="outline" size="sm" className="gap-2">
-            <Link href={`/workspaces/${workspaceId}/watchlists`}>
+            <Link href={`/excel/${workspaceId}`}>
               <FileSpreadsheet className="h-4 w-4" />
               Monitor Excel
             </Link>
@@ -218,7 +218,7 @@ export function StudioPanel({ workspaceId }: { workspaceId: string }) {
                   reports.map((r) => (
                     <Link
                       key={r.id}
-                      href={`/workspaces/${workspaceId}/reports/${r.id}`}
+                      href={`/projects/${workspaceId}/reports/${r.id}`}
                       className="block rounded-xl border border-border/55 bg-background/25 px-3 py-2 hover:bg-background/35"
                     >
                       <div className="text-sm font-medium">{r.title || "Informe"}</div>
@@ -322,7 +322,7 @@ export function StudioPanel({ workspaceId }: { workspaceId: string }) {
               </select>
             </div>
             <p className="text-sm text-muted-foreground">
-              Se generara un borrador con evidencia del expediente y precedentes relacionados de otros expedientes donde tengas acceso.
+              Se generara un borrador con evidencia del proyecto y precedentes relacionados de otros proyectos donde tengas acceso.
             </p>
             {reportError && (
               <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">

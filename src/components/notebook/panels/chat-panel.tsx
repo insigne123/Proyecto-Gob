@@ -470,7 +470,7 @@ export function ChatPanel({ workspaceId }: { workspaceId: string }) {
               </div>
               <div className="text-lg font-semibold">Agrega una fuente para empezar</div>
               <p className="mt-2 text-sm text-muted-foreground">
-                Para evitar alucinaciones, el asistente solo usa contenido cargado en el expediente.
+                Para evitar alucinaciones, el asistente solo usa contenido cargado en el proyecto.
               </p>
               <div className="mt-5 flex items-center justify-center">
                 <Button

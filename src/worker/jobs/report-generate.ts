@@ -319,7 +319,7 @@ async function findRelatedPrecedents(params: {
   if (pErr) throw new Error(pErr.message)
 
   const workspaceById = new Map<string, string>(
-    (workspaces || []).map((w: any) => [String(w.id), safeText(w.title, 180) || "Expediente"])
+    (workspaces || []).map((w: any) => [String(w.id), safeText(w.title, 180) || "Proyecto"])
   )
   const profileByWorkspace = new Map<string, ProfileSummary>(
     (profiles || []).map((p: any) => [String(p.workspace_id), profileFromRow(p)])
@@ -328,7 +328,7 @@ async function findRelatedPrecedents(params: {
   const ranked: RelatedPrecedent[] = (reports || [])
     .map((r: any) => {
       const candidateWorkspaceId = String(r.workspace_id)
-      const candidateWorkspaceTitle = workspaceById.get(candidateWorkspaceId) || "Expediente"
+      const candidateWorkspaceTitle = workspaceById.get(candidateWorkspaceId) || "Proyecto"
       const candidateProfile = profileByWorkspace.get(candidateWorkspaceId) || {
         region: null,
         causeType: null,
@@ -483,7 +483,7 @@ export async function reportGenerateJob(params: { supabase: any; job: any }) {
       supabase,
       reportId,
       workspaceId,
-      workspaceTitle: String(workspace.title || "Expediente"),
+      workspaceTitle: String(workspace.title || "Proyecto"),
       currentTemplateId: template.id,
       currentProfile,
       createdBy: report.created_by ? String(report.created_by) : null,
