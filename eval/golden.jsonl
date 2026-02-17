@@ -1,0 +1,12 @@
+# One JSON object per line. Lines starting with # are ignored.
+# Required fields: workspaceId, question
+# Optional fields: id, mode, filters, expectNotFound, mustInclude, mustNotInclude, expectedSnapshotIds, expectedChunkIds, notes
+# Example:
+# {"id":"chat-001","workspaceId":"6fb9cd69-7145-4c5d-96bf-fe9b160e0855","question":"¿Que organismo dicta la RCA del proyecto?","mode":"extractive","expectNotFound":false,"mustInclude":["RCA"],"expectedSnapshotIds":["<snapshot_uuid>"]}
+
+{"id":"seed-001","question":"Resume los hechos principales del expediente en 5 puntos maximo","mode":"extractive"}
+{"id":"seed-002","question":"Compara los cambios entre versiones del documento sobre calidad de aire","mode":"comparison"}
+{"id":"seed-003","question":"Haz un checklist de obligaciones detectables en las fuentes","mode":"checklist"}
+{"id":"seed-004","question":"Redacta una propuesta de resolucion basada solo en evidencia citada","mode":"resolution"}
+{"id":"seed-005","question":"¿Existe evidencia sobre monitoreo de ruido nocturno en domingo?","mode":"extractive","expectNotFound":false}
+{"id":"seed-006","question":"¿Las fuentes mencionan un proyecto llamado 'Proyecto Fantasma XYZ 2035'?","mode":"extractive","expectNotFound":true}

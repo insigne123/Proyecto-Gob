@@ -1,0 +1,314 @@
+﻿________________
+
+
+Informe de Proyecto
+Plataforma tipo “NotebookLM” para el Tribunal Medioambiental + Monitor de Excel con alertas
+Fecha
+Febrero 2026
+Zona horaria de operación: America/Santiago
+________________
+
+
+1) Resumen ejecutivo
+Se requiere desarrollar una aplicación web con dos módulos principales:
+1. Módulo A – Asistente documental tipo NotebookLM (estricto, sin alucinaciones)
+Permite cargar y organizar bases de documentos disponibles en sitios web (HTML/PDF públicos). Con esos documentos, el sistema debe:
+   * Responder preguntas y generar borradores de informe solo en base a las fuentes cargadas.
+   * Entregar citas verificables (URL + página/sección/fragmento).
+   * Aplicar una política de precisión: si no existe evidencia suficiente en las fuentes, debe decir “no se encuentra en las fuentes” (no inventar).
+   2. Módulo B – Monitor de Excel (OneDrive + Google Drive) con reportes por email
+Permite conectar archivos Excel alojados en OneDrive y Google Drive, configurar columnas a seguir, detectar cambios y enviar avisos/reportes por correo. El usuario puede configurar:
+      * Cada cuánto se revisa el Excel (frecuencia de monitoreo).
+      * Cada cuánto se envía el correo con resumen de cambios (frecuencia de reporte).
+      * Reglas de alerta (ej. cambios en columnas específicas, aparición de nuevos registros, cambios de estado).
+La solución debe ser independiente de la infraestructura del tribunal (desplegable en nube administrada por el proveedor del sistema), con acceso por navegador y autenticación segura.
+________________
+
+
+2) Descripción detallada del sistema
+2.1 Visión general (componentes)
+Frontend Web
+      * Panel de trabajo: “Espacios” (casos/proyectos).
+      * Panel de documentos: fuentes, estado de indexación, versiones.
+      * Chat/Consultas con citas.
+      * Generación de informes con plantillas.
+      * Panel Monitor Excel: conexiones, configuración, historial de cambios, reglas, programación, logs de correos.
+Backend (API + servicios)
+      * Autenticación (usuarios/roles).
+      * Ingesta de documentos web (descarga, parsing, versionado).
+      * Indexación (texto + vector).
+      * Motor de preguntas/respuestas (RAG estricto con citas).
+      * Servicio de generación de informes (plantillas).
+      * Conectores OAuth: Google Drive / Microsoft OneDrive.
+      * Monitor/worker de Excel (detección de cambios).
+      * Servicio de email (SMTP o proveedor transaccional).
+      * Auditoría y trazabilidad.
+Persistencia
+      * Base de datos relacional (metadatos, configuraciones, auditoría, historial de cambios).
+      * Almacenamiento de objetos (copias de documentos originales descargados).
+      * Índice de búsqueda (texto + vector).
+________________
+
+
+3) Módulo A – “NotebookLM estricto” (documentos web → respuestas con citas)
+3.1 Funcionalidad principal
+El usuario crea un “Espacio” y agrega fuentes desde sitios web:
+      * URL de páginas HTML
+      * URL de PDFs
+El sistema debe:
+      1. Descargar y almacenar una copia del documento (snapshot).
+      2. Extraer texto y estructura (títulos, secciones, páginas en PDF).
+      3. Crear índices para búsqueda: texto y semántico.
+      4. Permitir:
+      * Preguntas (Q&A) con evidencia
+      * Resúmenes con citas
+      * Comparación con casos anteriores
+      * Generación de borradores de informe con estructura predefinida y citas por sección
+3.2 Requisito crítico: precisión / anti-alucinación
+El sistema no puede “inventar”. Debe operar bajo reglas estrictas:
+Reglas obligatorias
+      * Toda respuesta debe incluir citas (una o más) que respalden cada afirmación relevante.
+      * Si no hay evidencia suficiente en los documentos cargados:
+Responder “No se encuentra en las fuentes disponibles” y sugerir cómo buscar o qué documento falta.
+      * No usar conocimiento externo “de memoria” del modelo.
+Todo debe estar anclado a las fuentes del espacio.
+Formato mínimo de cita
+         * URL del documento
+         * Identificador interno del documento + versión/snapshot (fecha de descarga)
+         * En PDFs: número de página
+         * En HTML: sección/título/anchor (y/o párrafo/posición)
+Política de respuestas
+         * “Modo Extractivo”: por defecto, el sistema debe preferir citas textuales breves + síntesis limitada.
+         * Para “Conclusiones/Decisiones/Umbrales/Compromisos”: forzar modo aún más estricto (solo afirmar lo que está explícito en las fuentes).
+3.3 Pipeline de ingesta de documentos web
+Entrada: URL(s)
+Salida: Documentos versionados + texto normalizado + chunks indexados
+Pasos:
+         1. Validación: permitir solo dominios aprobados (whitelist opcional por workspace).
+         2. Descarga: guardar HTML/PDF original + metadatos (fecha, hash).
+         3. Parsing:
+         * HTML: extraer contenido principal (evitar menús/footers).
+         * PDF: extraer texto por página (ideal por bloques).
+         4. Chunking:
+         * Fragmentos de tamaño controlado, con contexto de encabezado/sección.
+         5. Indexación:
+         * Índice de texto (búsqueda literal)
+         * Índice vectorial (búsqueda semántica)
+         6. Versionado:
+         * Si la misma URL cambia, guardar nueva versión sin borrar la anterior.
+3.4 Flujo de Q&A (RAG estricto)
+         1. Usuario pregunta.
+         2. Recuperación de evidencia:
+         * Top-k fragmentos relevantes (texto + vector).
+         * Umbral mínimo de similitud/cobertura.
+         3. Generación de respuesta:
+         * Redactar SOLO usando fragmentos recuperados.
+         * Incluir citas por afirmación.
+         4. Verificación (recomendado):
+         * Validar que cada frase está soportada por citas.
+         * Si falla, eliminar o marcar como “no respaldado”.
+3.5 Funciones tipo NotebookLM (UX esperada)
+         * Panel “Fuentes”: listado, filtros, versiones, estado de indexación.
+         * Panel “Chat”: respuestas con citas clicables.
+         * Panel “Notas/Extractos”: guardar fragmentos citados para luego armar informe.
+         * Botón “Generar informe”: elegir plantilla y generar borrador con secciones.
+________________
+
+
+4) Módulo B – Monitor de Excel (Drive/OneDrive) + alertas por email
+4.1 Funcionalidad principal
+Permite:
+         * Conectar cuentas de Google Drive y OneDrive vía OAuth.
+         * Seleccionar uno o varios Excel a monitorear.
+         * Definir:
+         * Hoja(s) a considerar
+         * Columna(s) a seguir
+         * Clave única de fila (ID) o clave compuesta
+         * Reglas de alerta (condiciones)
+         * Frecuencia de revisión del archivo
+         * Frecuencia de envío de reporte por email
+         * Destinatarios del correo
+4.2 Detección de cambios (requisitos)
+         * Detectar cambios de:
+         * Filas nuevas
+         * Filas eliminadas
+         * Filas modificadas
+         * Reportar “Antes → Después” solo en columnas monitoreadas.
+         * Mantener historial (audit trail) de cada revisión:
+         * fecha/hora
+         * versión del archivo (etag/modifiedTime)
+         * resumen de cambios
+Estrategia recomendada
+         * Chequear metadatos del archivo (modifiedTime/eTag).
+Si no cambió, no descargar.
+         * Si cambió, descargar y comparar con snapshot anterior.
+4.3 Programación: dos frecuencias independientes
+            * Frecuencia de revisión (ej. cada 15 min, cada 1 hora, diario)
+            * Frecuencia de correo (ej. inmediato, cada 6 horas, diario 18:00)
+Ejemplo:
+            * Revisar cada 15 min
+            * Enviar correo diario 18:00 con resumen consolidado
+4.4 Correos
+El correo debe incluir:
+            * Resumen: # filas nuevas / modificadas / eliminadas
+            * Tabla de cambios con columnas seleccionadas
+            * Enlace al panel del sistema con el detalle y el historial
+            * (Opcional) adjunto CSV/Excel del “diff”
+________________
+
+
+5) Objetivos
+5.1 Objetivo general
+Crear una plataforma web que permita al tribunal aprovechar precedentes documentales y reducir trabajo manual, generando informes y respuestas verificables (con citas), y automatizando seguimiento de datos en Excel con alertas.
+5.2 Objetivos específicos
+Módulo A
+            * Centralizar documentos web relevantes por caso/proyecto.
+            * Permitir consultas rápidas con respuesta 100% trazable a fuentes.
+            * Generar borradores de informe con plantillas y citas por sección.
+            * Versionar fuentes: mantener evidencia histórica aunque la web cambie.
+Módulo B
+            * Conectar Excel desde Drive/OneDrive sin intervención de infraestructura del tribunal.
+            * Detectar cambios con precisión, registrar historial.
+            * Configurar alertas por columnas y reglas.
+            * Enviar reportes por correo con programación flexible.
+________________
+
+
+6) Requisitos funcionales (lista concreta)
+6.1 Comunes
+            * Login de usuarios
+            * Roles: Admin / Analista / Solo lectura
+            * Auditoría (logs) de:
+            * accesos a documentos
+            * consultas realizadas
+            * informes generados
+            * cambios detectados en Excel
+            * correos enviados
+6.2 Módulo A
+            * Crear/editar/eliminar Espacios
+            * Agregar fuentes por URL (HTML/PDF)
+            * Ver estado de ingesta (pendiente/procesando/listo/error)
+            * Buscar dentro de fuentes
+            * Chat con citas obligatorias
+            * Guardar notas/fragmentos citados
+            * Generar informe basado en plantilla
+            * Exportar informe (PDF/Word/HTML — definir según preferencia)
+6.3 Módulo B
+            * Conectar Google Drive (OAuth)
+            * Conectar OneDrive (OAuth)
+            * Seleccionar archivo Excel
+            * Seleccionar hoja(s)
+            * Definir clave de fila (columna ID o compuesta)
+            * Elegir columnas a monitorear
+            * Configurar:
+            * frecuencia de revisión
+            * frecuencia de correo
+            * destinatarios
+            * Ver historial de cambios
+            * Ver historial de correos y errores
+________________
+
+
+7) Requisitos no funcionales (calidad)
+            * Precisión: respuestas con evidencia; sin evidencia ⇒ “no se encuentra”.
+            * Trazabilidad legal: conservar snapshot de documentos + fecha de descarga + hash.
+            * Seguridad: cifrado en tránsito y en reposo; tokens OAuth cifrados; control de acceso.
+            * Disponibilidad: tolerancia a fallas en descarga web/Drive/OneDrive (reintentos).
+            * Escalabilidad: soportar crecimiento de documentos y espacios.
+            * Observabilidad: métricas, logs, trazas; panel de errores de ingesta/monitoreo.
+            * Privacidad: separar datos por organización/tenant si aplica.
+________________
+
+
+8) Herramientas y tecnologías recomendadas
+8.1 Frontend
+            * Next.js (React) para UI web
+            * Componentes UI: Material UI / Chakra (a elección)
+            * Editor/visor de documentos y citas (componente PDF viewer)
+8.2 Backend (API)
+            * Python + FastAPI (muy adecuado para pipelines)
+            * Autenticación:
+            * JWT + refresh tokens, o
+            * SSO (Google/Microsoft) si se requiere
+            * Gestión de permisos RBAC
+8.3 Workers y scheduling
+            * Celery + Redis (o alternativa equivalente)
+            * Scheduler:
+            * Celery Beat o cron administrado
+            * Jobs:
+            * ingesta de documentos
+            * re-indexado
+            * revisión de Excel
+            * envío de correos
+8.4 Base de datos
+            * PostgreSQL
+            * Vector store:
+            * pgvector (mantiene todo en Postgres y simplifica operación)
+8.5 Almacenamiento de archivos
+            * Object storage compatible S3 (AWS S3, GCP Storage, Azure Blob o S3 compatible)
+8.6 Extracción de contenido
+            * HTML:
+            * BeautifulSoup / trafilatura / readability (según preferencia)
+            * PDF:
+            * PyMuPDF o pdfminer.six (texto por página)
+            * Normalización y chunking propio
+8.7 Motor de búsqueda / embeddings
+            * Embeddings: modelo de embeddings (proveedor pluggable)
+            * Búsqueda:
+            * híbrida (texto + vector)
+8.8 LLM (modelo de lenguaje)
+            * Diseño “pluggable” para no quedar amarrados:
+            * Proveedor externo (rápido de implementar)
+            * O hosting propio (más control)
+            * Reglas de sistema para “grounded answers” + verificación posterior
+8.9 Conectores Drive/OneDrive
+            * Google Drive API (OAuth)
+            * Microsoft Graph para OneDrive (OAuth)
+8.10 Envío de email
+            * Servicio transaccional (SendGrid/SES/etc.) o SMTP configurable
+            * Plantillas de correo (HTML + texto)
+8.11 DevOps
+            * Docker
+            * CI/CD (GitHub Actions/GitLab CI)
+            * Deploy en nube administrada (sin depender del tribunal)
+            * Monitoreo: Prometheus/Grafana o equivalente + alertas
+________________
+
+
+9) Criterios de aceptación (tests que deben pasar)
+Módulo A
+            * Si se pregunta algo no contenido en las fuentes: el sistema no inventa y responde “No se encuentra en las fuentes”.
+            * Cada respuesta incluye citas y al hacer clic se puede ver el fragmento fuente.
+            * Para PDFs, la cita indica página correctamente.
+            * La app conserva versiones de fuentes (si una URL cambia, no se pierde la evidencia anterior).
+Módulo B
+            * Si el Excel no cambió (mismo eTag/modifiedTime), no se descarga y queda registrado “sin cambios”.
+            * Si cambió, detecta correctamente filas nuevas/modificadas/eliminadas.
+            * Reporta solo columnas configuradas.
+            * Respeta dos programaciones distintas: revisión y correo.
+            * Los correos incluyen resumen y detalle “antes → después”.
+________________
+
+
+10) Entregables esperados
+            * Aplicación web funcional (MVP + iteraciones)
+            * Documentación:
+            * arquitectura
+            * modelo de datos
+            * API endpoints
+            * guía de despliegue
+            * Plantillas de informe (mínimo 1)
+            * Panel de auditoría y logs operacionales
+________________
+
+
+11) Supuestos y riesgos (con mitigación)
+Riesgo: sitios web cambian formato o bloquean scraping
+Mitigación: permitir configuración por dominio; reintentos; snapshots; user-agent; fallback manual.
+Riesgo: PDFs escaneados (sin texto)
+Mitigación: OCR opcional solo cuando sea necesario (y marcando menor confiabilidad).
+Riesgo: Excel sin columna ID estable
+Mitigación: permitir clave compuesta; advertir riesgos de falsos cambios si la estructura se mueve.
+Riesgo: tokens OAuth expiran/revocación
+Mitigación: manejo de refresh tokens; alertas de reconexión; UI para reconectar.
+________________

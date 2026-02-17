@@ -1,0 +1,442 @@
+﻿Informe técnico — Opción A (RAG gestionado por OpenAI File Search) integrado con Supabase
+Este documento está escrito para que otra IA (o un equipo) pueda implementar la solución sin ambigüedades. La “Opción A” aquí significa: usar Vector Stores + File Search hospedado por OpenAI (indexación, chunking, embeddings y búsqueda gestionados por OpenAI) y usar Supabase para Auth + BD + Storage + orquestación.
+________________
+
+
+1) Qué es exactamente la Opción A
+Idea central
+* Supabase guarda:
+   * Usuarios / organizaciones / permisos (Auth + RLS).
+   * Metadatos de documentos y evaluaciones (Postgres).
+   * Archivos originales (Storage).
+   * Estado de ingestión y auditoría.
+* OpenAI guarda:
+   * Un Vector Store (o varios) con los documentos indexados.
+   * La búsqueda se realiza con File Search, una herramienta “hosted” (OpenAI hace el trabajo de recuperación automáticamente). (OpenAI Platform)
+Por qué esta opción es “la mejor” cuando quieres el RAG más robusto con menos piezas
+* OpenAI se encarga del pipeline pesado (parseo, chunking, embeddings, almacenamiento vectorial y búsqueda híbrida).
+* Tú te enfocas en:
+   * Calidad del dataset (metadatos, limpieza, OCR opcional).
+   * Filtros por atributos (para que la recuperación sea más precisa).
+   * Prompts + evaluación + auditoría.
+________________
+
+
+2) Arquitectura propuesta (producción)
+Componentes
+1. Frontend (web/app)
+   * Login con Supabase Auth
+   * Upload de documentos al bucket privado
+   * UI para etiquetar metadatos (región, tipo, año, etc.)
+   * UI para crear “Evaluación Ambiental” y descargar informe
+2. Supabase
+   * Postgres (metadatos + jobs + auditoría)
+   * Storage (archivos originales)
+   * Edge Functions (API interna segura)
+   * (Opcional recomendado) Worker externo para ingestión pesada
+3. OpenAI
+   * Vector Stores (knowledge base)
+   * Files API (archivos para indexación)
+   * Responses API + tool file_search (RAG en una llamada)
+Flujo de ingestión (documentos históricos y resoluciones)
+1. Usuario sube PDF/DOCX al bucket privado en Supabase Storage.
+2. Se crea un registro documents en Postgres con status = uploaded.
+3. Se encola un ingestion_job.
+4. Un worker (Edge Function o servicio) descarga el archivo desde Storage, lo sube a OpenAI y lo adjunta al Vector Store.
+5. Se actualizan atributos del archivo dentro del vector store (para filtros).
+6. documents.status = ready.
+Flujo de evaluación (proyecto nuevo)
+1. Usuario describe el proyecto nuevo (formulario + opcional adjuntos).
+2. Se crea evaluation y se ejecuta una o varias llamadas a responses.create con file_search.
+3. Se genera informe final + citas (citations) + trazabilidad.
+4. Se guarda el informe y el detalle de recuperación para auditoría.
+________________
+
+
+3) Diseño de Vector Stores en OpenAI
+3.1 ¿Un vector store por qué entidad?
+Recomendación práctica:
+* 1 vector store por Organización (tenant) para “biblioteca histórica”.
+* (Opcional) 1 vector store “regulatorio” global (si aplica para todos).
+* (Opcional) 1 vector store temporal por “evaluación” para adjuntos del proyecto nuevo, con expiración a 7–30 días para costos.
+File Search permite consultar uno o varios vector stores desde Responses. (OpenAI Platform)
+3.2 Chunking (muy importante)
+Por defecto, OpenAI indexa con:
+* max_chunk_size_tokens = 800
+* chunk_overlap_tokens = 400 (OpenAI Platform)
+Si necesitas personalizar:
+* max_chunk_size_tokens entre 100 y 4096
+* chunk_overlap_tokens no puede exceder max_chunk_size_tokens/2 (OpenAI Platform)
+Recomendación para documentos ambientales/legales
+* Mantén 800/400 al inicio.
+* Si ves respuestas “cortadas” o demasiado dispersas:
+   * prueba max_chunk_size_tokens = 1200 y overlap = 200–400 (siempre cumpliendo el límite). (OpenAI Platform)
+3.3 Límites relevantes
+* Tamaño máximo archivo: 512 MB
+* Máximo tokens por archivo: 5,000,000 (calculado al adjuntar al vector store) (OpenAI Platform)
+3.4 Atributos (metadata) en vector_store.file
+Cada archivo en el vector store puede tener attributes (hasta 16 pares clave-valor). (OpenAI Platform)
+Esto es clave para tu caso: filtrar por región, tipo de proyecto, año, etc.
+Ejemplos de atributos recomendados (elige un set que quepa en 16):
+* doc_type: "RCA" | "DIA" | "EIA" | "RESOLUCION" | ...
+* year: 2021
+* region: "Los Lagos" (o código estándar)
+* sector: "Energía" | "Minería" | "Acuicultura" | ...
+* project_name: texto corto (si cabe)
+* rca_id: identificador corto
+* source: "SEA" | "DOF" | "Upload" etc.
+* language: "es"
+________________
+
+
+4) Recuperación: filtros y ranking (para acercarte al “RAG perfecto”)
+4.1 Filtros por atributos (imprescindible)
+OpenAI soporta attribute_filter con comparadores (eq, gte, lte, etc.) y compuestos and/or. (OpenAI Platform)
+Ejemplo (conceptual) para restringir a una región y rango de fechas:
+{
+  "type": "and",
+  "filters": [
+    { "type": "eq", "key": "region", "value": "Los Lagos" },
+    { "type": "gte", "key": "date", "value": 1704067200 },
+    { "type": "lte", "key": "date", "value": 1735689600 }
+  ]
+}
+(El ejemplo de estructura y operadores está documentado por OpenAI.) (OpenAI Platform)
+4.2 Ajuste de ranking (cuando la relevancia no alcanza)
+Puedes ajustar ranking_options:
+* ranker: auto o un ranker específico como default-2024-08-21
+* score_threshold: 0.0–1.0 (subirlo reduce “ruido”) (OpenAI Platform)
+Y puedes balancear búsqueda híbrida (embeddings vs keywords) con:
+* hybrid_search.embedding_weight
+* hybrid_search.text_weight (OpenAI Platform)
+4.3 Limitar resultados para costo/latencia
+En file_search puedes limitar la cantidad de resultados con max_num_results, reduciendo tokens y latencia (con posible trade-off de calidad). (OpenAI Platform)
+________________
+
+
+5) Diseño en Supabase (BD + RLS + Storage)
+5.1 Tablas mínimas recomendadas (SQL)
+Nota: ajusta nombres, constraints y enums a tu dominio.
+-- 1) Tenancy
+create table public.organizations (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  created_at timestamptz not null default now()
+);
+
+
+create table public.org_memberships (
+  org_id uuid not null references public.organizations(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  role text not null check (role in ('admin','editor','viewer')) default 'viewer',
+  created_at timestamptz not null default now(),
+  primary key (org_id, user_id)
+);
+
+
+-- 2) Knowledge base (vector store)
+create table public.knowledge_bases (
+  id uuid primary key default gen_random_uuid(),
+  org_id uuid not null references public.organizations(id) on delete cascade,
+  name text not null,
+  openai_vector_store_id text not null unique,
+  created_at timestamptz not null default now()
+);
+
+
+-- 3) Documentos
+create type public.doc_status as enum ('uploaded','preprocessed','indexing','ready','failed','deleted');
+
+
+create table public.documents (
+  id uuid primary key default gen_random_uuid(),
+  org_id uuid not null references public.organizations(id) on delete cascade,
+  knowledge_base_id uuid not null references public.knowledge_bases(id) on delete cascade,
+
+
+  -- Storage
+  storage_bucket text not null,
+  storage_path text not null,
+  original_filename text not null,
+  mime_type text not null,
+  sha256 text,
+
+
+  -- Metadatos de negocio (para filtros)
+  doc_type text,      -- ej: 'RCA','DIA','EIA'
+  year int,
+  region text,
+  sector text,
+  project_name text,
+  source_url text,
+
+
+  -- Estado y mapeo a OpenAI
+  status public.doc_status not null default 'uploaded',
+  openai_file_id text,
+  openai_usage_bytes bigint,
+  openai_last_error text,
+  attributes jsonb not null default '{}'::jsonb,
+
+
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+
+-- 4) Jobs de ingestión
+create type public.ingestion_stage as enum (
+  'enqueue','preprocess','upload_to_openai','attach_to_vector_store','set_attributes','done','failed'
+);
+
+
+create table public.ingestion_jobs (
+  id uuid primary key default gen_random_uuid(),
+  org_id uuid not null references public.organizations(id) on delete cascade,
+  document_id uuid not null references public.documents(id) on delete cascade,
+  stage public.ingestion_stage not null default 'enqueue',
+  attempts int not null default 0,
+  next_run_at timestamptz not null default now(),
+  locked_at timestamptz,
+  locked_by text,
+  last_error text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+
+-- 5) Evaluaciones e informes
+create type public.eval_status as enum ('draft','running','completed','failed');
+
+
+create table public.evaluations (
+  id uuid primary key default gen_random_uuid(),
+  org_id uuid not null references public.organizations(id) on delete cascade,
+  knowledge_base_id uuid not null references public.knowledge_bases(id) on delete cascade,
+  user_id uuid not null references auth.users(id),
+
+
+  title text,
+  project_payload jsonb not null,         -- datos del proyecto nuevo
+  status public.eval_status not null default 'draft',
+
+
+  openai_response_id text,
+  report_markdown text,
+  citations jsonb,                        -- estructura propia: lista de archivos citados y contexto
+
+
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+5.2 RLS (Row Level Security) multi-tenant
+* En Supabase, para exponer datos al frontend de forma segura, debes habilitar RLS en tablas del esquema expuesto y crear policies. (Supabase)
+* RLS se habilita con:
+alter table ... enable row level security; (Supabase)
+* Las policies actúan como un WHERE implícito en cada query. (Supabase)
+* Supabase tiene “Service keys” que pueden bypassear RLS, y no deben usarse en el browser. (Supabase)
+Ejemplos (idea, ajustar a tus tablas):
+alter table public.organizations enable row level security;
+alter table public.org_memberships enable row level security;
+alter table public.knowledge_bases enable row level security;
+alter table public.documents enable row level security;
+alter table public.ingestion_jobs enable row level security;
+alter table public.evaluations enable row level security;
+
+
+-- Membresía base
+create policy "org members can read documents"
+on public.documents for select
+using (
+  exists (
+    select 1 from public.org_memberships m
+    where m.org_id = documents.org_id
+      and m.user_id = auth.uid()
+  )
+);
+
+
+-- Insert control (ejemplo: solo editores/admin)
+create policy "editors can insert documents"
+on public.documents for insert
+with check (
+  exists (
+    select 1 from public.org_memberships m
+    where m.org_id = documents.org_id
+      and m.user_id = auth.uid()
+      and m.role in ('admin','editor')
+  )
+);
+5.3 Storage en Supabase: bucket privado + uploads
+   * Para tu caso (documentos de proyectos), usa bucket privado.
+   * En buckets privados, el acceso está controlado (y puedes servir descargas con JWT o Signed URLs). (Supabase)
+Uploads:
+   * “Standard uploads” es ideal para archivos pequeños no mayores a 6MB; aunque se puede subir hasta 5GB, para >6MB recomiendan TUS resumable por confiabilidad. (Supabase)
+   * Puedes usar Signed Upload URLs; son válidas por ~2 horas y permiten upload sin autenticación adicional (pero requieren policy para insertar objetos). (Supabase)
+________________
+
+
+6) Implementación: Edge Functions / Backend API
+Decisión recomendada
+   * Endpoints “rápidos” (crear evaluación, guardar metadatos, iniciar ingestión): Supabase Edge Functions.
+   * Ingestión pesada (descargar archivos grandes, OCR opcional, subir a OpenAI, batch): un Worker (puede ser:
+   * Edge Function si tus PDFs son moderados, o
+   * un servicio Node/TS en Cloud Run/Vercel/Render si habrá volumen y PDFs grandes).
+Seguridad en Edge Functions
+Supabase recomienda patrones explícitos para autenticar requests (JWT Signing Keys / Auth), en vez de “verificación implícita”. (Supabase)
+________________
+
+
+7) Pipeline de ingestión a OpenAI (paso a paso)
+7.1 Crear vector store (una vez por knowledge base)
+Usa API de vector stores. Vector stores son “colecciones de archivos procesados” para file_search. (OpenAI Platform)
+Acción: Al crear una knowledge_base en Supabase:
+   1. Llamar openai.vector_stores.create({ name })
+   2. Guardar openai_vector_store_id en knowledge_bases
+7.2 Subir y adjuntar archivos al vector store
+OpenAI ofrece endpoints para:
+   * crear vector store
+   * adjuntar file a vector store
+   * batch de archivos (OpenAI Platform)
+Recomendación: batch para cargas masivas
+Si estás migrando “bibliotecas históricas”, usa file_batches para subir muchos archivos en paralelo y monitorear estado. (OpenAI Platform)
+7.3 Setear atributos (CRÍTICO)
+Tras adjuntar el archivo:
+   * Llamar “Update vector store file attributes” (POST /vector_stores/{id}/files/{file_id}).
+   * Recuerda: máximo 16 atributos; valores pueden ser string/number/bool. (OpenAI Platform)
+Estrategia de atributos para tu dominio
+   * Define un “diccionario de atributos” estándar.
+   * Valida y normaliza (ej: región como catálogo).
+   * Usa year como número; doc_type como texto fijo; etc.
+________________
+
+
+8) OCR / Scanned PDFs (para que sea “perfecto” de verdad)
+Problema
+Muchos PDFs antiguos vienen como “escaneo” (imagen). Si el texto no es seleccionable, la recuperación puede degradar.
+Solución recomendada (sin salirte de la Opción A)
+   1. Detectar si el PDF tiene texto utilizable.
+   2. Si no lo tiene:
+   * Ejecutar un preproceso “OCR/Transcripción a texto”.
+   * Guardar un .md/.txt limpio en Storage (o como nuevo document derivado).
+   * Subir ese texto al vector store.
+Por qué es viable con OpenAI
+   * OpenAI permite usar PDFs como input en modelos con visión: se pone en contexto texto extraído + imagen de cada página, útil si hay diagramas o el texto no está “perfecto”. (OpenAI Platform)
+Esto no es “File Search”; es una etapa previa para convertir a texto. Luego indexas el resultado en File Search.
+________________
+
+
+9) Pipeline de Evaluación Ambiental (RAG + generación)
+9.1 Responses API y cómo leer outputs correctamente
+   * Responses usa “Items” (no “messages” como Chat Completions); el output puede incluir tool calls, etc. (OpenAI Platform)
+   * No asumas que el texto está en output[0]. OpenAI advierte que el output puede contener múltiples items, y algunas SDKs ofrecen output_text como atajo. (OpenAI Platform)
+9.2 Una llamada “simple” (concepto)
+   * Llamas a responses.create(...)
+   * Incluyes tool file_search con vector_store_ids
+   * El modelo decide usarla (o tú fuerzas tool_choice="required" sólo en test) (OpenAI Platform)
+9.3 Estrategia recomendada para un informe ambiental (multi-step)
+Para calidad, NO intentes “todo en un prompt” si el informe es largo.
+Patrón de 3 fases:
+   1. Planificación del informe (sin file_search)
+   * Estructura y checklist de secciones (línea base, impactos, mitigación, normativa, etc.)
+   2. Recuperación por secciones (con file_search + filtros)
+   * Una llamada por sección (o por grupo de secciones)
+   * Usa filtros por atributos (región, sector, año, tipo doc)
+   * Ajusta ranking y umbral si hay ruido (OpenAI Platform)
+   3. Redacción final (con citas y trazabilidad)
+   * Compilas resultados y generas el informe final
+   * Guardas: openai_response_id, report_markdown, citations
+9.4 Estructura de salida: JSON estricto (recomendado)
+Para que tu app sea confiable, pide salida estructurada:
+   * OpenAI soporta Structured Outputs con JSON schema (SDKs con Zod/Pydantic también). (OpenAI Platform)
+Qué guardar
+   * sections[]: { titulo, contenido_markdown, citas[] }
+   * citas[]: { file_id, filename, doc_id_supabase (mapeo), razon_de_uso }
+________________
+
+
+10) Auditoría y calidad (para “RAG perfecto” de verdad)
+10.1 Guardar trazas de recuperación
+Cuando estés debuggeando:
+   * Usa include: ["file_search_call.results"] (si tu implementación lo soporta en el SDK/endpoint) para guardar qué chunks se recuperaron (score, etc.). El concepto de “limitar resultados” y ajuste de recuperación está documentado para File Search. (OpenAI Platform)
+10.2 Evaluación sistemática
+OpenAI tiene un cookbook que muestra cómo evaluar recuperación generando preguntas y midiendo métricas tipo precision@k/MRR/MAP. Úsalo como base para tus propios tests con documentos ambientales reales. (Desarrolladores de OpenAI)
+________________
+
+
+11) Retención / expiración y compliance (importante en producción)
+11.1 Expiración para controlar costos
+Puedes definir expires_after en vector stores. Cuando expira, los vector_store.file asociados se eliminan y dejas de pagar por ellos. (OpenAI Platform)
+Recomendación:
+   * Vector store histórico (biblioteca): sin expiración o con política grande (según tu estrategia).
+   * Vector store temporal (adjuntos del proyecto nuevo): expiración 7–30 días.
+11.2 Data retention controls (si alguna vez el caso deja de ser “fuente pública”)
+OpenAI documenta controles como Zero Data Retention y Modified Abuse Monitoring, con limitaciones por endpoint/herramientas. Ojo: objetos como /v1/vector_stores pueden retenerse hasta que los borres (y ZDR tiene restricciones). (OpenAI Platform)
+________________
+
+
+12) Costos (modelo de cálculo para Opción A)
+Los costos exactos dependen de volumen de PDFs, tamaño indexado y tokens de generación.
+12.1 Costos OpenAI relevantes a esta opción
+Según la página de pricing:
+   * File search storage: $0.10 / GB por día (primer 1GB gratis). (OpenAI Platform)
+   * Aproximación mensual: ~$3.00 / GB-mes (0.10*30).
+   * File search tool call (Responses API): $2.50 / 1.000 llamadas. (OpenAI Platform)
+   * Tokens del modelo (ejemplos visibles en pricing):
+   * gpt-4.1-mini: input $0.40 / 1M tokens, output $1.60 / 1M tokens (tabla en pricing). (OpenAI Platform)
+   * gpt-4o-mini: input $0.15 / 1M tokens, output $0.60 / 1M tokens (tabla). (OpenAI Platform)
+12.2 Costos Supabase relevantes
+   * Storage overage: $0.00002919 por GB-hora (equivale a ~$0.021/GB-mes) en el doc de pricing de Storage. (Supabase)
+   * Edge Functions: $2 por 1 millón de invocaciones (más cuotas por plan). (Supabase)
+12.3 Interpretación clave (muy útil para tu estrategia)
+   * Guardar PDFs en Supabase Storage es baratísimo vs guardar el índice vectorial en OpenAI.
+   * En Opción A normalmente pagarás “doble almacenamiento”:
+   1. raw PDF en Supabase (barato)
+   2. chunks+embeddings en OpenAI (lo caro)
+Estrategias de costo:
+   * Sube y conserva en OpenAI sólo lo que de verdad usarás (curación).
+   * Usa expiración para stores temporales. (OpenAI Platform)
+   * Usa max_num_results y filtros para no inyectar demasiado contexto. (OpenAI Platform)
+________________
+
+
+13) Checklist de implementación (para dárselo a una IA que programa)
+A. Setup Supabase
+   1. Crear tablas SQL (arriba).
+   2. Habilitar RLS + policies (multi-tenant). (Supabase)
+   3. Crear bucket privado documents.
+   4. UI/flow de upload:
+   * Standard upload <=6MB; TUS para >6MB. (Supabase)
+   * O signed upload url (2 horas). (Supabase)
+B. Setup OpenAI
+   1. Crear vector store por knowledge_base y guardar id. (OpenAI Platform)
+   2. Implementar ingestión:
+   * download desde Supabase Storage
+   * upload file a OpenAI
+   * attach a vector_store (batch para cargas masivas) (OpenAI Platform)
+   * set attributes (hasta 16) (OpenAI Platform)
+   3. (Opcional) OCR/preprocess para escaneados usando PDF file inputs, generando .md/.txt para indexar. (OpenAI Platform)
+C. Evaluación (generación de informe)
+   1. Definir JSON schema de salida (secciones + citas). (OpenAI Platform)
+   2. Implementar pipeline multi-step:
+   * plan
+   * retrieval por secciones (filtros + ranking)
+   * redacción final
+   3. Guardar:
+   * openai_response_id
+   * informe markdown
+   * lista de archivos citados + metadata
+   4. Evaluación offline con dataset de pruebas (métricas). (Desarrolladores de OpenAI)
+________________
+
+
+14) Nota final: por qué Supabase sí sirve aquí (y cuándo cambiar)
+Sí, puedes usar Supabase perfectamente en Opción A:
+   * Supabase es tu sistema de registro (users, permisos, auditoría, estado de ingestión, reportes).
+   * OpenAI es tu motor de indexación y retrieval.
+Sólo “tendrías que usar otro” si:
+   * por compliance necesitas que los embeddings/índice no salgan de tu infraestructura (eso sería otra opción, tipo pgvector/Pinecone/etc.); pero para Opción A, Supabase + OpenAI encaja muy bien.
+________________
+
+
+Si quieres, en el próximo mensaje puedo entregarte un “prompt de implementación” listo para pegar en una IA programadora (tipo: “crea estas Edge Functions, estos endpoints, estos jobs, estos tests y este frontend”), usando exactamente el esquema y flujos de arriba (sin volver a preguntarte nada).

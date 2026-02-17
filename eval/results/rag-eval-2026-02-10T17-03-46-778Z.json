@@ -1,0 +1,349 @@
+{
+  "timestamp": "2026-02-10T17:03:46.779Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\futbol-platform.jsonl",
+    "maxCases": 5,
+    "workspaceOverride": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855"
+  },
+  "summary": {
+    "totalCases": 5,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 9,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 0.8,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": 0.6,
+      "mustNotIncludePassRate": 0.8
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 2613.8,
+        "p50": 2669,
+        "p95": 3042
+      },
+      "generation": {
+        "avg": 32507.6,
+        "p50": 21158,
+        "p95": 60418
+      },
+      "total": {
+        "avg": 35123.6,
+        "p50": 23948,
+        "p95": 62562
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "fut-001",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Segun el resumen ejecutivo, cual es la idea central del sistema y que rol cumple el motor numerico vs el LLM?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3042,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Idea central del sistema: el motor numérico predice probabilidades y el LLM explica y opera el producto, sin inventar probabilidades.\n\nEn cuanto a los roles operativos: el motor predictivo numérico es el cerebro que devuelve probabilidades; el LLM ofrece explicaciones y actúa como interfaz: explica predicciones usando solo datos del sistema, responde preguntas y orquesta herramientas mediante llamadas a APIs para obtener datos actualizados, sin inventar estadísticas.",
+        "notFound": false,
+        "elapsedMs": 40498,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4139,
+          "completion_tokens": 4914,
+          "total_tokens": 9053,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4544,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 3,
+        "validCitations": 3,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 4,
+        "mustIncludeMatched": 4,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 43544
+    },
+    {
+      "id": "fut-002",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Que funciones concretas debe cumplir el LLM (explicacion, preguntas, tool use, modo analista) segun la especificacion?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 2143,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Funciones del LLM, según la especificación, son (a) explicar predicciones usando SOLO datos del sistema y (b) modo chat analista para responder preguntas, comparar partidos y explicar el rendimiento histórico del modelo.\n\nAdemás, el LLM debe emplear herramientas/funciones internas para obtener datos actualizados y no inventar estadísticas. Registra reglas para el uso de herramientas y define las funciones que puede llamar.\n\nSalida y formato de las respuestas: texto en español (y potencial multi-idioma), resúmenes estructurados (bullets + tags) y, de ser posible, una explicación auditada con referencias a features usadas; además, la explicación debe basarse en datos obtenidos mediante las herramientas y cumplir la regla de no inventar.",
+        "notFound": false,
+        "elapsedMs": 60418,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4142,
+          "completion_tokens": 6028,
+          "total_tokens": 10170,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 5376,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 6,
+        "validCitations": 6,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 4,
+        "mustIncludeMatched": 3,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 62562
+    },
+    {
+      "id": "fut-003",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En el alcance inicial (MVP), que tipo de predicciones se recomiendan y que opciones se mencionan como opcionales?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 2787,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Al MVP (alcance inicial) se recomiendan predicciones de probabilidades 1X2: Local / Empate / Visita. Opcional: goles esperados (xG proxy) o λ local/visitante para derivar scores probables.\n\nLa salida por partido contempla p_home, p_draw y p_away; entre las opciones opcionales están lambda_home, lambda_away y top scores probables.",
+        "notFound": false,
+        "elapsedMs": 21158,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4140,
+          "completion_tokens": 3038,
+          "total_tokens": 7178,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2752,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 2,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 5,
+        "mustIncludeMatched": 5,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 23948
+    },
+    {
+      "id": "fut-004",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Que ventana de tiempo se propone para mostrar proximos partidos y para que se usa el historico?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 2428,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "La ventana de tiempo propuesta para mostrar próximos partidos es: próximos partidos (ej. próximos 7 días).\n\nEl histórico se usa para backtesting.",
+        "notFound": false,
+        "elapsedMs": 20955,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4133,
+          "completion_tokens": 2591,
+          "total_tokens": 6724,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2432,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 2,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 3,
+        "mustIncludeMatched": 3,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 23385
+    },
+    {
+      "id": "fut-005",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Enumera los 6 modulos principales (A a F) y resume la responsabilidad de cada uno en una frase.",
+      "mode": "checklist",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 2669,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 19509,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4144,
+          "completion_tokens": 2351,
+          "total_tokens": 6495,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2304,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": false,
+        "mustIncludeTotal": 6,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 1,
+        "mustNotIncludePass": false
+      },
+      "elapsedMs": 22179
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T17-03-46-778Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T17-03-46-778Z.md"
+  }
+}

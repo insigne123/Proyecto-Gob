@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-02-10T20:43:15.016Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\futbol-platform.jsonl",
+    "maxCases": 1,
+    "workspaceOverride": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855"
+  },
+  "summary": {
+    "totalCases": 1,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 9,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 1,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": 1,
+      "mustNotIncludePassRate": 1
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 3479,
+        "p50": 3479,
+        "p95": 3479
+      },
+      "generation": {
+        "avg": 79043,
+        "p50": 79043,
+        "p95": 79043
+      },
+      "total": {
+        "avg": 82523,
+        "p50": 82523,
+        "p95": 82523
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "fut-001",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Segun el resumen ejecutivo, cual es la idea central del sistema y que rol cumple el motor numerico vs el LLM?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3479,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Idea central del sistema: una plataforma en la que un motor predictivo numérico genera probabilidades y un LLM potente se encarga de explicar y operar el producto, sin inventar probabilidades.\n\nRol del motor numérico vs el LLM: el motor predictivo numérico (Módulo C) es el cerebro que devuelve probabilidades, y el LLM (Módulo D) explica predicciones, realiza chat y orquesta el uso de herramientas, evitando inventar estadísticas.\n\nEl sistema se alimenta continuamente con resultados nuevos y puede auto‑reentrenar el motor predictivo usando histórico + datos recientes, con controles (gates) de calidad para evitar que un reentrenamiento empeore el rendimiento.",
+        "notFound": false,
+        "elapsedMs": 79043,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4139,
+          "completion_tokens": 9119,
+          "total_tokens": 13258,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 8576,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 6,
+        "validCitations": 6,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 4,
+        "mustIncludeMatched": 4,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 82523
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T20-43-15-015Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T20-43-15-015Z.md"
+  }
+}

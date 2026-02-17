@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-02-10T16:45:50.905Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\futbol-platform.jsonl",
+    "maxCases": 1,
+    "workspaceOverride": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855"
+  },
+  "summary": {
+    "totalCases": 1,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 9,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 0,
+      "citationValidityRate": null,
+      "mustIncludeAllRate": 0,
+      "mustNotIncludePassRate": 0
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 3032,
+        "p50": 3032,
+        "p95": 3032
+      },
+      "generation": {
+        "avg": 47757,
+        "p50": 47757,
+        "p95": 47757
+      },
+      "total": {
+        "avg": 50795,
+        "p50": 50795,
+        "p95": 50795
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "fut-001",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Segun el resumen ejecutivo, cual es la idea central del sistema y que rol cumple el motor numerico vs el LLM?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 9,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3032,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 47757,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4139,
+          "completion_tokens": 6709,
+          "total_tokens": 10848,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 5888,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": false,
+        "mustIncludeTotal": 4,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 1,
+        "mustNotIncludePass": false
+      },
+      "elapsedMs": 50795
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T16-45-50-903Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T16-45-50-903Z.md"
+  }
+}

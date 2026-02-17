@@ -1,0 +1,303 @@
+﻿Informe de especificación — Plataforma de predicción de fútbol con motor probabilístico + LLM “frontier” (App + Backend en Google Cloud)
+1) Resumen ejecutivo
+Se quiere construir una plataforma tipo app que muestre predicciones de partidos de fútbol para un conjunto limitado de ligas, generadas por un motor predictivo numérico (probabilidades calibradas) y acompañadas por un LLM muy potente (corriendo en infraestructura propia en Google Cloud) que:
+* Explique las predicciones con lenguaje natural.
+* Responda preguntas del usuario (“¿por qué el local es favorito?”, “¿qué debería pasar para que gane el visitante?”, etc.).
+* Orqueste herramientas/datos (tool use) para evitar “inventar” información.
+* Permita un modo “analista” en formato chat.
+El sistema se alimenta continuamente con resultados nuevos y puede auto‑reentrenar el motor predictivo usando histórico + datos recientes, con controles (gates) de calidad para evitar que un reentrenamiento empeore el rendimiento.
+Idea central: el motor numérico predice (probabilidades), y el LLM explica y opera el producto (no “se inventa” probabilidades).
+________________
+
+
+2) Descripción detallada del producto
+2.1 Alcance inicial (recomendado)
+* Ligas objetivo (limitadas): [LISTA_DE_LIGAS]
+Ejemplo: 2–5 ligas para comenzar (menos ruido, mejor calibración).
+* Tipo de predicción (MVP):
+   * Probabilidades 1X2: Local / Empate / Visita.
+   * Opcional: goles esperados (xG proxy) o λ local/visitante para derivar scores probables.
+   * Ventana de tiempo:
+   * Próximos partidos (ej. próximos 7 días).
+   * Histórico para backtesting.
+2.2 Componentes del sistema
+La plataforma se divide en 6 módulos principales:
+Módulo A — Ingesta de datos (Data Ingestion)
+Responsable de obtener y actualizar información:
+   * Fixture (calendario)
+   * Resultados finales
+   * Tablas/standings
+   * Estadísticas por equipo/partido (según proveedor)
+   * Lesiones/sanciones/alineaciones (si se contrata proveedor con ese dato)
+   * Odds (opcional, si se decide incorporar; no recomendado en MVP si el objetivo es “puro modelo”)
+Salida: datos normalizados y guardados en la base de datos.
+Módulo B — Almacenamiento y Feature Store
+   * Base de datos operativa para la app (partidos, equipos, ligas, predicciones).
+   * Tablas de features para entrenamiento y predicción:
+   * Forma últimos N partidos
+   * Elo por equipo
+   * Localía
+   * Días de descanso
+   * Head‑to‑head (opcional, con cuidado por baja muestra)
+   * Goles a favor/en contra (rolling windows)
+   * Ajustes por inicio de temporada / cambios fuertes (decay temporal)
+Salida: dataset versionado para entrenamiento + features actualizados para inferencia.
+Módulo C — Motor predictivo numérico (Prediction Engine)
+Es el “cerebro” estadístico/ML que devuelve probabilidades.
+Recomendación (sin límites, pero robusto):
+   * Ensemble (mezcla) de:
+   * Elo (actualización online)
+   * Poisson / Dixon‑Coles (goles)
+   * Gradient Boosting (XGBoost/CatBoost) con features tabulares
+   * Calibración de probabilidades (isotonic / Platt / temperature scaling) y evaluación con métricas probabilísticas.
+Salida (por partido):
+   * p_home, p_draw, p_away
+   * Opcional: lambda_home, lambda_away, top scores probables
+   * Señales de incertidumbre/confianza (ej. entropía, intervalos por bootstrap)
+Módulo D — LLM (Explicación + Chat + Orquestación)
+LLM extremadamente potente corriendo “local” en tu infraestructura GCP (VM con GPU).
+Funciones:
+   1. Explicar predicciones usando SOLO datos del sistema:
+   * “Claves del pronóstico”
+   * “Riesgos / condiciones de upset”
+   * “Qué info falta / alertas de datos”
+   2. Chat analista:
+   * Preguntas del usuario
+   * Comparar partidos
+   * Explicar rendimiento histórico del modelo
+   3. Tool use / function calling:
+   * El LLM llama funciones internas (API) para obtener datos actualizados.
+   * Prohibición explícita: el LLM no inventa estadísticas.
+Salida:
+   * Texto en español (y potencial multi-idioma)
+   * Resúmenes estructurados (bullets + tags)
+   * (Opcional) “explicación auditada” con referencias a features usadas
+Módulo E — Backend/API (servicio para la app)
+Endpoints para:
+   * Listar ligas/partidos
+   * Ver predicciones
+   * Ver explicación del LLM
+   * Consultar históricos/backtesting
+   * (Opcional) administración y control de versiones de modelos
+Módulo F — App (móvil / web)
+Pantallas mínimas:
+   * Home: ligas + próximos partidos
+   * Partido: probabilidades + explicación + factores clave
+   * Historial: rendimiento del modelo (transparencia)
+   * Chat: “pregúntale al analista”
+________________
+
+
+3) Objetivos
+3.1 Objetivos funcionales
+   1. Mostrar predicciones 1X2 por partido para ligas seleccionadas.
+   2. Proveer explicación automática (LLM) basada en datos reales.
+   3. Actualizar datos tras cada jornada (ingesta continua).
+   4. Reentrenar automáticamente el motor predictivo con histórico + nuevos resultados.
+   5. Mantener un registro de versiones de modelos y predicciones (auditoría).
+   6. Permitir backtesting y métricas para evaluar calidad.
+3.2 Objetivos técnicos
+   1. Calidad de predicción: optimizar métricas probabilísticas (ej. Brier score / log loss) y calibración.
+   2. Reproducibilidad: pipelines versionados (datos + código + modelo).
+   3. Seguridad: API keys seguras, secretos en Secret Manager, control de acceso.
+   4. Escalabilidad: servir LLM y predicciones con baja latencia y caching.
+   5. Observabilidad: logs, métricas, alarmas, drift monitoring, y rollback rápido.
+3.3 Objetivos de producto/UX
+   1. Predicciones claras (probabilidades, no “certezas”).
+   2. Explicaciones legibles y accionables.
+   3. Transparencia: mostrar rendimiento histórico y límites del modelo.
+   4. Experiencia rápida: cargar pantallas principales < 2s en condiciones normales.
+________________
+
+
+4) Auto‑entrenamiento continuo: cómo debe funcionar (requisitos para programar)
+4.1 Estrategia recomendada: “Continuous Training” con compuertas
+No se despliega automáticamente un modelo nuevo sin validación.
+Pipeline tipo:
+   1. Trigger: llega nueva data (fin de jornada) o scheduler diario.
+   2. Preparar dataset: snapshot + versionado.
+   3. Entrenamiento: motor numérico (ensemble).
+   4. Evaluación offline: backtest (rolling origin), métricas probabilísticas.
+   5. Comparación Champion vs Challenger:
+   * Si challenger mejora (o no empeora dentro de tolerancia) → promocionar.
+   * Si empeora → no desplegar; guardar artefactos para análisis.
+   6. Registro: guardar versión de modelo + métricas + dataset hash.
+   7. Deploy: servir nuevo modelo de predicción.
+4.2 Frecuencia
+   * Predicción se actualiza cada vez que haya cambios (partidos nuevos / resultados).
+   * Entrenamiento:
+   * MVP: 1 vez por día o por jornada.
+   * Avanzado: event-driven por lote de nuevos partidos (ej. cuando se cierran X partidos).
+4.3 Monitoreo y rollback
+   * Monitorear drift de features y degradación de métricas.
+   * Mantener al menos N versiones anteriores para rollback instantáneo.
+________________
+
+
+5) Herramientas a usar (stack recomendado)
+5.1 Infraestructura base (Google Cloud)
+   * Compute Engine (VM con GPU) para inferencia del LLM (y opcional entrenamiento puntual).
+   * Tipo de VM dependerá de disponibilidad (A3 H100 / A3 Ultra H200 / A4 B200 / etc.).
+   * Cloud Storage (GCS): datasets, artefactos, snapshots, modelos.
+   * BigQuery o Cloud SQL (Postgres):
+   * BigQuery para analítica/backtesting masivo.
+   * Postgres para operación diaria de la app (más simple para queries transaccionales).
+   * Pub/Sub: eventos de “nueva data disponible”.
+   * Cloud Scheduler: triggers programados (diario / por jornada).
+   * Cloud Functions o Cloud Run: microservicios de ingesta/normalización y endpoints ligeros.
+   * Vertex AI Pipelines: entrenamiento automático, evaluación, versionado de pipeline.
+   * Secret Manager: llaves de APIs deportivas, tokens internos, credenciales.
+5.2 MLOps / ML
+   * Python (principal)
+   * Librerías:
+   * pandas, numpy
+   * scikit-learn (calibración, validación)
+   * xgboost o catboost (tabular fuerte)
+   * statsmodels (Poisson y modelos estadísticos)
+   * optuna (hyperparameter tuning)
+   * Tracking:
+   * MLflow (si se decide autogestionar) o tracking nativo de Vertex.
+5.3 Serving del motor predictivo
+   * Microservicio Python (FastAPI) con:
+   * Carga del modelo versionado desde GCS/registry
+   * Endpoint /predict ultra rápido
+   * Cache (Redis opcional) para predicciones de “próximos partidos” ya calculadas
+5.4 Serving del LLM “extremadamente poderoso”
+   * Motor de inferencia (recomendados):
+   * vLLM (alto throughput, KV cache eficiente)
+   * TensorRT‑LLM (si se busca máximo rendimiento en NVIDIA)
+   * SGLang (si se implementa tool use/agents con alto rendimiento)
+   * Framework:
+   * Hugging Face transformers (para cargar modelos y tokenizers si aplica)
+   * Modelo(s) sugeridos (selección final depende de GPU/VRAM):
+   * 1 modelo “principal” para razonamiento + tool use
+   * 1 modelo “secundario” para generación larga/multimodal (opcional)
+   * Interfaz:
+   * Exponer el LLM con API estilo OpenAI compatible internamente (para simplificar integración con app/back).
+5.5 RAG / Memoria
+   * Opción simple y efectiva:
+   * Postgres + pgvector para embeddings y búsqueda semántica de conocimiento (noticias internas, resúmenes por equipo, etc.).
+   * Opción cloud-managed:
+   * Vertex AI Vector Search (si se prefiere servicio administrado).
+5.6 App
+   * Framework recomendado:
+   * Flutter (iOS/Android) o React Native.
+   * Autenticación:
+   * Firebase Auth o auth propia (JWT).
+   * UI mínima:
+   * Lista de partidos
+   * Detalle con probabilidades + explicación
+   * Chat analista
+5.7 DevOps / CI/CD
+   * Docker para todos los servicios.
+   * Cloud Build + Artifact Registry o GitHub Actions + Artifact Registry.
+   * Infra as Code: Terraform.
+   * Observabilidad:
+   * Cloud Logging / Cloud Monitoring.
+   * Alertas: latencia, error rate, drift flags.
+________________
+
+
+6) Especificación técnica para que la IA programadora implemente
+6.1 Entidades y esquema de datos (mínimo)
+Tablas sugeridas:
+   * leagues(id, name, country, season, active)
+   * teams(id, league_id, name, meta)
+   * matches(id, league_id, season, match_datetime, home_team_id, away_team_id, status, home_goals, away_goals, extra_json)
+   * features(match_id, generated_at, features_json, version)
+   * predictions(match_id, model_version, created_at, p_home, p_draw, p_away, lambda_home, lambda_away, uncertainty_json)
+   * model_registry(model_version, created_at, metrics_json, data_snapshot_id, artifact_uri, status)
+   * explanations(match_id, model_version, llm_version, created_at, explanation_text, evidence_json)
+6.2 Contrato de API (ejemplo)
+   * GET /leagues
+   * GET /matches?league_id=...&from=...&to=...
+   * GET /predictions?match_id=...
+   * POST /predict (interno, usado por batch y por LLM)
+   * GET /explain?match_id=...
+   * POST /chat (LLM con tool use)
+   * GET /backtest?league_id=...&season=...
+6.3 Ejemplo de respuesta /predictions
+{
+  "match_id": "12345",
+  "league_id": "EPL",
+  "model_version": "pred_v1.8.2",
+  "generated_at": "2026-02-06T12:30:00Z",
+  "probabilities": { "home": 0.52, "draw": 0.26, "away": 0.22 },
+  "expected_goals": { "home": 1.62, "away": 1.09 },
+  "top_scores": [
+    { "score": "1-0", "p": 0.11 },
+    { "score": "2-1", "p": 0.09 },
+    { "score": "1-1", "p": 0.09 }
+  ],
+  "uncertainty": {
+    "entropy": 0.98,
+    "flags": ["LOW_DATA_FOR_TEAM_AWAY"]
+  },
+  "feature_highlights": [
+    { "name": "elo_diff", "value": 48 },
+    { "name": "home_form_last5", "value": 10 },
+    { "name": "away_form_last5", "value": 6 },
+    { "name": "rest_days_diff", "value": 2 }
+  ]
+}
+6.4 Tool use del LLM (funciones internas)
+Definir funciones “tool” que el LLM puede llamar:
+   * get_match(match_id)
+   * get_team_summary(team_id)
+   * get_latest_features(match_id)
+   * get_prediction(match_id)
+   * get_league_table(league_id)
+   * get_recent_matches(team_id, n)
+   * get_model_status() (versión activa, fecha, métricas)
+Regla dura: el LLM debe responder con explicación solo si obtiene datos por tools; si falta data → debe decirlo.
+________________
+
+
+7) Requisitos no funcionales (para implementación seria)
+   * Latencia endpoints predicción (motor numérico): objetivo < 200ms P95 (cacheado si es batch).
+   * Latencia LLM: dependerá del modelo; objetivo UX: primera respuesta < 2–4s (streaming tokens).
+   * Disponibilidad backend: 99.5%+ en MVP, 99.9%+ en producción.
+   * Auditoría: cada predicción debe ser reproducible por model_version + data_snapshot_id.
+________________
+
+
+8) Riesgos y mitigaciones (obligatorio)
+   1. Alucinaciones del LLM → mitigar con tool use estricto + validación de outputs.
+   2. Concept drift (equipos cambian) → monitor + reentrenamiento frecuente + decay temporal.
+   3. Data quality (APIs fallan / datos incompletos) → retries, validaciones, flags de “baja confianza”.
+   4. Degradación por auto‑training → champion/challenger + thresholds + rollback.
+   5. Interpretación como apuestas → disclaimer en app: “predicciones probabilísticas, sin garantías”.
+________________
+
+
+9) Entregables esperados (para la IA programadora)
+   1. Repositorio monorepo o multi-repo con:
+   * backend/ (API + auth + DB)
+   * ml/ (training, evaluation, inference, feature pipelines)
+   * llm/ (server vLLM/SGLang + tool adapters)
+   * app/ (Flutter o RN)
+   * infra/ (Terraform + deployment scripts)
+   * docs/ (arquitectura, API spec, runbooks)
+   2. Pipeline automatizado:
+   * ingesta → features → train → eval → register → deploy
+   3. Dashboard mínimo:
+   * métricas del modelo, drift, versiones, error rate API.
+________________
+
+
+10) Nota final para la IA que programa (instrucción directa)
+Prioridad de implementación:
+   1. Base de datos + ingesta + normalización (ligas limitadas).
+   2. Motor predictivo baseline (Elo + Poisson) + backtesting.
+   3. API /predictions estable + caching.
+   4. App con lista + detalle.
+   5. LLM server + tool use + endpoint /explain y /chat.
+   6. Continuous training con gates + monitoring + rollback.
+________________
+
+
+Si quieres, puedo generarte una versión aún más “lista para ejecutar” (tipo documento técnico) con:
+   * estructura exacta de carpetas,
+   * Dockerfiles,
+   * definición de componentes de Vertex AI Pipelines,
+   * y un checklist de tareas por sprint.

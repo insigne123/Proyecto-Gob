@@ -1,0 +1,96 @@
+{
+  "timestamp": "2026-02-10T02:13:19.462Z",
+  "config": {
+    "provider": "local",
+    "skipGeneration": true,
+    "genDelayMs": 13000,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\futbol-platform.jsonl",
+    "maxCases": 1,
+    "workspaceOverride": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855"
+  },
+  "summary": {
+    "totalCases": 1,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 10,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": null,
+      "citationValidityRate": null,
+      "mustIncludeAllRate": null,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 1863,
+        "p50": 1863,
+        "p95": 1863
+      },
+      "generation": {
+        "avg": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "total": {
+        "avg": 1866,
+        "p50": 1866,
+        "p95": 1866
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "fut-001",
+      "workspaceId": "6fb9cd69-7145-4c5d-96bf-fe9b160e0855",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Segun el resumen ejecutivo, cual es la idea central del sistema y que rol cumple el motor numerico vs el LLM?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 10,
+        "localEvidenceCount": 10,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 1863,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 1866
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T02-13-19-458Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-02-10T02-13-19-458Z.md"
+  }
+}
