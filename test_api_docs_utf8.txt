@@ -1,0 +1,39 @@
+﻿Iniciando scraper del 1er Tribunal Ambiental...
+Navegando a la consulta de causas...
+>> GET https://www.portaljudicial1ta.cl/sgc-web/template/footer.html
+>> GET https://www.portaljudicial1ta.cl/sgc-web/template/header.html
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-tipo-causa
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/lista-estados
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-regiones
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-actores
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/lista-anios
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/lista-actividades-economicas
+<< 200 https://www.portaljudicial1ta.cl/sgc-web/template/footer.html
+<< 200 https://www.portaljudicial1ta.cl/sgc-web/template/header.html
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-tipo-causa
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/lista-estados
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-actores
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-regiones
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/lista-anios
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/lista-actividades-economicas
+Haciendo click en Buscar...
+>> POST https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/get-consulta-causa
+Esperando resultados...
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/consulta-causa/get-consulta-causa
+>> GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-roles-juridicos?idTipoCausa=0&perfil=
+<< 200 https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-roles-juridicos?idTipoCausa=0&perfil=
+Se encontraron 10 causas en la p├ígina actual.
+De ellas, 3 coinciden con los filtros (Reclamaci├│n + SEA).
+
+Procesando causa relevante: R-149-2026 - Ilustre Municipalidad de Caldera  con Servicio de Evaluaci├│n Ambiental
+Buscando documentos por API para la causa R-149-2026...
+Se encontraron 0 documentos clave para R-149-2026
+
+Procesando causa relevante: R-147-2025 - Manuel Cort├®s Alfaro con Servicio de Evaluaci├│n Ambiental
+Buscando documentos por API para la causa R-147-2025...
+Se encontraron 0 documentos clave para R-147-2025
+
+Procesando causa relevante: R-146-2025 - Comunidad Ind├¡gena Colla Tata Inti del Pueblo de Los Loros  con Servicio de Evaluaci├│n Ambiental
+Buscando documentos por API para la causa R-146-2025...
+Se encontraron 0 documentos clave para R-146-2025
+Scraper finalizado.

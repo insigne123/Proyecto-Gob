@@ -1,9 +1,24 @@
 import { NextResponse } from "next/server"
 
 import { createAdminClient } from "@/lib/supabase/admin"
+import { createClient } from "@/lib/supabase/server"
+import { requestHasHealthToken } from "@/lib/health-access"
+import { buildWorkerHealthPayload } from "@/lib/health-response"
 
-export async function GET() {
+export async function GET(request: Request) {
   const ts = new Date().toISOString()
+  const hasToken = requestHasHealthToken(request)
+
+  if (!hasToken) {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ ok: false, ts, error: "Unauthorized" }, { status: 401 })
+    }
+  }
 
   try {
     const admin = createAdminClient()
@@ -20,25 +35,7 @@ export async function GET() {
       )
     }
 
-    const now = Date.now()
-    const workers = (data ?? []).map((w: any) => {
-      const last = w.last_seen_at ? Date.parse(String(w.last_seen_at)) : 0
-      const ageSeconds = last ? Math.floor((now - last) / 1000) : null
-      return {
-        workerId: w.worker_id,
-        startedAt: w.started_at,
-        lastSeenAt: w.last_seen_at,
-        ageSeconds,
-        hostname: w.hostname,
-        pid: w.pid,
-        version: w.version,
-      }
-    })
-
-    const fresh = workers.filter((w) => typeof w.ageSeconds === "number" && w.ageSeconds <= 90)
-      .length
-
-    return NextResponse.json({ ok: fresh > 0, ts, fresh, workers })
+    return NextResponse.json(buildWorkerHealthPayload({ ts, hasToken, rows: data ?? [] }))
   } catch (err: any) {
     return NextResponse.json(
       { ok: false, ts, error: err?.message ?? String(err) },

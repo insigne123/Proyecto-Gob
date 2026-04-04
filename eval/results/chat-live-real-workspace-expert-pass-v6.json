@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 34817,
+    "avgCitations": 3,
+    "mustIncludeAllMatchedRate": 0.5,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 3,
+      "partial": 3
+    },
+    "totalTokens": 30718
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6926,
+      "elapsedMs": 29030,
+      "preview": "En R-118-2025, - Priorizar Informe R-44-2021 (y anexos) como insumo central para fundamentar defensa técnica, ya que delimita atribuciones del SEA, alcance de informes OAECAs y establece criterios de control ambiental; sirve para construir criterios de defensa y responder a alegaciones de falta de información. \n- En segundo lugar, citar Sentencia R-44-2021 para extraer ratio decidendi y criterios de acogida/rechazo vinculados a la necesidad de completar información y a la competencia del SEA, útiles para contrastar hechos y guiar comparaciones con casos análogos.\n\n- [ ] En segundo lugar, citar la Sentencia R-44-2021 para extraer ratio decidendi y criterios de acogida/rechazo vinculados a la necesidad de completar información y a la competencia del SEA, útiles para contrastar hechos y para el contraste de casos análogos; esto se apoya en que la resolución ordena completar información ante",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": null,
+      "totalTokens": null,
+      "elapsedMs": 27588,
+      "preview": "1. La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nCitas textuales adicionales:\n- \"1 PROCEDIMIENTO: Reclamación del artículo 17 N°6 Ley 20.600 RECLAMANTE: OCEANA INC.\"\n- \"tes que se indican.\"\n- \"1 PROCEDIMIENTO: Reclamación judicial MATERIA: Reclamación judicial del artículo 20 de la Ley N°19.300 y del artículo 17 N°5 de la Ley N°20.600 RECLAMANTE: Andes Iron SpA RUT: 76.097.759-4 REPRESENTANTE: Pedro Ducci Corn...\"",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6246,
+      "elapsedMs": 73235,
+      "preview": "1. extrapolar un precedente o una sentencia favorable fuera de su contexto factico, normativo y procesal.\n2. util para extraer ratio decidendi, estandar de control y criterios de rechazo/acogida.\n3. La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nCitas textuales adicionales:\n- \"53 complementar las cuestiones que estime que no fueron abordadas correctamente, por lo que la decisión de rechazo del proyecto no se encuentra debidamente fundada;53 v) Los aspectos que no habrían sido debidamente abord...\"\n- \"luación del Proyecto, en lo referido a los valores de la modelación de la pluma salina (número de Froude), se advierte que en la Adenda 4 el Titular aclara las dudas.\"",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6546,
+      "elapsedMs": 28612,
+      "preview": "1. Los criterios útiles para la defensa del SEA, según el marco teórico, incluyen el análisis del marco regulatorio, la competencia del órgano y su función en la evaluación ambiental, y la consideración de sus informes como no vinculantes, entre otros.\n2. El punto 2 de la Guía de AI del SEA establece que el análisis del espacio geográfico debe entenderse en función de los elementos impactados, incluyendo componentes como el medio humano y actividades productivas, lo cual es relevante para sustentar argumentos técnico-ambientales.\n\nCitas textuales adicionales:\n- \"y 30 bis de la ley Nº 19.300, en relación con el artículo 20 de la misma ley (…)”.\"\n- \"22 Además, el punto 2 de la Guía de AI del SEA, establece ciertos criterios con el objeto de especificar el análisis del concepto establecido en el artículo 2 letra a) del RSEIA, entre estos, el criterio N° 2 señala que ...\"",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5541,
+      "elapsedMs": 22171,
+      "preview": "Lineas de defensa prioritarias:\n1. Orden recomendado para la defensa:\n2. primero informe, luego sentencia;",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5459,
+      "elapsedMs": 28266,
+      "preview": "1. En R-118-2025, Precedentes administrativos como fuente de consistencia:\n2. los documentos que citan la obligatoriedad y uniformidad de los precedentes administrativos sugieren que la actuación de la Administración debe ser previsible y armónica con criterios anteriores (snapshot de Reclamacion Huawei).\n\nCitas textuales adicionales:\n- \"52 diferencias arbitrarias (art.\"",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

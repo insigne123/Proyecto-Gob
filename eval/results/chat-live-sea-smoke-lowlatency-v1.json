@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 60093,
+    "avgCitations": 1.5,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "none": 1,
+      "partial": 3
+    },
+    "totalTokens": 20642
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "none",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5918,
+      "elapsedMs": 56189,
+      "preview": "Criterio util para la defensa del SEA: priorizar criterios tecnicos y de evaluacion ambiental que aparezcan en informes y documentos evacuados, y usar esos criterios como base de la respuesta.\n\nSe debe priorizar el análisis de los informes y sentencias, específicamente los informes de evacuación y las sentencias relacionadas, debido a su valor como antecedentes verificables y relevantes para la defensa. Los informes ofrecen el análisis técnico del caso, mientras que las sentencias aportan criterios y decisiones previas que orientan la defensa.\n\n1. Se recomienda priorizar los informes (por ejemplo, R-35-2019 y R-37-2020) por su carácter técnico y de base documental verificable, que sustentan las alegaciones y fundamentan la evaluación del contexto del proyecto.",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5852,
+      "elapsedMs": 23041,
+      "preview": "En R-44-2021, - [ ] Criterios defensivos del SEA presentes en los antecedentes: el texto de la Guía de AI del SEA, citado en el Informe, señala criterios para el análisis del concepto del artículo 2 letra a) del RSEIA, entre ellos el criterio N° 2 (espacio geográfico) y el criterio N° 3 (componentes que interactúan con el medio) y los atributos como la dimensión socioeconómica, con referencia a la Tabla N° 1. Esto se verifica en el párrafo que indica: “el “espacio geográfico” debe entenderse no solo como el espacio terrestre, sino que, dependiendo del elemento analizado receptor del impacto, este espacio puede ser aéreo y/o acuático. … entre los atributos a considerar respecto de este componente encontramos la dimensión socioeconómica … (Tabla N° 1).”\n\n- [ ] En el caso de la evaluación ambiental, se sustenta la necesidad de considerar que el PCI (Procedimiento de Consulta Indígena) debe ",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 0,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 3928,
+      "elapsedMs": 23330,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4944,
+      "elapsedMs": 137812,
+      "preview": "En R-44-2021, - [ ] El marco teórico advierte que el uso de precedentes o sentencias favorables de manera incorrecta puede afectar la legalidad del procedimiento sancionatorio y generar un perjuicio efectivo al regulado. Esto se sustenta en la sentencia que señala: \"Dicho vicio no constituye una mera irregularidad formal ni un defecto subsanable sin consecuencias, sino que afecta elementos esenciales del procedimiento, comprometiendo su legalidad desde el origen\" (chunkId=file-1SniKHVEhKCgD8mzwTpgGy:1).\n\n- [ ] La protección de garantías fundamentales también es un riesgo de usar mal los precedentes, ya que la declaración de impacto ambiental debe estar fundamentada en evidencias científicas y análisis rigurosos. La sentencia indica: \"las denuncias han sido recepcionadas por este servicio en el marco de la evaluación... sin contar con equipamiento necesario para efectuar muestras o realiz",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

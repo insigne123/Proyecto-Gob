@@ -1,0 +1,103 @@
+{
+  "timestamp": "2026-03-03T22:15:52.127Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "auto",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": true,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": 1,
+    "workspaceOverride": null
+  },
+  "summary": {
+    "totalCases": 1,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 12,
+      "snapshotHitRate": 1,
+      "chunkHitRate": null,
+      "snapshotMrr": 1,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": null,
+      "citationValidityRate": null,
+      "mustIncludeAllRate": null,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 4344,
+        "p50": 4344,
+        "p95": 4344
+      },
+      "generation": {
+        "avg": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "total": {
+        "avg": 4347,
+        "p50": 4347,
+        "p95": 4347
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 4344,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 4347
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03T22-15-52-123Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03T22-15-52-123Z.md"
+  }
+}

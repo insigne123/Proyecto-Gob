@@ -1,0 +1,306 @@
+{
+  "timestamp": "2026-03-03T22:36:14.346Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "auto",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": true,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": null,
+    "workspaceOverride": "hybrid"
+  },
+  "summary": {
+    "totalCases": 5,
+    "errorCases": 5,
+    "retrieval": {
+      "avgEvidence": 0,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": null,
+      "citationValidityRate": null,
+      "mustIncludeAllRate": null,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "generation": {
+        "avg": 0,
+        "p50": 0,
+        "p95": 0
+      },
+      "total": {
+        "avg": 169.2,
+        "p50": 159,
+        "p95": 258
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "hybrid",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 0,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 0,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "",
+        "notFound": false,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 258,
+      "error": "invalid input syntax for type uuid: \"hybrid\""
+    },
+    {
+      "id": "taf-002",
+      "workspaceId": "hybrid",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 0,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 0,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "",
+        "notFound": false,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 159,
+      "error": "invalid input syntax for type uuid: \"hybrid\""
+    },
+    {
+      "id": "taf-003",
+      "workspaceId": "hybrid",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En R-27-2019, que fojas se mencionan en el documento de desistimiento?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 0,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 0,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "",
+        "notFound": false,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 107,
+      "error": "invalid input syntax for type uuid: \"hybrid\""
+    },
+    {
+      "id": "taf-004",
+      "workspaceId": "hybrid",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En R-113-2024, quien figura como reclamante segun el escrito inicial?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 0,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 0,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "",
+        "notFound": false,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 176,
+      "error": "invalid input syntax for type uuid: \"hybrid\""
+    },
+    {
+      "id": "taf-005",
+      "workspaceId": "hybrid",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Las fuentes mencionan un proyecto llamado Proyecto Fantasma XYZ 2035?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion",
+          "informe",
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 0,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 0,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": true,
+        "text": "",
+        "notFound": false,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": true,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 146,
+      "error": "invalid input syntax for type uuid: \"hybrid\""
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03T22-36-14-345Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03T22-36-14-345Z.md"
+  }
+}

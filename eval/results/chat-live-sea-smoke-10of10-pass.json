@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 42022,
+    "avgCitations": 2.75,
+    "mustIncludeAllMatchedRate": 0.5,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "partial": 3,
+      "strong": 1
+    },
+    "totalTokens": 20349
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5919,
+      "elapsedMs": 50864,
+      "preview": "Debe priorizarse el informe R-35-2019, ya que es un documento técnico elaborado para evacuar informe y contiene análisis directos sobre la evaluación de impacto ambiental y los efectos sobre los pueblos indígenas, en particular la consideración de su cultura y relaciones con sus tierras, como se señala: \"el ejercicio de un margen de discrecionalidad que los habilite para llegar a acuerdos u obtener el consentimiento de los pueblos indígenas en su adopción\" (chunkId=e32775df-d46f-415b-b610-d68ba1029447). Esto permite fundamentar la defensa en aspectos específicos del proceso técnico del SEA.\n\nEl informe R-44-2021 también debe ser priorizado, ya que establece que los pronunciamientos de organismos públicos en materia ambiental deben ser fundados y referirse a las competencias específicas, lo cual es relevante para analizar la autonomía y límites del SEIA, además de la naturaleza no vincula",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 5,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5895,
+      "elapsedMs": 20803,
+      "preview": "- [ ] Identificar criterios defensivos del SEA presentes en antecedentes: el documento señala que la Guía de AI del SEA y el marco normativo del RSEIA establecen definiciones y criterios para el análisis del espacio geográfico y sus componentes, incluyendo el Medio Humano y la dimensión socioeconómica (Tabla N° 1). Esto se refleja en el pasaje: “el “espacio geográfico” debe entenderse no solo como el espacio terrestre, sino que, dependiendo del elemento analizado receptor del impacto, este espacio puede ser aéreo y/o acuático.… entre los atributos a considerar respecto de este componente encontramos la dimensión socioeconómica” ( chunkId=8e5c1909-bf9a-4a95-94ce-23d1e6b185d0 ).\n\n- [ ] Ante la ausencia de información en ciertos elementos, se recomienda resaltar en la defensa cuando el PCI no se realizó o fue incompleto, citando declaraciones sobre el PCI y su relación con el área de influe",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 3680,
+      "elapsedMs": 17080,
+      "preview": "Primero: Prueba principal. La reclamación debe ser utilizada como prueba principal cuando su contenido sustenta el razonamiento central para impugnar o defender la resolución administrativa, especialmente si la reclamación aborda elementos esenciales del fondo del fallo o de la evaluación ambiental (sentencia R-44-2021 y su análisis sobre la necesidad de fundamentar la solución adopta), tal como se ve en las doctrinas citadas que señalan que la camara de revisión debe enfocarse en el análisis técnico y la consecuencia final (ver R-44-2021: \"la parte reclamante no cuestiona el fondo del razonamiento de la resolución recurrida\" y el papel de la retrotraer el procedimiento como solución). Además, la doctrina y las sentencias relevantes destacan la utilidad de extraer ratio decidendi y criterios de control para sostener la defensa (criterios_defensa: R-111-2024; R-92-2023; R-44-2021).",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4855,
+      "elapsedMs": 79341,
+      "preview": "- [ ] Riesgo 1: usar precedentes o sentencias sin respaldo directo en la memoria estructurada puede generar interpretación sesgada o desalineada con el marco normativo aplicable. En el bloque de evidencia, se destacan errores procedimentales y fundamentos del PdC en el régimen sancionatorio que deben ser verificados contra las sentencias citadas para evitar extrapolaciones (\"el PdC resulta plenamente aplicable al régimen sancionatorio de la Ley REP desde una interpretación sistemática, teleológica y conforme a los principios que informan el derecho ambiental chileno, en particular, el principio de cumplimiento normativo, el principio preventivo y la lógica de regulación responsiva\"). (EVIDENCE 1, EVIDENCE 2, EVIDENCE 3, EVIDENCE 4, EVIDENCE 5, EVIDENCE 6, EVIDENCE 7)\n\n- [ ] Riesgo 2: las inconsistencias en la formulación de cargos pueden afectar la legalidad desde el origen, generando un",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

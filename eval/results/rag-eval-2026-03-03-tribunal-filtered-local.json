@@ -1,0 +1,373 @@
+{
+  "timestamp": "2026-03-03T19:07:40.177Z",
+  "config": {
+    "provider": "local",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": null,
+    "workspaceOverride": null
+  },
+  "summary": {
+    "totalCases": 5,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 30,
+      "snapshotHitRate": 1,
+      "chunkHitRate": null,
+      "snapshotMrr": 0.875,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 0.8,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": 0.25,
+      "mustNotIncludePassRate": 1
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 2468,
+        "p50": 2626,
+        "p95": 2747
+      },
+      "generation": {
+        "avg": 21120.8,
+        "p50": 20809,
+        "p95": 34214
+      },
+      "total": {
+        "avg": 23590.4,
+        "p50": 23498,
+        "p95": 36962
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 2626,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Resolución respecto del informe en R-53-2021: se evacua el informe, se acompaña el documento al primer otrosí, se tiene presente al segundo otrosí y se remiten los autos al relator para efectos del art. 372 N° 3 del Código Orgánico de Tribunales.",
+        "notFound": false,
+        "elapsedMs": 15983,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4306,
+          "completion_tokens": 2481,
+          "total_tokens": 6787,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2176,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 4,
+        "validCitations": 4,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 18612
+    },
+    {
+      "id": "taf-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 2747,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 0.5,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Sí. Existe una sentencia asociada al Rol R N° 107-2024, con fecha de sentencia de 2 de marzo de 2026.\n\nLa resolución posterior señala que la reclamación fue rechazada en todas sus partes.",
+        "notFound": false,
+        "elapsedMs": 34214,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4071,
+          "completion_tokens": 4451,
+          "total_tokens": 8522,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4224,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 3,
+        "validCitations": 3,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 36962
+    },
+    {
+      "id": "taf-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "En R-27-2019, que fojas se mencionan en el documento de desistimiento?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 2535,
+        "warnings": [
+          "Retry kept notFound despite available evidence."
+        ],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 23782,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4245,
+          "completion_tokens": 1199,
+          "total_tokens": 5444,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1152,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": false,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 26318
+    },
+    {
+      "id": "taf-004",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "En R-113-2024, quien figura como reclamante segun el escrito inicial?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 2688,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "El escrito inicial identifica como reclamante a la Comunidad Indígena Atacameña de Peine.\n\nEl RUT de la reclamante es 72.901.600-4.",
+        "notFound": false,
+        "elapsedMs": 20809,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4380,
+          "completion_tokens": 1779,
+          "total_tokens": 6159,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1600,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 2,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 23498
+    },
+    {
+      "id": "taf-005",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Las fuentes mencionan un proyecto llamado Proyecto Fantasma XYZ 2035?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion",
+          "informe",
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 1744,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 10816,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4367,
+          "completion_tokens": 1199,
+          "total_tokens": 5566,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1152,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": true,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 12562
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03-tribunal-filtered-local.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03-tribunal-filtered-local.md"
+  }
+}

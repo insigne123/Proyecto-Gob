@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 48591,
+    "avgCitations": 1.5,
+    "mustIncludeAllMatchedRate": 0.75,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "weak": 1,
+      "unknown": 1,
+      "partial": 2
+    },
+    "totalTokens": 19356
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5804,
+      "elapsedMs": 38470,
+      "preview": "La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\n- [ ] Incorporar como prioridad las sentencias que abordan la motivación de resoluciones y la consideración de observaciones ciudadanas (R-37-2020) y la discusión sobre el valor de informes OAECAs y su no vinculación al SEA en calidad de administrador del SEIA.\n\n- [ ] Evaluar con cautela el contexto fáctico/procesal para evitar analogías sobreextendidas (lecciones de R-111-2024, R-92-2023, R-44-2021).",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": null,
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5322,
+      "elapsedMs": 56759,
+      "preview": "Los criterios defensivos del SEA en los antecedentes incluyen la correcta determinación del área de influencia, la evaluación de impactos por olores respetando umbrales definidos, la valoración de información relevante y esencial, y la discrecionalidad en la evaluación del término anticipado. Estos criterios ayudan a sostener la evaluación ambiental al garantizar que la evaluación se base en análisis fundamentados, en cumplimiento de la normativa y en la consideración de impactos significativos.\n\n1. La correcta delimitación del área de influencia, asegurando que no se afecte a comunidades que no se encuentran dentro del área, respeta el criterio del SEA y sustenta la validez de la evaluación (chunkId=8df19a36-eefe-4e75-9431-ecdbd1d40a1a).",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 3472,
+      "elapsedMs": 18125,
+      "preview": "Categoría de respuesta: contexto vs prueba principal. En el marco teórico, la reclamación se utiliza principalmente como contexto para explicar las reglas y límites del procedimiento de reclamación frente a un Estudio de Impacto Ambiental, tal como se desprende de la jurisprudencia que describe el alcance del Comité de Ministros y las condiciones para el reclamo en etapas administrativas y judiciales.",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4758,
+      "elapsedMs": 81011,
+      "preview": "- [ ] Riesgo de que la defensa se base en indicios no rigurosos para sostener un impacto significativo, lo cual debilita la argumentación y puede comprometer la legalidad desde el origen. Se advierte que las conclusiones pueden sustentarse en denuncias y visitas en terreno sin equipo ni análisis adecuado para confirmar impactos significativos. \nCita: “no son antecedentes con un rigor científico ni el uso de una metodología validada que permita sostener la presencia de un impacto significativo, considerando que las conclusiones se sustentan en denuncias y visitas en terreno sin contar con equipamiento necesario para efectuar muestras o realizar análisis.”\n\n- [ ] Riesgo de que la defensa se apoye en declaraciones de término anticipado sin respaldo sobre impactos significativos a la salud, lo cual puede generar confusión sobre el mérito de la evaluación. Se indica que no se sostiene que los",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

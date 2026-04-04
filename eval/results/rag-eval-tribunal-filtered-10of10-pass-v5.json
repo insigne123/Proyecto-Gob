@@ -1,0 +1,371 @@
+{
+  "timestamp": "2026-03-23T22:35:31.113Z",
+  "config": {
+    "provider": "hybrid",
+    "answerProviderRequested": "auto",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": 5,
+    "workspaceOverride": null
+  },
+  "summary": {
+    "totalCases": 5,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 24,
+      "snapshotHitRate": 1,
+      "chunkHitRate": null,
+      "snapshotMrr": 0.7083333333333333,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 1,
+      "citationValidityRate": 0.75,
+      "mustIncludeAllRate": 1,
+      "mustNotIncludePassRate": 1
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 14080.8,
+        "p50": 12933,
+        "p95": 19822
+      },
+      "generation": {
+        "avg": 22460.8,
+        "p50": 23736,
+        "p95": 25315
+      },
+      "total": {
+        "avg": 36542.6,
+        "p50": 38166,
+        "p95": 43605
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 18,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 19822,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "La resolución que aparece respecto del informe en la causa R-53-2021 es que el informe fue evacuado y aceptado por el tribunal, como lo indica la resolución del 28 de octubre de 2021: \"A lo principal, téngase por evacuado el informe.\" (EVIDENCE 1). Además, en una resolución posterior del 31 de marzo de 2022, se confirma que lo ordenado fue cumplido y que el informe fue considerado, así como que los antecedentes relacionados también fueron considerados, como se lee: \"Téngase por cumplido lo ordenado.\" (EVIDENCE 2).",
+        "notFound": false,
+        "elapsedMs": 23736,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 3821,
+          "completion_tokens": 307,
+          "total_tokens": 4128,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 2,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 2,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 43560
+    },
+    {
+      "id": "taf-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 28,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 12933,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 0.5,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Sí, existe una sentencia en el corpus. Según EVIDENCE 1, se certifica que el 5 de noviembre de 2025, la ministra redactora Srta. Sandra Álvarez Torres hizo entrega del proyecto de sentencia a los demás ministros que integran el Rol R-107-2024.\n\nAdicionalmente, en EVIDENCE 2 se indica que la sentencia se desarrolla en el documento adjunto, y en EVIDENCE 3 se hace referencia a que la sentencia cuenta con la prevención del ministro Sr. y describe aspectos sustantivos del fallo.\n\nPor lo tanto, claramente hay una sentencia, la cual fue entregada y documentada, y además se describe su estructura y contenido en las fuentes.",
+        "notFound": false,
+        "elapsedMs": 25232,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 3850,
+          "completion_tokens": 389,
+          "total_tokens": 4239,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 4,
+        "validCitations": 4,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 2,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 38166
+    },
+    {
+      "id": "taf-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "En R-27-2019, que fojas se mencionan en el documento de desistimiento?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 9,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 18290,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 0.3333333333333333,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "En R-27-2019, se mencionan las fojas 3691 y 3692.",
+        "notFound": false,
+        "elapsedMs": 25315,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 2245,
+          "completion_tokens": 413,
+          "total_tokens": 2658,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 0,
+        "citationValidityRate": 0,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 43605
+    },
+    {
+      "id": "taf-004",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "En R-113-2024, quien figura como reclamante segun el escrito inicial?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 29,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 12827,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "En R-113-2024, el reclamante según el escrito inicial es la Comunidad Indígena Atacameña de Peine.",
+        "notFound": false,
+        "elapsedMs": 22163,
+        "model": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4202,
+          "completion_tokens": 925,
+          "total_tokens": 5127,
+          "prompt_tokens_details": {
+            "cached_tokens": 3840,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 768,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 1,
+        "validCitations": 1,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 34991
+    },
+    {
+      "id": "taf-005",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "Las fuentes mencionan un proyecto llamado Proyecto Fantasma XYZ 2035?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion",
+          "informe",
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 36,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 6532,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 15858,
+        "model": "gpt-5-mini-2025-08-07",
+        "usage": {
+          "prompt_tokens": 3178,
+          "completion_tokens": 559,
+          "total_tokens": 3737,
+          "prompt_tokens_details": {
+            "cached_tokens": 2816,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 512,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": true,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": true
+      },
+      "elapsedMs": 22391
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-tribunal-filtered-10of10-pass-v5.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-tribunal-filtered-10of10-pass-v5.md"
+  }
+}

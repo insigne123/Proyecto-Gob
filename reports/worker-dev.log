@@ -1,0 +1,79 @@
+
+> nextn@0.1.0 worker:dev
+> tsx src/worker/index.ts
+
+[worker] started: ca-Nico-39112
+[worker] supabase DNS warning: yfdelflsheurzaicwayi.supabase.co (ENOTFOUND)
+[worker] claim error {
+  failures: 1,
+  backoff_ms: 1501,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 2,
+  backoff_ms: 3462,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] connection recovered after 3 claim errors
+[worker] claim error {
+  failures: 1,
+  backoff_ms: 1573,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 5,
+  backoff_ms: 24001,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 6,
+  backoff_ms: 48482,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] connection recovered after 6 claim errors
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 18960ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 19045ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 18487ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 18573ms
+[worker] recovered stale running jobs: 2 (threshold 90m)
+[worker] job d95fc39e-6cc7-4442-b4d1-22e4b55107da (source_ingest) took 401631ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 19284ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 18710ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 18707ms
+[worker] job 82c08d0d-c7da-4d0c-8c7f-8b0f648d476a (tribunal_corpus_sync) took 18917ms
+[worker] claim error {
+  failures: 1,
+  backoff_ms: 1829,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 5,
+  backoff_ms: 24168,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 6,
+  backoff_ms: 48287,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 7,
+  backoff_ms: 60197,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] claim error {
+  failures: 8,
+  backoff_ms: 60394,
+  message: 'TypeError: fetch failed',
+  code: null
+}
+[worker] connection recovered after 8 claim errors

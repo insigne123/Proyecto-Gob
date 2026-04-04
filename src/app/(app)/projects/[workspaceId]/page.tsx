@@ -24,6 +24,23 @@ export default async function ProjectNotebookPage({
 
   if (!workspace) notFound()
 
+  const { data: profile } = await supabase
+    .from("gob_workspace_profiles")
+    .select("workspace_id,metadata")
+    .eq("workspace_id", workspaceId)
+    .maybeSingle()
+
+  const metadata =
+    profile?.metadata && typeof profile.metadata === "object" && !Array.isArray(profile.metadata)
+      ? profile.metadata
+      : {}
+  const onboarding =
+    metadata?.onboarding && typeof metadata.onboarding === "object" ? metadata.onboarding : null
+
+  if (onboarding?.required === true && onboarding?.completed !== true) {
+    redirect(`/projects/${workspaceId}/onboarding`)
+  }
+
   return (
     <NotebookShell
       workspace={{

@@ -1,0 +1,398 @@
+{
+  "timestamp": "2026-03-03T19:15:56.020Z",
+  "config": {
+    "provider": "local",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\golden.jsonl",
+    "maxCases": 6,
+    "workspaceOverride": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c"
+  },
+  "summary": {
+    "totalCases": 6,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 25,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 0.5,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": null,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 2163.6666666666665,
+        "p50": 1870,
+        "p95": 3649
+      },
+      "generation": {
+        "avg": 37055,
+        "p50": 30680,
+        "p95": 78383
+      },
+      "total": {
+        "avg": 33044.333333333336,
+        "p50": 31538,
+        "p95": 80249
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "seed-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Resume los hechos principales del expediente en 5 puntos maximo",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 1863,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "La modelación acústica describe un uso de potencias basado en BS 5228-1:2009 y establece que la maquinaria de mayor emisión de ruido se empleó para garantizar que las emisiones de fuentes menores queden enmascaradas.\n\nLas emisiones fugitivas se cuantifican en la fase de construcción y, en la fase de operación, no se cuantifican como emisiones fugitivas per se, ya que la operación corresponde a la generación de energía y las fuentes relevantes están asociadas a emisiones de fuentes fijas.\n\nEl expediente especifica los contenidos mínimos para la elaboración de los Estudios de Impacto Ambiental, incluyendo un resumen que no exceda 30 páginas y un plan de gestión con la línea de base y efectos descritos, organizado en capítulos.",
+        "notFound": false,
+        "elapsedMs": 78383,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4327,
+          "completion_tokens": 12753,
+          "total_tokens": 17080,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 11520,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 7,
+        "validCitations": 7,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 80249
+    },
+    {
+      "id": "seed-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Compara los cambios entre versiones del documento sobre calidad de aire",
+      "mode": "comparison",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 34,
+        "localEvidenceCount": 34,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 1870,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Este bloque compara enfoques sobre la calidad de aire en distintas referencias, destacando cambios en la forma de aplicar la modelización y la evaluación. En particular, se observa la guía de uso de modelos de calidad del aire en SEIA (2012) y la idea de que la información debe fundamentar la representación espacial y temporal del fenómeno (snapshot 38fc0a4b-8ad9-406c-9ce4-b987c87561ce).",
+        "notFound": false,
+        "elapsedMs": 45255,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 5858,
+          "completion_tokens": 7217,
+          "total_tokens": 13075,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 6592,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 2,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 47126
+    },
+    {
+      "id": "seed-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Haz un checklist de obligaciones detectables en las fuentes",
+      "mode": "checklist",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 0,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 2886,
+        "warnings": [
+          "No evidence returned"
+        ],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 0,
+        "model": null,
+        "usage": null,
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 2886
+    },
+    {
+      "id": "seed-004",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Redacta una propuesta de resolucion basada solo en evidencia citada",
+      "mode": "resolution",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 26,
+        "localEvidenceCount": 26,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 856,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Propuesta de resolución de fondo: Se propone acoger la reclamación de autos interpuesta, en orden a dejar sin efecto e invalidar la Resolución Exenta Nº202099101432 de fecha 16 de junio del 2019 del Director Ejecutivo del SEA; así como la RCA N° 121/2019 de la Comisión de Evaluación de Copiapó, sólo por los motivos señalados en la presente sentencia, ordenándose al Titular reingresar su proyecto al SEIA por la vía de un Estudio de Impacto Ambiental.\n\nAdemás, se propone no condenar en costas a las partes.\n\nNotifíquese y regístrese.",
+        "notFound": false,
+        "elapsedMs": 30680,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4184,
+          "completion_tokens": 4923,
+          "total_tokens": 9107,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4480,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 3,
+        "validCitations": 3,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 31538
+    },
+    {
+      "id": "seed-005",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "¿Existe evidencia sobre monitoreo de ruido nocturno en domingo?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 3649,
+        "warnings": [
+          "Retry kept notFound despite available evidence."
+        ],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 22489,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4243,
+          "completion_tokens": 1519,
+          "total_tokens": 5762,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1472,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": false,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 26139
+    },
+    {
+      "id": "seed-006",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "¿Las fuentes mencionan un proyecto llamado 'Proyecto Fantasma XYZ 2035'?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 1858,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 8468,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4370,
+          "completion_tokens": 1263,
+          "total_tokens": 5633,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1216,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": true,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 10328
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03-local-v2.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03-local-v2.md"
+  }
+}

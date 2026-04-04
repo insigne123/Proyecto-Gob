@@ -5,6 +5,6 @@ export default async function LegacyWorkspaceWatchlistsPage({
 }: {
   params: Promise<{ workspaceId: string }>
 }) {
-  const { workspaceId } = await params
-  redirect(`/excel/${workspaceId}`)
+  await params
+  redirect(`/excel`)
 }

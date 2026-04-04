@@ -1,0 +1,247 @@
+{
+  "action": "qa_chat_session4",
+  "startedAt": "2026-03-09T13:56:12.960Z",
+  "finishedAt": "2026-03-09T13:58:25.093Z",
+  "durationMs": 132133,
+  "appUrl": "http://localhost:9010",
+  "workspaceId": "bbaa99e1-7c35-497c-a9b4-d0ea667afb14",
+  "threadId": "ccfbc4f3-5d35-476c-809a-4df3f1d98390",
+  "responseProfile": "fast",
+  "maxQuestions": 4,
+  "claimSource": {
+    "id": "e5dd33ec-34eb-42b2-941e-ee234ad3c252",
+    "title": "0e562d7a-2802-44f8-be46-dcbdc4b260a0_foleado.pdf",
+    "status": "ready"
+  },
+  "resources": {
+    "apiCalls": 5,
+    "dbReads": 10,
+    "maxRssMb": 80.03,
+    "tokens": {
+      "prompt": 6311,
+      "completion": 1223,
+      "total": 7534
+    },
+    "traceTotalMs": 125160,
+    "audit": {
+      "turns": 4,
+      "retrievalMs": 61033,
+      "generationMs": 62466,
+      "totalMs": 124929,
+      "answerTokens": 7534
+    }
+  },
+  "quality": {
+    "turns": 4,
+    "okTurns": 4,
+    "avgScore": 1.75,
+    "totalCitations": 9,
+    "totalVerifiedCitations": 4,
+    "totalSupportedCitations": 9,
+    "unsupportedCitations": 0
+  },
+  "turns": [
+    {
+      "id": "Q1",
+      "kind": "meta",
+      "question": "Antes de comenzar, ¿qué puedes hacer en este expediente y cómo manejas respuestas sin evidencia?",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 855,
+      "messageIds": {
+        "user": "4286509d-6a6d-4711-8eaa-94939fe24f44",
+        "assistant": "da43c9b3-0f09-4171-b28c-41238cf724f8"
+      },
+      "answerPreview": "Soy una IA asistida por recuperacion de evidencia (RAG). Primero intento responder con fuentes y citas verificables; para saludos o dudas generales respondo de forma directa. Tambien puedo ayudarte a redactar y revisar tu informe.",
+      "answerLength": 230,
+      "citationsTotal": 0,
+      "citationsVerified": 0,
+      "citationsUnverifiable": 0,
+      "citationsSupported": 0,
+      "citationValidityRate": null,
+      "noEvidenceDisclosure": false,
+      "usage": {
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "totalTokens": 0
+      },
+      "assistantModel": null,
+      "retrievalTrace": {
+        "id": "0126111b-5505-4b74-8980-32525c57574c",
+        "provider": "hybrid",
+        "model": null,
+        "responseId": null,
+        "evidenceCount": 0,
+        "retrievalMs": 0,
+        "generationMs": 0,
+        "totalMs": 231,
+        "retrievalCoverageBefore": 0,
+        "retrievalCoverageAfter": 0,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": false,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 1,
+        "grounding": 2,
+        "honesty": 2,
+        "instruction": 2,
+        "coherence": 2,
+        "total": 1.8
+      },
+      "issues": []
+    },
+    {
+      "id": "Q2",
+      "kind": "facts",
+      "question": "Con base en la reclamación adjunta, resume en máximo 5 bullets los hechos centrales y cita al menos 2 fragmentos textuales.",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 34256,
+      "messageIds": {
+        "user": "2cd9593d-ec4c-4460-90ee-826a8e318dc5",
+        "assistant": "31ad3d24-a0bb-470e-b95f-574f9d37bc2a"
+      },
+      "answerPreview": "Los hechos centrales involucran la delimitación de umbrales de olor, acciones en gestión de olores, efectos de la infracción y la consideración de efectos específicos en el plan de cumplimiento. Se citan aspectos normativos y técnicos relativos al análisis de olor y efectos delictivos. 1. [MENOR] El análisis de efectos tóxicos del amoníaco no reemplazó el análisis de los efectos del olor en términos de unidades de olor, que fue realizado y presentado. Recomendacion: Mantener la diferenciación y documentación de amb...",
+      "answerLength": 1188,
+      "citationsTotal": 4,
+      "citationsVerified": 4,
+      "citationsUnverifiable": 0,
+      "citationsSupported": 4,
+      "citationValidityRate": 1,
+      "noEvidenceDisclosure": false,
+      "usage": {
+        "promptTokens": 2991,
+        "completionTokens": 643,
+        "totalTokens": 3634
+      },
+      "assistantModel": "gpt-4.1-nano-2025-04-14",
+      "retrievalTrace": {
+        "id": "7c5911fe-abf2-4f2a-b3e3-94de72433c12",
+        "provider": "local",
+        "model": null,
+        "responseId": null,
+        "evidenceCount": 42,
+        "retrievalMs": 2,
+        "generationMs": 32706,
+        "totalMs": 33473,
+        "retrievalCoverageBefore": 0,
+        "retrievalCoverageAfter": 0,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": false,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 2,
+        "grounding": 2,
+        "honesty": 2,
+        "instruction": 2,
+        "coherence": 2,
+        "total": 2
+      },
+      "issues": []
+    },
+    {
+      "id": "Q3",
+      "kind": "strategy",
+      "question": "Propón hasta 3 líneas de defensa priorizadas para este caso ante SMA, indicando para cada una: riesgo y sustento documental disponible.",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 87836,
+      "messageIds": {
+        "user": "79431bcc-f295-41eb-a9c0-d61b9022d2b9",
+        "assistant": "fc97185b-3c09-4ea0-b8d3-aa0f5774d2bb"
+      },
+      "answerPreview": "Se priorizaría una línea de defensa basada en la estrategia fiscalizadora y sancionadora integral, que considere el riesgo y el comportamiento del regulado, apoyada en la propuesta de la Superintendenta del Medio Ambiente. Además, se sugiere potenciar mecanismos de cooperación a través del Sistema de Cumplimiento y las acciones de diálogo técnico y cumplimiento normativo, promoviendo una postura de adhesión activa a la normativa ambiental. 1. Estrategia fiscalizadora y sancionadora basada en riesgo y comportamiento...",
+      "answerLength": 997,
+      "citationsTotal": 5,
+      "citationsVerified": 0,
+      "citationsUnverifiable": 5,
+      "citationsSupported": 5,
+      "citationValidityRate": 1,
+      "noEvidenceDisclosure": false,
+      "usage": {
+        "promptTokens": 3320,
+        "completionTokens": 580,
+        "totalTokens": 3900
+      },
+      "assistantModel": "gpt-4.1-nano-2025-04-14",
+      "retrievalTrace": {
+        "id": "bfab143a-c65b-4d78-8c69-295e7cf71567",
+        "provider": "openai",
+        "model": "gpt-5-nano",
+        "responseId": null,
+        "evidenceCount": 48,
+        "retrievalMs": 56859,
+        "generationMs": 29760,
+        "totalMs": 86978,
+        "retrievalCoverageBefore": 0.49,
+        "retrievalCoverageAfter": 0.49,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": true,
+        "retrievalExpandedScope": true
+      },
+      "score": {
+        "relevance": 2,
+        "grounding": 2,
+        "honesty": 2,
+        "instruction": 1,
+        "coherence": 2,
+        "total": 1.8
+      },
+      "issues": [
+        "Latencia alta (>45s)"
+      ]
+    },
+    {
+      "id": "Q4",
+      "kind": "specificity",
+      "question": "¿Existen precedentes específicos de Huawei en las fuentes disponibles? Si no existen, indícalo explícitamente y sugiere qué documentación falta cargar.",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 5226,
+      "messageIds": {
+        "user": "1d58a519-66e6-4ca2-8920-762708032569",
+        "assistant": "e35cff64-6564-4f5b-b5b5-d2a42cd22471"
+      },
+      "answerPreview": "No identifico precedentes específicos de Huawei en las fuentes disponibles del workspace. Orientacion sin respaldo documental especifico: 1. Cargar sentencias/resoluciones donde la entidad figure en caratula o cuerpo principal. 2. Cargar piezas del procedimiento sancionatorio (formulacion de cargos, PDC, resolucion sancionatoria). 3. Repetir consulta al terminar indexacion para confirmar precedentes comparables.",
+      "answerLength": 416,
+      "citationsTotal": 0,
+      "citationsVerified": 0,
+      "citationsUnverifiable": 0,
+      "citationsSupported": 0,
+      "citationValidityRate": null,
+      "noEvidenceDisclosure": true,
+      "usage": {
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "totalTokens": 0
+      },
+      "assistantModel": null,
+      "retrievalTrace": {
+        "id": "7610a0d1-ad34-4920-8c0c-b59c46322863",
+        "provider": "local",
+        "model": null,
+        "responseId": null,
+        "evidenceCount": 39,
+        "retrievalMs": 4172,
+        "generationMs": 0,
+        "totalMs": 4478,
+        "retrievalCoverageBefore": 0.14305555555555557,
+        "retrievalCoverageAfter": 0.14305555555555557,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": true,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 2,
+        "grounding": 0,
+        "honesty": 2,
+        "instruction": 1,
+        "coherence": 2,
+        "total": 1.4
+      },
+      "issues": []
+    }
+  ]
+}

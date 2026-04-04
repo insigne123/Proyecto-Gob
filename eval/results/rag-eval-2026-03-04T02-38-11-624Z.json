@@ -1,0 +1,243 @@
+{
+  "timestamp": "2026-03-04T02:38:11.626Z",
+  "config": {
+    "provider": "hybrid",
+    "answerProviderRequested": "auto",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": 3,
+    "workspaceOverride": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c"
+  },
+  "summary": {
+    "totalCases": 3,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 36,
+      "snapshotHitRate": 1,
+      "chunkHitRate": null,
+      "snapshotMrr": 0.8333333333333334,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 1,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": 0.6666666666666666,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 15404.333333333334,
+        "p50": 15123,
+        "p95": 18258
+      },
+      "generation": {
+        "avg": 30002,
+        "p50": 19088,
+        "p95": 63631
+      },
+      "total": {
+        "avg": 45407.666666666664,
+        "p50": 37348,
+        "p95": 76464
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 36,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 18258,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "La resolución respectiva en la causa R-53-2021 señala que se tiene por evacuado el informe.\n\nAsimismo, indica que, al primer otrosí, téngase por acompañado el documento; al segundo otrosí, téngase presente.\n\nTambién dispone pasar los autos al relator Sr. Álvaro Funes Palacios, o quien lo reemplace, para los efectos del art. 372 N° 3 del Código Orgánico de Tribunales.",
+        "notFound": false,
+        "elapsedMs": 19088,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4205,
+          "completion_tokens": 2984,
+          "total_tokens": 7189,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2624,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 4,
+        "validCitations": 4,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 2,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 37348
+    },
+    {
+      "id": "taf-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 36,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 12832,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 0.5,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Sí, existe una sentencia asociada al Rol R N° 107-2024 en el corpus. La resolución corresponde a una sentencia cuyo fallo se expresa en fechas y resolución. \"Fecha de la sentencia: 2 de marzo de 2026\". \"Decisión: • Se rechaza en todas sus partes la reclamación.\". También se indica el sentido del fallo: \"Proyecto asociado: Operación Unidades CTA/CTH con 100% Biomasa\".\n\nLa sentencia se presenta con antecedentes y estructura. A modo de referencia, se cita: \"5) De acuerdo con lo expuesto, la presente sentencia se desarrollará bajo la estructura que se grafica a continuación: I. ANTECEDENTES DEL PROCEDIMIENTO ADMINISTRATIVO\" y se describe el marco evaluado en materia ambiental: \"vigente al momento de la evaluación ambiental, verificándose además que el proyecto se enmarca en el Plan de Descarbonización y supone una reducción de contaminantes asociados a dicho fenómeno.\"\n\nLa parte de conclusiones de la sentencia indica que las Resoluciones Exentas se ajustan a derecho en lo sustantivo, como se observa en el pasaje de conclusiones: \"III. CONCLUSIONES Octogésimo. De acuerdo con todo lo establecido en la parte considerativa de la sentencia, se concluye que las Resoluciones Exentas N°s 20240200151/2024 y 20220200198/2022, dictadas por la Comisión de Evaluación Ambiental de Antofagasta, se ajustan a derecho en lo sustantivo.\"",
+        "notFound": false,
+        "elapsedMs": 63631,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4082,
+          "completion_tokens": 7955,
+          "total_tokens": 12037,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 7168,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 5,
+        "validCitations": 5,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 76464
+    },
+    {
+      "id": "taf-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "hybrid",
+      "providerUsed": "hybrid",
+      "question": "En R-27-2019, que fojas se mencionan en el documento de desistimiento?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 36,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 15123,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "En R-27-2019, el documento de desistimiento menciona las fojas: Fojas 3692 (tres mil seiscientos noventa y dos).",
+        "notFound": false,
+        "elapsedMs": 7287,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 3835,
+          "completion_tokens": 1207,
+          "total_tokens": 5042,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1088,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 1,
+        "validCitations": 1,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 22411
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-04T02-38-11-624Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-04T02-38-11-624Z.md"
+  }
+}

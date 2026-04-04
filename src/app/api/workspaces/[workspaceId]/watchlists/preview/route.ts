@@ -28,8 +28,8 @@ function pickColumns(rows: Array<Record<string, any>>) {
 }
 
 function normalizeSampleRows(rows: Array<Record<string, any>>, columns: string[]) {
-  const visibleColumns = columns.slice(0, 16)
-  return rows.slice(0, 8).map((row) => {
+  const visibleColumns = columns.slice(0, 40)
+  return rows.slice(0, 20).map((row) => {
     const out: Record<string, any> = {}
     for (const column of visibleColumns) {
       out[column] = row?.[column] ?? null

@@ -4,6 +4,7 @@ import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 
 export async function GET(request: Request) {
+  const next = new URL(request.url).searchParams.get("next") || "/workspaces"
   const supabase = await createClient()
   const {
     data: { user },
@@ -11,17 +12,16 @@ export async function GET(request: Request) {
 
   if (!user) {
     const url = new URL("/login", request.url)
-    url.searchParams.set("next", "/workspaces")
+    url.searchParams.set("next", next)
     return NextResponse.redirect(url)
   }
 
   const clientId = process.env.MICROSOFT_CLIENT_ID
   const clientSecret = process.env.MICROSOFT_CLIENT_SECRET
   if (!clientId || !clientSecret) {
-    return NextResponse.json(
-      { error: "Missing MICROSOFT_CLIENT_ID/MICROSOFT_CLIENT_SECRET" },
-      { status: 500 }
-    )
+    const back = new URL(next, request.url)
+    back.searchParams.set("oauth_error", "microsoft_app_not_configured")
+    return NextResponse.redirect(back)
   }
 
   const origin = new URL(request.url).origin
@@ -30,7 +30,6 @@ export async function GET(request: Request) {
 
   const state = crypto.randomBytes(24).toString("base64url")
   const now = new Date().toISOString()
-  const next = new URL(request.url).searchParams.get("next") || "/workspaces"
 
   await supabase.from("gob_oauth_states").insert({
     provider: "microsoft",

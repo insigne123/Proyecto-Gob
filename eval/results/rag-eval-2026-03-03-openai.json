@@ -1,0 +1,411 @@
+{
+  "timestamp": "2026-03-03T18:05:28.904Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\golden.jsonl",
+    "maxCases": 6,
+    "workspaceOverride": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c"
+  },
+  "summary": {
+    "totalCases": 6,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 15.333333333333334,
+      "snapshotHitRate": null,
+      "chunkHitRate": null,
+      "snapshotMrr": null,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 0.5,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": null,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 3271.5,
+        "p50": 3357,
+        "p95": 3884
+      },
+      "generation": {
+        "avg": 51316.333333333336,
+        "p50": 62526,
+        "p95": 75107
+      },
+      "total": {
+        "avg": 54590,
+        "p50": 66272,
+        "p95": 78993
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "seed-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Resume los hechos principales del expediente en 5 puntos maximo",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3739,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Resumen del proyecto Delirio Modificado y su estatus ambiental: el proyecto “Modificación Proyecto Delirio” ingresó al SEIA mediante una DIA (6 de enero de 2020), tiene como objeto dar continuidad operacional a la faena minera El Delirio, extendiendo su vida útil de 5 a 8 años, se ubica en la Región de Atacama (Chañaral, Diego de Almagro) y fue calificado ambientalmente favorable con RCA 06/2021.",
+        "notFound": false,
+        "elapsedMs": 62526,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4876,
+          "completion_tokens": 9052,
+          "total_tokens": 13928,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 8576,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 4,
+        "validCitations": 4,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 66272
+    },
+    {
+      "id": "seed-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Compara los cambios entre versiones del documento sobre calidad de aire",
+      "mode": "comparison",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 16,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 16,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3357,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Entre las versiones, se observa un cambio de alcance en la modelación de calidad del aire: la evidencia 3 señala que 'En este Anexo V.1 se actualiza el alcance y dominio de la modelación meteorológica y del área de la modelación de contaminantes atmosféricos.' Además, 'se identifican las localidades cercanas, las estaciones de monitoreo y se establecen las zonas y direcciones de viento con respecto a los receptores'.\n\nEn paralelo, hay cambios a nivel metodológico y de guías: la evidencia 4 indica que se presentó el Informe de Modelación de Calidad de Aire (anexo C2-3 de la DIA y actualizado en el anexo AD-I.7 de la Adenda) 'junto con los alcances metodológicos y directrices especificadas en la aludida “Guía para el uso de modelos de calidad del aire en el SEIA” (2012).' Además, 'La calidad del aire medida corresponde a los registros obtenidos de estaciones monitoras emplazadas en el área de influencia del proyecto en evaluación'.",
+        "notFound": false,
+        "elapsedMs": 55345,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 6707,
+          "completion_tokens": 9491,
+          "total_tokens": 16198,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 8704,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 4,
+        "validCitations": 4,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 58703
+    },
+    {
+      "id": "seed-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Haz un checklist de obligaciones detectables en las fuentes",
+      "mode": "checklist",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 20,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 20,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3884,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "- [ ] Controles de luminarias para administrar el tiempo de encendido, la intensidad y el color de la luz (ámbar); ubicar luminarias cerca del suelo con haz de luz apantallado y dirigido para evitar derrames de luz; realizar mantenciones en exteriores en horario diurno; minimizar la emisión de luz desde el interior de las instalaciones cerradas utilizando cortinas, persianas y pantallas; plan de monitoreo y seguimiento de la avifauna; programa de rescate para el salvataje de todo ejemplar que pudiera ser afectado.\n\n- [ ] Área de protección de 150 metros alrededor del islote con prohibición de navegación de embarcaciones del titular; difusión con señalética y trípticos de información de fauna y restricciones.\n\n- [ ] Compromisos voluntarios y adopción de estándares internacionales para mitigación: GMP y medidas referidas a avifauna (efecto atrayente de la luz), conforme a lo indicado: 'Así también, en el caso del efecto atrayente de la luz sobre la avifauna, en que dio cuenta de las medidas de diseño que implementará, así como otros compromisos voluntarios con el propósito de minimizar dicho efecto.'",
+        "notFound": false,
+        "elapsedMs": 75107,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 7385,
+          "completion_tokens": 12609,
+          "total_tokens": 19994,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 11584,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 8,
+        "validCitations": 8,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 78993
+    },
+    {
+      "id": "seed-004",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Redacta una propuesta de resolucion basada solo en evidencia citada",
+      "mode": "resolution",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3327,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Propuesta de resolución: Se propone declarar que las medidas de compensación y reparación propuestas por el titular del Proyecto Dominga no cumplen con la Guía para la Compensación de Biodiversidad ni con la normativa ambiental vigente, y que deben ser sustituidas o suplementadas por medidas con evidencia suficiente.\n\nEn el caso del chungungo (Lontra felina), el proyecto Dominga generará un impacto significativo en su hábitat, afectando su movilidad y reproducción. Como medida de reparación, el titular propuso la instalación de refugios artificiales, sin aportar evidencia científica que respalde su efectividad ni justificar su idoneidad en relación con la afectación real del ecosistema.\n\nAdemás, de acuerdo con la Ley Nº19.300, las medidas de reparación y/o restauración deben reponer uno o más elementos del medio ambiente a una calidad similar a la que tenían con anterioridad al daño, o, en su defecto, restablecer sus propiedades esenciales.\n\nFinalmente, se propone que el tribunal exija revisión de las áreas de exclusión y garantice la idoneidad de las medidas de compensación mediante evidencia científica y planes de restauración; de no ser suficiente, se deberá reconsiderar el rechazo del proyecto.",
+        "notFound": false,
+        "elapsedMs": 68324,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4735,
+          "completion_tokens": 12027,
+          "total_tokens": 16762,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 11008,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 5,
+        "validCitations": 5,
+        "citationValidityRate": 1,
+        "expectNotFound": null,
+        "notFoundMatch": null,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 71653
+    },
+    {
+      "id": "seed-005",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "¿Existe evidencia sobre monitoreo de ruido nocturno en domingo?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 20,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 3128,
+        "warnings": [
+          "Expanded context for retry: 20 chunks (was 12).",
+          "Retry kept notFound despite available evidence."
+        ],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 39355,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4911,
+          "completion_tokens": 2929,
+          "total_tokens": 7840,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2880,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": false,
+        "notFoundMatch": false,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 42484
+    },
+    {
+      "id": "seed-006",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "¿Las fuentes mencionan un proyecto llamado 'Proyecto Fantasma XYZ 2035'?",
+      "mode": "extractive",
+      "filters": null,
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": null,
+        "model": "gpt-5-nano",
+        "elapsedMs": 2194,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No se encuentra en las fuentes disponibles.",
+        "notFound": true,
+        "elapsedMs": 7241,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4351,
+          "completion_tokens": 1007,
+          "total_tokens": 5358,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 960,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 0,
+        "validCitations": 0,
+        "citationValidityRate": null,
+        "expectNotFound": true,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 9435
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03-openai.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03-openai.md"
+  }
+}

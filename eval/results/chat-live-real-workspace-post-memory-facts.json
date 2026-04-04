@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 49919,
+    "avgCitations": 2.33,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "partial": 4,
+      "strong": 2
+    },
+    "totalTokens": 33697
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6746,
+      "elapsedMs": 35134,
+      "preview": "Criterio util para la defensa del SEA: priorizar criterios tecnicos y de evaluacion ambiental que aparezcan en informes y documentos evacuados, y usar esos criterios como base de la respuesta.\n\nLa evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nEn R-118-2025, - [ ] Incluir antecedentes de sentencias que reafirmen límites de aplicación de precedentes, por ejemplo R-95-2023 y R-44-2021, para contrastar actos administrativos y el control judicial sobre el SEA.\n\n- [ ] Mantener foco en informes y sentencias SEA: Evacúas y resoluciones por parte del SEA para sustentar defensa, usando reclamaciones únicamente como contexto cuando sea necesario.",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4807,
+      "elapsedMs": 19959,
+      "preview": "La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nEn el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5523,
+      "elapsedMs": 149948,
+      "preview": "La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nEl uso incorrecto de sentencias o precedentes favorables puede llevar a errores de interpretación, riesgos de aplicar decisiones en contextos distintos y vulnerar principios del sistema legal ambiental chileno, aunque no hay evidencia específica en las sentencias disponibles.\n\n1. La utilización no adecuada puede derivar en la interpretación rígida o formalista del procedimiento, lo cual va en contra del espíritu del sistema regulatorio ambiental, según se expone en: \"desconocer la procedencia de un instrumento como el PdC en función de una lectura rígida o formalista del procedimiento sancionatorio\".\n\n2. El uso inadecuado podría también vulnerar principios de coherencia y finalidad en la estrategia de defensa, ya que los precedentes deben entenderse en su contexto legal y fáctico, no de modo aisla",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6115,
+      "elapsedMs": 30491,
+      "preview": "En R-118-2025, El marco teórico mencionado en el informe destaca que los criterios del SEA para el análisis del concepto en la evaluación ambiental consideran tanto el espacio geográfico como sus componentes, incluyendo el componente Medio Humano, en particular la dimensión socioeconómica y actividades productivas dependientes de recursos naturales. Además, establece que estos criterios buscan delimitar y definir el ámbito de análisis y asegurar que la evaluación considere todos los elementos relevantes, como se indica: \"el espacio geográfico debe entenderse no solo como el espacio terrestre, sino que, dependiendo del elemento analizado receptor del impacto, este espacio puede ser aéreo y/o acuático\" (chunkId=8e5c1909-bf9a-4a95-94ce-23d1e6b185d0).\n\nAsimismo, el marco teórico indica que en procedimientos de reclamación judicial, los Tribunales Ambientales tienen competencia limitada a las",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5161,
+      "elapsedMs": 32224,
+      "preview": "Lineas de defensa prioritarias:\n1. En R-118-2025, La primera línea de defensa prioriza el análisis del informe evacuado por el Servicio de Evaluación Ambiental (SEA) y la sentencia que admite y fundamenta dicho informe, acompañando documentos pertinentes.\n2. Estas piezas, al contener criterios técnicos y decisiones administrativas, deben ser consideradas antes que las reclamaciones y permiten fundamentar técnica y jurídicamente la defensa, de acuerdo con la normativa sectorial y con la idea de que los informes del SEA no son vinculantes de forma absoluta, pero sí ofrecen marco técnico reproducible.",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5345,
+      "elapsedMs": 31757,
+      "preview": "En R-118-2025, El precedente del sistema jurídico basado en la interpretación uniforme de la misma regla, como se explica en los documentos de reclamación, señala que \"el sistema jurídico basado en el precedente administrativo -esto es, la interpretación uniforme de una misma regla-, permite que la actuación administrativa gane en previsibilidad, esto es, afirma la legítima expectativa que tienen los ciudadanos de que la Administración tome decisiones que sean armónicas con los criterios manifestados con anterioridad ante situaciones equival\" (chunkId=d17f4037-006a-4f34-acab-5d76c441cc9c). Este criterio resulta útil para mantener decisiones consistentes de la autoridad administrativa, promoviendo estabilidad y homogeneidad en su actuar.\n\nPor otra parte, en la reclamación se hace referencia a que \"el principio de igualdad o interdicción de la arbitrariedad consagrado en ese precepto exige",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

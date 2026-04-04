@@ -1,0 +1,160 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 41008,
+    "avgCitations": 1.33,
+    "mustIncludeAllMatchedRate": 0.8333,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "weak": 1,
+      "none": 2,
+      "partial": 2,
+      "strong": 1
+    },
+    "totalTokens": 31854
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6091,
+      "elapsedMs": 29295,
+      "preview": "La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nRevised: Tomar como base de contextualización el marco normativo y precedentes que establecen que los informes emitidos por OAECAs no son vinculantes para el SEA, y que el rol del SEA como administrador está limitado a materias de su competencia sectorial. Este fundamento respalda, para la defensa del SEA, priorizar evidencia de criterios y resoluciones emitidas por el SEA sobre escritos de parte. En particular, priorizar los documentos del SEA y sentencias que delimitan el uso de precedentes y la evaluación de competencias, antes que las reclamaciones iniciadas, siempre que la evidencia lo permita.",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 0,
+      "supportStrength": "none",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5958,
+      "elapsedMs": 20541,
+      "preview": "En el marco teorico, la reclamacion debe usarse como contexto, no como prueba principal.",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 0,
+      "supportStrength": "none",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5019,
+      "elapsedMs": 128822,
+      "preview": "La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nRiesgo principal: Riesgo de citar antecedentes no estrictamente comparable en hechos o normativa si no hay similitud suficiente.\n\nNo se encuentra en las fuentes disponibles.",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5967,
+      "elapsedMs": 22516,
+      "preview": "- [ ] El marco teórico, como criterio útil para defensa del SEA, se apoya en criterios de evaluación y en guías del SEIA que señalan que el “espacio geográfico” puede ser aéreo y/o acuático y que interactúan distintos componentes con el medio ambiente (incluido el componente Medio Humano y la dimensión socioeconómica). Esto se observa en las referencias que describen criterios de análisis ambiental y atributos para la evaluación (punto 2: espacio geográfico, punto 3: componentes e atributos como la dimensión socioeconómica). \"el “espacio geográfico” debe entenderse no solo como el espacio terrestre, sino que, dependiendo del elemento analizado receptor del impacto, este espacio puede ser aéreo y/o acuático\"; y \"los atributos a considerar respecto de este componente... comprensión de la dimensión socioeconómica\".\n\n- [ ] Los antecedentes de participación ciudadana y la consideración de obs",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 4,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4318,
+      "elapsedMs": 22426,
+      "preview": "El orden recomendable para construir un informe evacuado a partir del marco teórico es comenzar priorizando el análisis de los informes, seguido de las sentencias pertinentes. En este contexto, el informe R-44-2021 y la sentencia R-95-2023 deben ser considerados primero, ya que aportan a los criterios de decisión y análisis de antecedentes, además de ofrecer referencias jurisprudenciales relevantes que permiten comprender la interpretación y aplicación de las normativas ambientales. Esto se justifica por la cobertura documental, que prioriza informes y sentencias sobre reclamaciones, dado que estos contienen las fundamentaciones legales y técnicas necesarias para la defensa. Además, en el informe R-44-2021 se establece que “el artículo 78 del RSEIA... podrán presentar recurso de reclamación de conformidad a lo señalado en el artículo 20 de la Ley”, mostrando la relevancia de estos docume",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4501,
+      "elapsedMs": 22449,
+      "preview": "El precedente que parece más útil para mantener criterios consistentes del SEA es aquel basado en el sistema jurídico de precedentes administrativos. Este enfoque se funda en el deber de la administración de garantizar trato igualitario y uniforme, con ello se busca previsibilidad y cohesión en las decisiones, lo cual facilita decisiones armónicas con criterios previamente expresados y refuerza la confianza en la actuación administrativa. En el marco de la defensa ambiental se puede apoyar en sentencias y resoluciones que consoliden criterios de decisión y estándares de análisis, siempre contextualizando los hechos del escrito inicial como soporte contextual y no como prueba principal.",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

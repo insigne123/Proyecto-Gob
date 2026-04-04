@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 54329,
+    "avgCitations": 2.5,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "weak": 1,
+      "unknown": 1,
+      "strong": 2
+    },
+    "totalTokens": 20536
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6067,
+      "elapsedMs": 36687,
+      "preview": "La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\n- [ ] Considerar que los informes de OAECAs no son vinculantes para el SEA, tal como se discute en la Sentencia R-44-2021, para fundamentar situaciones de autoridad y alcance de informes sectoriales.\n\n- [ ] Incorporar el análisis sobre la extensión y la vinculatoriedad de los informes de OAECAs según el RSEIA, citando las secciones pertinentes para explicar que no son vinculantes para el SEA, como se explica en la sentencia R-37-2020 y el informe de Playa Verde R-44-2021.",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": null,
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5633,
+      "elapsedMs": 61845,
+      "preview": "Los criterios defensivos del SEA que aparecen en los antecedentes incluyen el análisis del espacio geográfico, la correcta determinación del área de influencia y la información relevante y esencial para la evaluación, los cuales ayudan a sostener la evaluación ambiental al asegurar que la consideración del impacto sea adecuada y basada en un análisis completo y preciso.\n\n1. El criterio N° 2 de la Guía del SEA establece que el “espacio geográfico” debe entenderse no solo como el espacio terrestre, sino también aérea y acuático, dependiendo de la interacción con el impacto.\n\n2. El análisis del área de influencia, que fue determinado conforme a la normativa y Guía del SEA, descarta afectación directa a comunidades reclamantes, fortaleciendo la validez de la evaluación ambiental.",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 0,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 3673,
+      "elapsedMs": 14579,
+      "preview": "En el marco teorico, la reclamacion debe usarse como contexto, no como prueba principal.",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 6,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-mini-2025-08-07",
+      "totalTokens": 5163,
+      "elapsedMs": 104204,
+      "preview": "- [ ] Riesgo de que antecedentes sin rigor científico sean valorados como pruebas concluyentes, porque “no son antecedentes con un rigor científico ni el uso de una metodología validada” (chunkId=file-3gMubLfqcxXogVL7gy8hLQ:2).\n\n- [ ] Riesgo procesal por errores procedimentales sustanciales en la formulación de cargos que afectan la legalidad del procedimiento: “N°2 confirma y consolida un error procedimental de carácter sustancial cometido por la SMA desde la etapa inicial del procedimiento sancionatorio, en particular al momento de la formulación de cargos” (chunkId=file-XE9RBfnYSxSNFKWYoW5kiV:2).\n\n- [ ] Riesgo de que la autoridad omita correcciones solicitadas y se mantenga un acto reclamado ilegal por efecto práctico: “sin que ello haya sido debidamente atendido por la autoridad administrativa” (chunkId=file-XE9RBfnYSxSNFKWYoW5kiV:2).\n\n- [ ] Riesgo de perjuicio efectivo al regulado c",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

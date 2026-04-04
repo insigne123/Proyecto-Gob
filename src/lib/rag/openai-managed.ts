@@ -1,4 +1,6 @@
 import { getRagProvider } from "@/lib/env"
+import { resolveOpenAIRagModel } from "@/lib/openai-models"
+import { inferDefenseDocumentRole } from "@/lib/tribunal/defense-document-policy"
 
 type ScalarAttr = string | number | boolean
 
@@ -72,7 +74,7 @@ function openAIBaseUrl() {
 }
 
 function ragModel() {
-  return String(process.env.OPENAI_RAG_MODEL || "gpt-4o-mini").trim()
+  return resolveOpenAIRagModel()
 }
 
 function indexFilePurpose() {
@@ -92,6 +94,39 @@ function toFiniteNumber(value: unknown): number | null {
     if (Number.isFinite(n)) return n
   }
   return null
+}
+
+function envBool(name: string, fallback = false) {
+  const raw = String(process.env[name] || "")
+    .trim()
+    .toLowerCase()
+  if (!raw) return fallback
+  if (raw === "1" || raw === "true" || raw === "yes" || raw === "on") return true
+  if (raw === "0" || raw === "false" || raw === "no" || raw === "off") return false
+  return fallback
+}
+
+function envNumber(name: string): number | null {
+  const raw = String(process.env[name] || "").trim()
+  if (!raw) return null
+  const n = Number(raw)
+  if (!Number.isFinite(n)) return null
+  return n
+}
+
+function hybridSearchWeights() {
+  const embeddingWeight = envNumber("OPENAI_FILE_SEARCH_EMBEDDING_WEIGHT")
+  const textWeight = envNumber("OPENAI_FILE_SEARCH_TEXT_WEIGHT")
+  if (embeddingWeight === null && textWeight === null) return null
+
+  const normalizedEmbedding = Math.max(0, Math.min(1, Number(embeddingWeight ?? 0)))
+  const normalizedText = Math.max(0, Math.min(1, Number(textWeight ?? 0)))
+  if (normalizedEmbedding === 0 && normalizedText === 0) return null
+
+  return {
+    embedding_weight: normalizedEmbedding,
+    text_weight: normalizedText,
+  }
 }
 
 function toArray(values: unknown): string[] {
@@ -301,14 +336,22 @@ async function searchVectorStoreFallback(params: {
   maxResults: number
   scoreThreshold: number
 }) {
+  const hybridWeights = hybridSearchWeights()
+
   const body: any = {
     query: params.query,
     max_num_results: params.maxResults,
+    rewrite_query: envBool("OPENAI_FILE_SEARCH_REWRITE_QUERY", true),
     ranking_options: {
       ranker: process.env.OPENAI_FILE_SEARCH_RANKER || "auto",
       score_threshold: params.scoreThreshold,
     },
   }
+
+  if (hybridWeights) {
+    body.ranking_options.hybrid_search = hybridWeights
+  }
+
   if (params.filters) {
     body.filters = params.filters
   }
@@ -563,6 +606,7 @@ export async function searchKnowledgeBaseWithFileSearch(params: {
   const maxResults = Math.max(1, Math.min(50, Number(params.maxResults || 12)))
   const scoreThreshold = Math.max(0, Math.min(1, Number(params.scoreThreshold ?? 0.15)))
   const attributeFilter = buildAttributeFilter(params.filters)
+  const hybridWeights = hybridSearchWeights()
 
   const tool: any = {
     type: "file_search",
@@ -573,6 +617,11 @@ export async function searchKnowledgeBaseWithFileSearch(params: {
       score_threshold: scoreThreshold,
     },
   }
+
+  if (hybridWeights) {
+    tool.ranking_options.hybrid_search = hybridWeights
+  }
+
   if (attributeFilter) {
     tool.filters = attributeFilter
   }
@@ -725,7 +774,7 @@ export async function mapResultsToEvidence(params: {
       const { data: sources, error: srcErr } = await supabase
         .from("gob_sources")
         .select(
-          "id,url,title,filename,doc_type,year,region,sector,project_name,source_origin,language"
+          "id,url,title,filename,doc_type,year,region,sector,project_name,source_origin,language,attributes"
         )
         .in("id", sourceIds)
       if (srcErr) throw new Error(srcErr.message)
@@ -743,14 +792,25 @@ export async function mapResultsToEvidence(params: {
   const evidence = results.map((r, idx) => {
     const snapshot = r.fileId ? snapshotsByFile.get(r.fileId) : null
     const source = snapshot?.source_id ? sourcesById.get(String(snapshot.source_id)) : null
-    const attrs = r.attributes || {}
+    const sourceAttrs = source?.attributes && typeof source.attributes === "object" ? source.attributes : {}
+    const attrs = r.attributes && typeof r.attributes === "object" ? { ...sourceAttrs, ...r.attributes } : sourceAttrs
 
     const page = toFiniteNumber(attrs.page)
-    const section = sanitizeText(attrs.section, 200) || sanitizeText(attrs.doc_type, 120) || null
+    const documentType = sanitizeText((source as any)?.doc_type, 120) || sanitizeText(attrs.doc_type, 120) || null
+    const documentTitle =
+      sanitizeText((source as any)?.title, 240) || sanitizeText(r.filename, 240) || null
+    const section = sanitizeText(attrs.section, 200) || documentType || null
     const sourceUrl =
       sanitizeText((source as any)?.url, 1000) || sanitizeText(attrs.source_url, 1000) || null
     const snapshotId =
       sanitizeText(snapshot?.id, 80) || sanitizeText(attrs.snapshot_id, 80) || null
+    const docRole = inferDefenseDocumentRole({
+      docRole: attrs?.doc_role ? String(attrs.doc_role) : null,
+      documentType,
+      name: documentTitle,
+      title: documentType,
+      section,
+    })
 
     return {
       chunkId: r.id || `openai:${idx}`,
@@ -759,6 +819,9 @@ export async function mapResultsToEvidence(params: {
       snapshotId,
       page: page !== null ? Math.floor(page) : null,
       section,
+      docRole,
+      documentType,
+      documentTitle,
       _meta: {
         openai_file_id: r.fileId,
         openai_filename: r.filename,

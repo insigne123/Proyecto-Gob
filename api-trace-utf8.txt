@@ -1,0 +1,59 @@
+﻿API: GET https://www.portaljudicial1ta.cl/sgc-web/ver-causa.html?rol=R-149-2026
+API: GET https://www.portaljudicial1ta.cl/sgc-web/common/header-ver-causa.js?v=1.0.4
+API: GET https://www.portaljudicial1ta.cl/sgc-web/ver-causa.js?v=1.0.18
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/carga-datos-causa?rolCausa=R-149-2026
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-relatores
+{"response":"{\"caratulaCausa\":\"Ilustre Municipalidad de Caldera  con Servicio de Evaluaci├│n Ambiental \",\"codComuna\":\"22\",\"codMateria\":\"4\",\"codProvincia\":\"8\",\"codRegion\":\"3\",\"codTi
+{"response":"[{\"clave\":\"0a832824-1a16-4684-a04d-4f19a7d95c1d\",\"valor\":\"Alvaro Funes Palacios\"},{\"clave\":\"612d2b2a-b286-4cc3-b885-2a940f95eaa6\",\"valor\":\"Marcela Godoy Flores\"},{\"clave\
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-redactores
+{"response":"[{\"clave\":\"34a80de9-5dee-4ae2-a69b-ed84e26f5bf3\",\"valor\":\"Cristian Delpiano Lira\"},{\"clave\":\"49e646eb-c99c-432d-847a-ef5f4dc76cc8\",\"valor\":\"Dinko Franulic Cetinic\"},{\"cla
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-asesores-cientificos
+{"response":"[{\"clave\":\"c17ef6b7-3ea0-4eec-99c7-bacc82d3ec76\",\"valor\":\"Cecilia Aqueveque Gonz├ílez\"},{\"clave\":\"105b2a1d-9198-4c3d-a791-5fecb523a45d\",\"valor\":\"Ricardo Ortiz Arellano\"},{\
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-audiencias-causa?rolCausa=R-149-2026
+{"response":"[]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/administracion/modal-datos-usuario?token=unknown
+{"response":"{}","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-estado-final-causa?rol=R-149-2026
+{"response":"{\"clave\":\"2\"}","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ingreso-causa/lista-roles-juridicos?idTipoCausa=0&perfil=Oficial
+{"response":"[{\"clave\":\"1\",\"valor\":\"Demandante\"},{\"clave\":\"2\",\"valor\":\"Abogado Demandante\"},{\"clave\":\"3\",\"valor\":\"Demandado\"},{\"clave\":\"4\",\"valor\":\"Abogado Demandado\"},
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-cuadernos-causa?idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"[{\"clave\":\"503\",\"valor\":\"Cuaderno Principal\"}]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-ministros-causa?idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"[]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-documento-audiencias?causa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"[]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-documento-salida-terreno?causa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-salida-terreno?causa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"[]","status":"200"}
+{"response":"[]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-estados-causa?idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab&idCuaderno=null
+{"message":"false (2026-02-20T12:53:51.412066)","response":"[{\"fechaEstado\":\"27/01/2026\",\"tipoEstadoCausa\":\"Ingresada\",\"totalEstados\":\"2\"},{\"documentoEstadoCausa\":\"Oficio remitido 12/02
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-tipo-documento
+{"response":"[{\"clave\":\"1\",\"valor\":\"Escritos\"},{\"clave\":\"2\",\"valor\":\"Certificaciones\"},{\"clave\":\"3\",\"valor\":\"Resoluciones\"},{\"clave\":\"4\",\"valor\":\"Actuaciones\"},{\"clave
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/mostar-causas-padre?idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-participantes?causa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"{}","status":"200"}
+{"response":"[{\"clave\":\"1\",\"valor\":\"6d136696-337d-4c22-b758-e46fb5fce2db\"},{\"clave\":\"6\",\"valor\":\"2c412375-1db7-4b84-9b5d-77acbdbb25f5\"}]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-causas-acumuladas?idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"[]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-audiencias-causa?rolCausa=R-149-2026
+{"response":"[]","status":"200"}
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-asiento-cuaderno?idCuaderno=503&tipoDocumento=all&idUsuario=&rolUsuario=
+{"response":"[{\"codAsiento\":\"13664\",\"codDocumento\":\"13548\",\"codTipoDocumento\":\"3\",\"creadorAsiento\":\"213cfe40-bd7c-44dc-bc10-830f2a3877dd\",\"creadorCausa\":\"cfec4e71-2459-43a4-822c-5f2
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-ministros-con-inactivos?idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+{"response":"[{\"clave\":\"08a474f0-24a2-45a1-853c-3df952f7aa06\",\"valor\":\"Sandra ├ülvarez Torres\"},{\"clave\":\"a2ec85fd-976b-4c49-b736-fef54eb40929\",\"valor\":\"Fabrizio Queirolo Pellerano\"},{\
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-causas-padre?rolCausa=R-149-2026
+{"response":"[{\"caratulaCausa\":\"Rogelio Caut├¡n Capetillo con Comunidad de Aguas El Tambo de Mami├▒a y otros\",\"data\":0,\"idCausa\":\"6220df98-abb7-4cf9-b8e8-843ec25cb659\",\"rolCausa\":\"D-1-2017\
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-tipo-antecedentes-complementarios?tipoCausa=2&idCausa=86c8d196-8d51-44fe-8c9e-b614ee479aab
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-documento-asiento?token=&asiento=13664
+{"response":"[{\"codDocumento\":\"13548\",\"creadorAsiento\":\"213cfe40-bd7c-44dc-bc10-830f2a3877dd\",\"creadorCausa\":\"cfec4e71-2459-43a4-822c-5f22170312fb\",\"estadoCustodia\":\"0\",\"fechaDocument
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-documentos-resueltos?idDocumento=13548
+{"response":"[{\"fechaHijo\":\"17/02/2026\",\"fechaPadre\":\"18/02/2026\",\"idHijo\":\"13532\",\"idPadre\":\"13548\",\"nombreHijo\":\"Evac├║a informe\",\"nombrePadre\":\"Resoluciones\"}]","status":"200
+{"response":"[{\"codAntecedenteComplementario\":\"1\",\"listaAntecedenteComplementario\":\"\",\"tipoAntecedenteComplementario\":\"texto\",\"txtDescripcionAntecedenteComplementario\":\"Caso\"},{\"codAn
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-notificaciones-asiento?asiento=13664
+{"response":"[{\"emailNotificado\":\"benjamin.gonzalez@sea.gob.cl\",\"fechaNotificacion\":\"18/02/2026\",\"idNotificacion\":\"61637\",\"nombreNotificado\":\"Benjam├¡n Gonz├ílez\",\"perfil\":\"8\",\"rol\
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/servlet/viewer-file?file=/data/sgc/documentos/R-149-2026/f6ef6bcd-2a05-4460-86fe-84468382428b_foleado.pdf&embedded=true
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/ver-causa/lista-patrocinadores-asiento?token=&asiento=13664
+{"response":"{\"creador\":{\"apellido\":\"Aguilera Pinto\",\"clave\":\"8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92\",\"direccion\":\"- \",\"email\":\"rodolfo.aguilera@1ta.cl\",\"e
+API: GET https://www.portaljudicial1ta.cl/sgc-ws/rest/servlet/viewer-file?file=/data/sgc/documentos/R-149-2026/f6ef6bcd-2a05-4460-86fe-84468382428b_foleado.pdf&embedded=true

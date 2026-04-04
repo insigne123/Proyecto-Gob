@@ -66,7 +66,7 @@ export function TestimonialsSection() {
                                 <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                             ))}
                         </div>
-                        <p className="text-accent-foreground/80 mb-6 flex-grow">"{testimonial.quote}"</p>
+                        <p className="text-accent-foreground/80 mb-6 flex-grow">{"\""}{testimonial.quote}{"\""}</p>
                         <div className="flex items-center gap-4">
                            {avatarImage && (
                               <Avatar>

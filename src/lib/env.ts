@@ -13,6 +13,7 @@ function has(name: string) {
 
 export type RagProvider = "local" | "openai" | "hybrid"
 export type RagAnswerProvider = "google" | "openai" | "auto"
+export type LocalEmbeddingProvider = "openai" | "google"
 
 function mustHaveOneOf(names: string[], label: string) {
   if (names.some((n) => has(n))) return
@@ -78,6 +79,18 @@ export function getRagAnswerProvider(): RagAnswerProvider {
   return "google"
 }
 
+export function getLocalEmbeddingProvider(): LocalEmbeddingProvider {
+  const raw = String(process.env.LOCAL_EMBEDDING_PROVIDER || "")
+    .trim()
+    .toLowerCase()
+
+  if (raw === "openai" || raw === "google") {
+    return raw
+  }
+
+  return has("OPENAI_API_KEY") ? "openai" : "google"
+}
+
 export function resolveRagAnswerProvider(): "google" | "openai" {
   const p = getRagAnswerProvider()
   if (p === "google" || p === "openai") return p
@@ -87,11 +100,16 @@ export function resolveRagAnswerProvider(): "google" | "openai" {
 function validateProviderEnv() {
   const ragProvider = getRagProvider()
   const answerProvider = resolveRagAnswerProvider()
+  const embeddingProvider = getLocalEmbeddingProvider()
 
   const needsGoogle =
-    ragProvider === "local" || ragProvider === "hybrid" || answerProvider === "google"
+    answerProvider === "google" ||
+    ((ragProvider === "local" || ragProvider === "hybrid") && embeddingProvider === "google")
   const needsOpenAI =
-    ragProvider === "openai" || ragProvider === "hybrid" || answerProvider === "openai"
+    ragProvider === "openai" ||
+    ragProvider === "hybrid" ||
+    answerProvider === "openai" ||
+    ((ragProvider === "local" || ragProvider === "hybrid") && embeddingProvider === "openai")
 
   if (needsGoogle) {
     mustHaveOneOf(
@@ -142,16 +160,22 @@ export function envHealth() {
     }
   })()
 
+  const smtpConfigured = has("SMTP_HOST") && has("SMTP_USER") && has("SMTP_PASS")
+  const resendConfigured = has("RESEND_API_KEY") && has("RESEND_FROM")
+
   return {
     ragProvider: getRagProvider(),
     ragAnswerProvider: resolveRagAnswerProvider(),
+    localEmbeddingProvider: getLocalEmbeddingProvider(),
     supabaseUrl: has("SUPABASE_URL") || has("NEXT_PUBLIC_SUPABASE_URL"),
     supabaseAnonKey: has("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
     supabaseServiceRoleKey: has("SUPABASE_SERVICE_ROLE_KEY"),
     googleApiKey: has("GEMINI_API_KEY") || has("GOOGLE_API_KEY") || has("GOOGLE_GENAI_API_KEY"),
     openaiApiKey: has("OPENAI_API_KEY"),
     encryptionKeys,
-    smtp: has("SMTP_HOST") && has("SMTP_USER") && has("SMTP_PASS"),
+    smtp: smtpConfigured,
+    resend: resendConfigured,
+    emailProviderConfigured: smtpConfigured || resendConfigured,
     appPublicUrl: has("APP_PUBLIC_URL"),
   }
 }

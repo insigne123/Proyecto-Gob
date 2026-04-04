@@ -1,0 +1,109 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 28461,
+    "avgCitations": 1.75,
+    "mustIncludeAllMatchedRate": 0.25,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "weak": 1,
+      "unknown": 1,
+      "partial": 2
+    },
+    "totalTokens": 19343
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5400,
+      "elapsedMs": 29587,
+      "preview": "La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\n- [ ] Priorizar documentos que definan la procedencia y alcance de la evaluación ambiental y la inclusión de pueblos indígenas, tal como se señala que el PCI debe hacerse cuando el proyecto genera riesgo para pueblos indígenas y que el RSEIA regula el proceso, incluyendo el artículo 27 y el marco normativo para el PCI.\n\n- [ ] Reconocer las limitaciones de información en la evaluación ambiental al no verificar todas las fuentes de olor, tal como se menciona en la discusión sobre la Planta Estabilizadora y transporte de guano, para indicar dónde no hay respaldo documental directo.",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": null,
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5147,
+      "elapsedMs": 41405,
+      "preview": "Los criterios defensivos del SEA destacados en los antecedentes incluyen la correcta delimitación del espacio geográfico, la evaluación basada en la normativa y guías aplicables, la consideración del procedimiento de consulta indígena, y la justificación del término anticipado del proceso de evaluación por falta de información relevante. Estos criterios ayudan a sostener la evaluación ambiental asegurando que el análisis se centre en los impactos relevantes y en la legalidad del proceso.\n\n1. La delimitación del espacio geográfico y la interacción con los componentes del medio ambiente se consideran en la evaluación, conforme a la guía del SEA.\n\n2. La correcta determinación del área de influencia y la inexistencia de afectación directa que requiera procedimiento de consulta indígena refuerza la legalidad del proceso.",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 3497,
+      "elapsedMs": 24461,
+      "preview": "Además, los tribunales ambientales no están facultados para sustituir la decisión de la administración, sino solo para declarar la ilegalidad del acto, en caso de incumplimiento normativo, pudiendo anularlo total o parcialmente. Esto refuerza que la reclamación no se utiliza como prueba principal, sino como un medio de control y revisión del acto contestado, con un enfoque en la legalidad y la legalidad del procedimiento, tal como indica EVIDENCE 6, \"que los Tribunales Ambientales no deben ni pueden llegar a la sustitución de la decisión de la Administración, sino que solo se podrían limitar a anular, total o parcialmente, el acto reclamado\".",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5299,
+      "elapsedMs": 18392,
+      "preview": "- [ ] Riesgos de depender de la valoración de la influencia de impactos sin un análisis completo de las condiciones del procedimiento, ya que la sentencia R-95-2023 señala que la cosa juzgada puede afectar decisiones y requerir interpretación de efectos en procedimientos posteriores (no obstante, estas consideraciones deben hacerse con cuidado para evitar invadir competencias técnicas).\n\n- [ ] Riesgo de sesgo por usar antecedentes que no se corresponden con el objeto evaluado (ej. temas de ruido y otros) cuando no hay relación directa con la causa, lo que podría generar una defensa menos sólida ante el tribunal.",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

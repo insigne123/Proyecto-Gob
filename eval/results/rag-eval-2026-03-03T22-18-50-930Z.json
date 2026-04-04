@@ -1,0 +1,183 @@
+{
+  "timestamp": "2026-03-03T22:18:50.932Z",
+  "config": {
+    "provider": "local",
+    "answerProviderRequested": "auto",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": 2,
+    "workspaceOverride": null
+  },
+  "summary": {
+    "totalCases": 2,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 36.5,
+      "snapshotHitRate": 1,
+      "chunkHitRate": null,
+      "snapshotMrr": 0.75,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 1,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": 0.5,
+      "mustNotIncludePassRate": null
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 4953,
+        "p50": 5579,
+        "p95": 5579
+      },
+      "generation": {
+        "avg": 47429,
+        "p50": 76206,
+        "p95": 76206
+      },
+      "total": {
+        "avg": 52384.5,
+        "p50": 81787,
+        "p95": 81787
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 30,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 4327,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "En la causa R-53-2021, la resolución respecto del informe principal es que se tenga por evacuado el informe.\n\nPosteriormente, en actos subsiguientes, se evacuó el informe de la reclamada y el Tribunal lo tuvo por evacuado.",
+        "notFound": false,
+        "elapsedMs": 18652,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4383,
+          "completion_tokens": 2874,
+          "total_tokens": 7257,
+          "prompt_tokens_details": {
+            "cached_tokens": 4224,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2624,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 3,
+        "validCitations": 3,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 2,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 22982
+    },
+    {
+      "id": "taf-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "local",
+      "providerUsed": "local",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 43,
+        "localEvidenceCount": 30,
+        "managedEvidenceCount": 0,
+        "responseId": null,
+        "model": null,
+        "elapsedMs": 5579,
+        "warnings": [
+          "Expanded context for retry: 43 chunks (was 30).",
+          "Recovered from initial notFound via retry with expanded context."
+        ],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 0.5,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Sí, existe una sentencia asociada al R N° 107-2024 en el corpus, con fecha de sentencia 2 de marzo de 2026 y decisión de rechazar la reclamación.\n\nLa sentencia aborda, en su fondo, la admisibilidad de la invalidación y el fondo del proyecto, señalando vicios e fundamentos relevantes.\n\nLa sentencia describe el proyecto como reemplazo del carbón por biomasa y destaca que el Tribunal designó a la redactora, consolidando la estructura y alcance de la decisión.",
+        "notFound": false,
+        "elapsedMs": 76206,
+        "model": "gpt-5-nano-2025-08-07",
+        "usage": {
+          "prompt_tokens": 4215,
+          "completion_tokens": 9607,
+          "total_tokens": 13822,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 8704,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 6,
+        "validCitations": 6,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 81787
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03T22-18-50-930Z.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\rag-eval-2026-03-03T22-18-50-930Z.md"
+  }
+}

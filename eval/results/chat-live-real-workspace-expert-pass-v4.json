@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 44433,
+    "avgCitations": 3,
+    "mustIncludeAllMatchedRate": 0.5,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 4,
+      "partial": 2
+    },
+    "totalTokens": 37382
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6998,
+      "elapsedMs": 50769,
+      "preview": "1. En R-118-2025, Se recomienda priorizar los informes del SEA, debido a que contienen análisis técnicos y de control ambiental relevantes para la defensa, además de que no son vinculantes para el SEA en su calidad de administrador del SEIA.",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5210,
+      "elapsedMs": 21153,
+      "preview": "1. La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nCitas textuales adicionales:\n- \"1 PROCEDIMIENTO: Reclamación del artículo 17 N°6 Ley 20.600 RECLAMANTE: OCEANA INC.\"\n- \"tes que se indican.\"",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5916,
+      "elapsedMs": 91753,
+      "preview": "Riesgo principal: extrapolar un precedente o una sentencia favorable fuera de su contexto factico, normativo y procesal. Cautela adicional: R-35-2019: Sentencia (Sentencia): util para extraer ratio decidendi, estandar de control y criterios de rechazo/acogida.\n\nEl mal uso de sentencias o precedentes puede llevar a sobredimensionar la aplicabilidad de una decisión, ignorar diferencias fácticas y procedimentales, y crear interpretaciones parciales que afectan la defensa jurídica. Además, una referencia incorrecta puede debilitar la argumentación y afectar la validez de la estrategia.\n\n1. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n2. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n3. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere valida",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6171,
+      "elapsedMs": 28587,
+      "preview": "En R-118-2025, - [ ] Identificar criterios técnicos y de control ambiental presentes en sentencias y resoluciones del SEA para contrastar hechos y fundamentos normativos, citando expresamente los razonamientos sobre competencia y alcance de informes de OAECA en el SEIA. 'Adenda y Adenda Complementaria...' (EVIDENCE 1).\n\n- [ ] Extraer criterios técnicos y de control ambiental de sentencias y resoluciones relevantes (R-95-2023 y R-44-2021) para fundamentar ratio decidendi y evitar extrapolaciones indebidas (evitar interpretación aislada de preceptos). '...no era procedente que la Res. Ex N° 1064/2019 se pronunciase estos asuntos... su competencia está vinculada específicamente en las observaciones PAC' (EVIDENCE 2).\n\n- [ ] Resaltar la necesidad de considerar ajustes y criterios de salud ambiental, tal como se expresa en las observaciones del RCA y criterios de la Guía de AI del SEA para el",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 7197,
+      "elapsedMs": 41585,
+      "preview": "1. Se debe priorizar el informe evacuado por el SEA (EVIDENCE 2 y 4) porque establece los parámetros y límites del proceso de reclamación y proporciona una fundamentación técnica y normativa para la defensa.",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5890,
+      "elapsedMs": 32751,
+      "preview": "1. La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nCitas textuales adicionales:\n- \"52 diferencias arbitrarias (art.\"\n- \"52 diferencias arbitrarias (art.\"",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

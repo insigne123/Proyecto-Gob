@@ -1,0 +1,113 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 48428,
+    "avgCitations": 1.75,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "unknown": 1,
+      "partial": 1,
+      "none": 1,
+      "strong": 1
+    },
+    "totalTokens": 21902
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": null,
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6199,
+      "elapsedMs": 65879,
+      "preview": "Para construir la defensa del SEA, los documentos prioritarios son los informes y sentencias relevantes, específicamente el informe de R-35-2019 y la sentencia de R-92-2023, ya que proporcionan análisis y criterios específicos sobre las atribuciones del SEA, valoración de impacto y aspectos jurídicos en la evaluación ambiental.\n\n1. Consultar la sentencia R-92-2023, que ayuda a entender los criterios de control y rechazo/aocida en procesos de evaluación ambiental, además de valorar los aspectos fácticos y jurídicos en la decisión sobre impactos acumulativos y sinérgicos, relevantes para la defensa del SEA. (chunkId=3dd3e323-feb5-4de5-b6cc-d54fa8de37e0)",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5082,
+      "elapsedMs": 24698,
+      "preview": "El criterio del SEA que establece que el “espacio geográfico” debe entenderse no solo como el espacio terrestre, sino también como aéreo y acuático, y que los componentes interactúan con los elementos del medio ambiente, ayuda a sostener la evaluación considerando todos los aspectos relevantes del medio, incluyendo la dimensión socioeconómica y actividades productivas dependientes de recursos naturales, conforme a la guía de los puntos 2 y 3 de la definición en la evaluación ambiental.",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "none",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5690,
+      "elapsedMs": 19738,
+      "preview": "En el marco teorico, la reclamacion debe usarse como contexto, no como prueba principal.\n\nLa reclamación debe usarse como prueba principal dentro del marco teórico, respaldada por la sentencia R-44-2021 que indica que las reclamaciones en proceso judicial deben presentar los recursos en un plazo determinado y con la fundamentación precisa.\n\n1. La reclamación se debe usar como prueba principal, ya que está relacionada con recursos en trámite que requieren fundamentación técnica y jurídica, respaldada por la sentencia R-44-2021.\n\n2. La sentencia R-44-2021 indica que la reclamación puede ser una prueba principal cuando se refiere a recursos en proceso ante las autoridades y tribunales ambientales.\n\n3. No hay respaldo documental que sugiera que la reclamación deba usarse como contexto en el marco teórico; más bien, el respaldo documental indica que su uso como prueba principal es apropiado e",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4931,
+      "elapsedMs": 83398,
+      "preview": "El marco teórico advierte que usar mal precedentes o sentencias favorables puede generar riesgos relevantes. En particular, se señala que \"las conclusiones se sustentan en denuncias y visitas en terreno sin contar con equipamiento necesario para efectuar muestras o realizar análisis\" (chunkId=file-LtvfENKvzamDhmU9jjh3k6:2), lo que implica que un uso indebido o incorrecto de antecedentes puede afectar la validez de la argumentación, ya que no hay respaldo científico suficiente.\n\nAsimismo, otro riesgo importante mencionado es que \"no son antecedentes con un rigor científico ni el uso de una metodología validada que permita sostener la presencia de un impacto significativo\" (chunkId=file-1eBKzTTtGuFh6fmLQZ6a1u:1), lo cual puede derivar en errores en la interpretación y aplicación de los precedentes o sentencias favorables, afectando la coherencia y fundamentación de la defensa.\n\nEl uso inco",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

@@ -3,6 +3,16 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+import {
   Loader2,
   PauseCircle,
   PlayCircle,
@@ -31,20 +41,14 @@ export function WatchlistActions({
   const [busyKind, setBusyKind] = useState<ActionKind | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [info, setInfo] = useState<string | null>(null)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
-  async function run(kind: ActionKind) {
+  async function execute(kind: ActionKind) {
     setError(null)
     setInfo(null)
     setBusyKind(kind)
 
     try {
-      if (kind === "delete") {
-        const ok = window.confirm(
-          `Se eliminara el monitor '${fileName}' junto a su historial. Esta accion no se puede deshacer.`
-        )
-        if (!ok) return
-      }
-
       let response: Response
       if (kind === "check") {
         response = await fetch(
@@ -98,6 +102,14 @@ export function WatchlistActions({
     } finally {
       setBusyKind(null)
     }
+  }
+
+  async function run(kind: ActionKind) {
+    if (kind === "delete") {
+      setIsDeleteDialogOpen(true)
+      return
+    }
+    await execute(kind)
   }
 
   return (
@@ -181,6 +193,32 @@ export function WatchlistActions({
           {error}
         </div>
       ) : null}
+
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Eliminar monitor</AlertDialogTitle>
+            <AlertDialogDescription>
+              Se eliminara el monitor &apos;{fileName}&apos; junto con su historial de corridas y correos. Esta accion no se puede deshacer.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={busyKind === "delete"}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={busyKind === "delete"}
+              onClick={(event) => {
+                event.preventDefault()
+                execute("delete")
+                  .then(() => setIsDeleteDialogOpen(false))
+                  .catch(() => null)
+              }}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {busyKind === "delete" ? <Loader2 className="h-4 w-4 animate-spin" /> : "Eliminar"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

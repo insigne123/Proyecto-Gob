@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 
@@ -17,6 +17,29 @@ export default function NewProjectPage() {
   const [description, setDescription] = useState("")
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const rol = String(params.get("rol") || "").trim()
+    const caratula = String(params.get("caratula") || "").trim()
+    const tribunal = String(params.get("tribunal") || "1TA").trim() || "1TA"
+    if (!rol && !caratula) return
+
+    setTitle((prev) => {
+      if (prev.trim()) return prev
+      return rol ? `Proyecto ${rol}` : "Nuevo proyecto"
+    })
+
+    setDescription((prev) => {
+      if (prev.trim()) return prev
+      const lines = [
+        rol ? `Rol: ${rol}` : null,
+        tribunal ? `Tribunal: ${tribunal}` : null,
+        caratula ? `Caratula: ${caratula}` : null,
+      ].filter(Boolean)
+      return lines.join("\n")
+    })
+  }, [])
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -35,7 +58,7 @@ export default function NewProjectPage() {
         throw new Error(json?.error || "No se pudo crear el proyecto")
       }
 
-      router.replace(`/projects/${json.id}`)
+      router.replace(`/projects/${json.id}/onboarding`)
       router.refresh()
     } catch (err: any) {
       setError(err?.message ?? "Error inesperado")

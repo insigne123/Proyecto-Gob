@@ -30,7 +30,7 @@ export function FeaturesSection() {
       <div className="container">
         <div className="text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            Why You'll Love EcoBloom
+            Why You&apos;ll Love EcoBloom
           </h2>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mt-4">
             Our app is packed with features designed to make your eco-journey simple, rewarding, and fun.

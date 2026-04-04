@@ -1,0 +1,374 @@
+{
+  "timestamp": "2026-03-09T02:04:47.213Z",
+  "config": {
+    "provider": "openai",
+    "answerProviderRequested": "openai",
+    "answerProviderInitial": "openai",
+    "answerProviderFinal": "openai",
+    "skipGeneration": false,
+    "genDelayMs": 0,
+    "datasetPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\tribunal-golden-filtered-2026-03-03.jsonl",
+    "maxCases": null,
+    "workspaceOverride": null
+  },
+  "summary": {
+    "totalCases": 5,
+    "errorCases": 0,
+    "retrieval": {
+      "avgEvidence": 12.6,
+      "snapshotHitRate": 0.75,
+      "chunkHitRate": null,
+      "snapshotMrr": 0.75,
+      "chunkMrr": null
+    },
+    "answer": {
+      "notFoundAccuracy": 0.8,
+      "citationValidityRate": 1,
+      "mustIncludeAllRate": 0.75,
+      "mustNotIncludePassRate": 0
+    },
+    "latency": {
+      "retrieval": {
+        "avg": 4910.4,
+        "p50": 3980,
+        "p95": 8369
+      },
+      "generation": {
+        "avg": 4935,
+        "p50": 3214,
+        "p95": 11990
+      },
+      "total": {
+        "avg": 9847.2,
+        "p50": 7982,
+        "p95": 15928
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "taf-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "informe"
+        ]
+      },
+      "notes": "Con filtro de tipo documental informe",
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": "resp_01e49dd0243679d00069ae2a8f749c81a0a1405c2548d1b074",
+        "model": "gpt-4.1-nano-2025-04-14",
+        "elapsedMs": 8369,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "La resolución en la causa R-53-2021 respecto del informe se indica en la primera fuente, la cual señala que se evacuó el informe en la resolución del 28 de octubre de 2021: \"A lo principal, téngase por evacuado el informe.\" (chunkId=file-DA9TV8fKL1zP8zj1KpBcxC:0).",
+        "notFound": false,
+        "elapsedMs": 3259,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 4324,
+          "completion_tokens": 231,
+          "total_tokens": 4555,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 1,
+        "validCitations": 1,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 2,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 11635
+    },
+    {
+      "id": "taf-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 16,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": "resp_08680266043221100069ae2a99b540819daf08b66da99a7dd8",
+        "model": "gpt-4.1-nano-2025-04-14",
+        "elapsedMs": 3937,
+        "warnings": [
+          "Expanded context for retry: 16 chunks (was 12).",
+          "Recovered from initial notFound via retry with expanded context."
+        ],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "Sí, existe una sentencia en el corpus para el R-107-2024. Según la sección de sentencia del chunkId=file-QqeRpimzrKAKBFnS9BofVv:0, 'Fecha de la sentencia: 2 de marzo de 2026' y 'Decisión: • Se rechaza en todas sus partes la reclamación.'.",
+        "notFound": false,
+        "elapsedMs": 11990,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 4440,
+          "completion_tokens": 436,
+          "total_tokens": 4876,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 1,
+        "validCitations": 1,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 2,
+        "mustIncludeMatched": 2,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 15928
+    },
+    {
+      "id": "taf-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En R-27-2019, que fojas se mencionan en el documento de desistimiento?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": "resp_0661f836d94a03e20069ae2aaa08c48196a4b73e6c79199505",
+        "model": "gpt-4.1-nano-2025-04-14",
+        "elapsedMs": 4776,
+        "warnings": [],
+        "expectedSnapshotHit": false,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 0,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 0,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "En el documento de desistimiento en R-27-2019, se mencionan las fojas 5, que corresponde a \"Fojas 5 cinco\" (chunkId=file-WMRmetfRztoseeabtAKUuu:1).\n\nTambién se hace referencia a las fojas 6, indicada como \"Fojas 6 seis\" (chunkId=file-WMRmetfRztoseeabtAKUuu:0).\n\nAdemás, se mencionan las foja 8, que se cita como \"Fojas 8 ocho\" (chunkId=file-WMRmetfRztoseeabtAKUuu:2).\n\nFinalmente, se remite a la foja 11, con la cita \"Fojas 11 once\" (chunkId=file-WMRmetfRztoseeabtAKUuu:3).",
+        "notFound": false,
+        "elapsedMs": 3206,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 1678,
+          "completion_tokens": 348,
+          "total_tokens": 2026,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 4,
+        "validCitations": 4,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": false,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 7982
+    },
+    {
+      "id": "taf-004",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "En R-113-2024, quien figura como reclamante segun el escrito inicial?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 12,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 12,
+        "responseId": "resp_0e275c1474a729680069ae2ab205588192824334697e289954",
+        "model": "gpt-4.1-nano-2025-04-14",
+        "elapsedMs": 3980,
+        "warnings": [],
+        "expectedSnapshotHit": true,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": 1,
+        "chunkRecallAtK": null,
+        "snapshotMRR": 1,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "El reclamante en R-113-2024 según el escrito inicial es la 'Comunidad Indígena Atacameña de Peine'. Esto se encuentra en la sección reclamacion del EVIDENCE 1, donde dice: 'RECLAMANTE : Comunidad Indígena Atacameña de Peine RUT : 72.901.600-4'.\n\nEl mismo reclamante también aparece en la segunda sección del EVIDENCE 1, confirmando su identidad como parte reclamante, junto con sus representantes, como se indica: 'ILUSTRE PRIMER TRIBUNAL DE ANTOFAGASTA COMUNIDAD INDÍGENA ATACAMEÑA DE PEINE...' en el inicio del texto.",
+        "notFound": false,
+        "elapsedMs": 3006,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 4996,
+          "completion_tokens": 311,
+          "total_tokens": 5307,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 2,
+        "validCitations": 2,
+        "citationValidityRate": 1,
+        "expectNotFound": false,
+        "notFoundMatch": true,
+        "mustIncludeTotal": 1,
+        "mustIncludeMatched": 1,
+        "mustIncludeAllMatched": true,
+        "mustNotIncludeTotal": 0,
+        "mustNotIncludeViolations": 0,
+        "mustNotIncludePass": null
+      },
+      "elapsedMs": 6986
+    },
+    {
+      "id": "taf-005",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "providerRequested": "openai",
+      "providerUsed": "openai",
+      "question": "Las fuentes mencionan un proyecto llamado Proyecto Fantasma XYZ 2035?",
+      "mode": "extractive",
+      "filters": {
+        "docTypes": [
+          "reclamacion",
+          "informe",
+          "sentencia"
+        ]
+      },
+      "notes": null,
+      "retrieval": {
+        "evidenceCount": 11,
+        "localEvidenceCount": 0,
+        "managedEvidenceCount": 11,
+        "responseId": "resp_0bc2d9768b7371640069ae2ab87cbc8190ac45b0f364543e75",
+        "model": "gpt-4.1-nano-2025-04-14",
+        "elapsedMs": 3490,
+        "warnings": [],
+        "expectedSnapshotHit": null,
+        "expectedChunkHit": null,
+        "snapshotRecallAtK": null,
+        "chunkRecallAtK": null,
+        "snapshotMRR": null,
+        "chunkMRR": null
+      },
+      "answer": {
+        "skipped": false,
+        "text": "No hay evidencia que mencione un proyecto llamado Proyecto Fantasma XYZ 2035 en las fuentes proporcionadas.",
+        "notFound": false,
+        "elapsedMs": 3214,
+        "model": "gpt-4.1-nano-2025-04-14",
+        "usage": {
+          "prompt_tokens": 4041,
+          "completion_tokens": 475,
+          "total_tokens": 4516,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+          }
+        },
+        "citations": 3,
+        "validCitations": 3,
+        "citationValidityRate": 1,
+        "expectNotFound": true,
+        "notFoundMatch": false,
+        "mustIncludeTotal": 0,
+        "mustIncludeMatched": 0,
+        "mustIncludeAllMatched": null,
+        "mustNotIncludeTotal": 1,
+        "mustNotIncludeViolations": 1,
+        "mustNotIncludePass": false
+      },
+      "elapsedMs": 6705
+    }
+  ],
+  "paths": {
+    "json": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\model-compare-gpt-4.1-nano.json",
+    "markdown": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\eval\\results\\model-compare-gpt-4.1-nano.md"
+  }
+}

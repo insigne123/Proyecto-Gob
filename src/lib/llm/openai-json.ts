@@ -1,3 +1,5 @@
+import { resolveOpenAIAnswerModel } from "@/lib/openai-models"
+
 type JsonObject = Record<string, any>
 
 function safeJsonParse(text: string) {
@@ -75,9 +77,7 @@ export async function generateOpenAIJson(params: GenerateOpenAIJsonParams) {
     throw new Error("Missing OPENAI_API_KEY")
   }
 
-  const model = String(
-    params.model || process.env.OPENAI_ANSWER_MODEL || process.env.OPENAI_RAG_MODEL || "gpt-4o-mini"
-  ).trim()
+  const model = String(params.model || resolveOpenAIAnswerModel()).trim()
   const baseUrl = String(process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "")
   const temperature = parseTemperature()
 

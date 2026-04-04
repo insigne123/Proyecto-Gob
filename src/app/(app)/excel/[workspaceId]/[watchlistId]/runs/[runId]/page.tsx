@@ -15,6 +15,37 @@ type DiffPayload = {
     changes: Record<string, { before: any; after: any }>
     row: Record<string, any>
   }>
+  tribunal_updates?: Array<{
+    key: string
+    tribunal: string
+    rol: string
+    previousEstado: string | null
+    currentEstado: string | null
+    previousMovimiento: string | null
+    currentMovimiento: string | null
+    hasCasacion: boolean
+    recursoTipo: string | null
+    linkCausa: string | null
+  }>
+  tribunal_errors?: Array<{ key: string; rol: string; error: string }>
+}
+
+function previewEntries(row: Record<string, any>, limit = 6) {
+  return Object.entries(row || {})
+    .filter(([, value]) => value !== null && value !== undefined && value !== "")
+    .slice(0, limit)
+}
+
+function formatValue(value: unknown) {
+  if (value === null || value === undefined || value === "") return "-"
+  if (typeof value === "object") {
+    try {
+      return JSON.stringify(value)
+    } catch {
+      return String(value)
+    }
+  }
+  return String(value)
 }
 
 async function downloadJsonFromStorage(path: string) {
@@ -71,6 +102,20 @@ export default async function ExcelWatchlistRunPage({
   const added = diff?.added ?? []
   const removed = diff?.removed ?? []
   const modified = diff?.modified ?? []
+  const tribunalMonitoring =
+    run.summary && typeof run.summary === "object" && !Array.isArray(run.summary)
+      ? (run.summary as any).tribunal_monitoring
+      : null
+  const tribunalUpdates = Array.isArray(tribunalMonitoring?.updates)
+    ? tribunalMonitoring.updates
+    : Array.isArray(diff?.tribunal_updates)
+      ? diff.tribunal_updates
+      : []
+  const tribunalErrors = Array.isArray(tribunalMonitoring?.errors_preview)
+    ? tribunalMonitoring.errors_preview
+    : Array.isArray(diff?.tribunal_errors)
+      ? diff.tribunal_errors
+      : []
 
   const modifiedCells = modified
     .flatMap((m) =>
@@ -137,7 +182,20 @@ export default async function ExcelWatchlistRunPage({
               <Badge variant="outline">Modificadas: {modified.length}</Badge>
             </div>
             <div className="rounded-xl border border-border/55 bg-background/25 p-3 text-xs text-muted-foreground">
-              {run.summary ? JSON.stringify(run.summary) : ""}
+              {run.summary && typeof run.summary === "object" && !Array.isArray(run.summary) ? (
+                <div className="flex flex-wrap gap-2">
+                  {Object.entries(run.summary as Record<string, unknown>)
+                    .filter(([, value]) => value !== null && value !== undefined && value !== "")
+                    .slice(0, 12)
+                    .map(([key, value]) => (
+                      <span key={key} className="rounded-full border border-border/50 bg-background/35 px-2.5 py-1">
+                        {key}: {formatValue(value)}
+                      </span>
+                    ))}
+                </div>
+              ) : (
+                <span>{run.summary ? formatValue(run.summary) : "Sin resumen estructurado"}</span>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -180,6 +238,80 @@ export default async function ExcelWatchlistRunPage({
           </CardContent>
         </Card>
 
+        <Card className="bg-card/70 lg:col-span-3">
+          <CardHeader>
+            <CardTitle className="text-base">Actividad Tribunal (1TA)</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex flex-wrap gap-2 text-xs">
+              <Badge variant="outline">Rows 1TA: {Number(tribunalMonitoring?.one_ta_rows || 0)}</Badge>
+              <Badge variant="outline">Consultadas: {Number(tribunalMonitoring?.looked_up || 0)}</Badge>
+              <Badge variant="outline">Actualizadas: {tribunalUpdates.length}</Badge>
+              <Badge variant="outline">Errores: {tribunalErrors.length}</Badge>
+            </div>
+
+            {tribunalUpdates.length ? (
+              <div className="overflow-x-auto rounded-xl border border-border/55">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-background/35 text-xs text-muted-foreground">
+                    <tr>
+                      <th className="px-3 py-2">Rol</th>
+                      <th className="px-3 py-2">Estado</th>
+                      <th className="px-3 py-2">Movimiento</th>
+                      <th className="px-3 py-2">Casacion</th>
+                      <th className="px-3 py-2">Link</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tribunalUpdates.slice(0, 120).map((row: any, idx: number) => (
+                      <tr key={idx} className="border-t border-border/55">
+                        <td className="px-3 py-2 font-code text-xs">{String(row?.rol || "")}</td>
+                        <td className="px-3 py-2 text-muted-foreground">
+                          {String(row?.previousEstado || "(sin dato)")} {"->"} {String(row?.currentEstado || "(sin dato)")}
+                        </td>
+                        <td className="px-3 py-2 text-muted-foreground">
+                          {String(row?.previousMovimiento || "(sin dato)")} {"->"} {String(row?.currentMovimiento || "(sin dato)")}
+                        </td>
+                        <td className="px-3 py-2">
+                          {row?.hasCasacion
+                            ? `Casacion${row?.recursoTipo ? ` (${String(row.recursoTipo)})` : ""}`
+                            : "Sin casacion"}
+                        </td>
+                        <td className="px-3 py-2">
+                          {row?.linkCausa ? (
+                            <a
+                              href={String(row.linkCausa)}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-xs text-blue-400 hover:underline"
+                            >
+                              abrir
+                            </a>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">-</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="text-sm text-muted-foreground">Sin cambios de actividad tribunal en esta corrida.</div>
+            )}
+
+            {tribunalErrors.length ? (
+              <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                {tribunalErrors.slice(0, 6).map((item: any, idx: number) => (
+                  <div key={idx}>
+                    {String(item?.rol || "(sin rol)")}: {String(item?.error || "error")}
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </CardContent>
+        </Card>
+
         {(added.length > 0 || removed.length > 0) && (
           <Card className="bg-card/70 lg:col-span-3">
             <CardHeader>
@@ -195,7 +327,13 @@ export default async function ExcelWatchlistRunPage({
                       className="rounded-lg border border-border/55 bg-background/25 px-3 py-2"
                     >
                       <div className="font-code text-xs">{a.key}</div>
-                      <div className="mt-1 text-xs text-muted-foreground">{JSON.stringify(a.row)}</div>
+                      <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-muted-foreground">
+                        {previewEntries(a.row).map(([key, value]) => (
+                          <span key={`${a.key}_${key}`} className="rounded-full border border-border/50 bg-background/35 px-2 py-1">
+                            {key}: {formatValue(value)}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                   {!added.length ? <div className="text-sm text-muted-foreground">Sin filas nuevas.</div> : null}
@@ -210,7 +348,13 @@ export default async function ExcelWatchlistRunPage({
                       className="rounded-lg border border-border/55 bg-background/25 px-3 py-2"
                     >
                       <div className="font-code text-xs">{a.key}</div>
-                      <div className="mt-1 text-xs text-muted-foreground">{JSON.stringify(a.row)}</div>
+                      <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-muted-foreground">
+                        {previewEntries(a.row).map(([key, value]) => (
+                          <span key={`${a.key}_${key}`} className="rounded-full border border-border/50 bg-background/35 px-2 py-1">
+                            {key}: {formatValue(value)}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                   {!removed.length ? (

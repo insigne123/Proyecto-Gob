@@ -1,0 +1,30 @@
+{
+  "runId": "2026-02-22T22-06-32-737Z",
+  "appUrl": "http://localhost:9002",
+  "configPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\qa\\proyectos-cases.json",
+  "successCount": 0,
+  "failCount": 1,
+  "avgDurationMs": 0,
+  "totalRecommendations": 0,
+  "results": [
+    {
+      "caseLabel": "R-151-2026 escrito inicial",
+      "startedAt": "2026-02-22T22:06:32.740Z",
+      "finishedAt": "2026-02-22T22:06:32.740Z",
+      "durationMs": 0,
+      "workspaceId": null,
+      "recommendStatus": null,
+      "recommendationCount": 0,
+      "onboardingCompleted": false,
+      "success": false,
+      "warnings": [
+        "spawnSync npm.cmd EINVAL"
+      ],
+      "markdownReportPath": "",
+      "screenshotPath": null,
+      "error": "spawnSync npm.cmd EINVAL",
+      "index": 1,
+      "rol": "R-151-2026"
+    }
+  ]
+}

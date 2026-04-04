@@ -2,6 +2,11 @@ import { ingestSourceJob } from "./jobs/source-ingest"
 import { excelCheckJob } from "./jobs/excel-check"
 import { emailDigestJob } from "./jobs/email-digest"
 import { reportGenerateJob } from "./jobs/report-generate"
+import { estadoDiarioPollJob } from "./jobs/estado-diario-poll"
+import { tribunalCauseSyncJob } from "./jobs/tribunal-cause-sync"
+import { tribunalCorpusSyncJob } from "./jobs/tribunal-corpus-sync"
+import { estadoDiarioEmailDigestJob } from "./jobs/estado-diario-email-digest"
+import { onboardingDefenseRefreshJob } from "./jobs/onboarding-defense-refresh"
 
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms))
@@ -32,6 +37,16 @@ export async function handleJob(params: {
       await emailDigestJob({ supabase, job })
     } else if (type === "report_generate") {
       await reportGenerateJob({ supabase, job })
+    } else if (type === "estado_diario_poll") {
+      await estadoDiarioPollJob({ supabase, job })
+    } else if (type === "tribunal_cause_sync") {
+      await tribunalCauseSyncJob({ supabase, job })
+    } else if (type === "tribunal_corpus_sync") {
+      await tribunalCorpusSyncJob({ supabase, job })
+    } else if (type === "estado_diario_email_digest") {
+      await estadoDiarioEmailDigestJob({ supabase, job })
+    } else if (type === "onboarding_defense_refresh") {
+      await onboardingDefenseRefreshJob({ supabase, job })
     } else {
       throw new Error(`Unknown job type: ${type}`)
     }
@@ -49,6 +64,7 @@ export async function handleJob(params: {
     const attempts = Number(job.attempts ?? 0) + 1
     const maxAttempts = Number(job.max_attempts ?? 5)
     const fatal = attempts >= maxAttempts
+    let retryDelayMs = 0
 
     const update: any = {
       attempts,
@@ -61,11 +77,35 @@ export async function handleJob(params: {
       update.status = "failed"
       update.completed_at = new Date().toISOString()
     } else {
+      retryDelayMs = backoffMs(attempts)
       update.status = "pending"
-      update.available_at = new Date(Date.now() + backoffMs(attempts)).toISOString()
+      update.available_at = new Date(Date.now() + retryDelayMs).toISOString()
     }
 
     await supabase.from("gob_jobs").update(update).eq("id", job.id)
+
+    if (!fatal) {
+      try {
+        await supabase.from("gob_audit_logs").insert({
+          user_id: null,
+          action: "job.retry_scheduled",
+          target_resource: "gob_jobs",
+          details: {
+            job_id: job.id,
+            type: job.type,
+            attempts,
+            max_attempts: maxAttempts,
+            retry_delay_ms: retryDelayMs,
+            next_available_at: update.available_at,
+            last_error: update.last_error,
+            workspace_id: job.payload?.workspace_id ? String(job.payload.workspace_id) : null,
+          },
+          timestamp: new Date().toISOString(),
+        })
+      } catch {
+        // ignore audit retry log failures
+      }
+    }
 
     if (fatal) {
       const workspaceId = job.payload?.workspace_id

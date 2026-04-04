@@ -1,0 +1,244 @@
+{
+  "action": "qa_chat_session4",
+  "startedAt": "2026-03-06T03:12:13.292Z",
+  "finishedAt": "2026-03-06T03:13:36.551Z",
+  "durationMs": 83259,
+  "appUrl": "http://localhost:9002",
+  "workspaceId": "299c124f-855b-4960-a832-0c637af6076b",
+  "threadId": "1446145a-f280-4fcb-be42-64d6c0531915",
+  "responseProfile": "fast",
+  "claimSource": {
+    "id": "8a28d684-283f-46a4-90c5-e17cf745a369",
+    "title": "0._Reclamacion_Huawei_2TA_-_Firmada.pdf",
+    "status": "ready"
+  },
+  "resources": {
+    "apiCalls": 5,
+    "dbReads": 10,
+    "maxRssMb": 104.23,
+    "tokens": {
+      "prompt": 6086,
+      "completion": 1448,
+      "total": 7534
+    },
+    "traceTotalMs": 73232,
+    "audit": {
+      "turns": 4,
+      "retrievalMs": 25096,
+      "generationMs": 46095,
+      "totalMs": 72969,
+      "answerTokens": 7534
+    }
+  },
+  "quality": {
+    "turns": 4,
+    "okTurns": 4,
+    "avgScore": 1.65,
+    "totalCitations": 5,
+    "totalVerifiedCitations": 2,
+    "totalSupportedCitations": 5,
+    "unsupportedCitations": 0
+  },
+  "turns": [
+    {
+      "id": "Q1",
+      "kind": "meta",
+      "question": "Antes de comenzar, ¿qué puedes hacer en este expediente y cómo manejas respuestas sin evidencia?",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 2253,
+      "messageIds": {
+        "user": "6d0359c9-d04c-4dd4-99bc-5389581f735f",
+        "assistant": "a5842da2-7740-4c59-845d-1f7c9e6eaee9"
+      },
+      "answerPreview": "Soy una IA asistida por recuperacion de evidencia (RAG). Primero intento responder con fuentes y citas verificables; para saludos o dudas generales respondo de forma directa. Tambien puedo ayudarte a redactar y revisar tu informe.",
+      "answerLength": 230,
+      "citationsTotal": 0,
+      "citationsVerified": 0,
+      "citationsUnverifiable": 0,
+      "citationsSupported": 0,
+      "citationValidityRate": null,
+      "noEvidenceDisclosure": false,
+      "usage": {
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "totalTokens": 0
+      },
+      "assistantModel": null,
+      "retrievalTrace": {
+        "id": "bd80f8a5-a033-49f1-a2d1-faf278e23cdc",
+        "provider": "hybrid",
+        "model": null,
+        "responseId": null,
+        "evidenceCount": 0,
+        "retrievalMs": 0,
+        "generationMs": 0,
+        "totalMs": 263,
+        "retrievalCoverageBefore": 0,
+        "retrievalCoverageAfter": 0,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": false,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 1,
+        "grounding": 2,
+        "honesty": 0,
+        "instruction": 2,
+        "coherence": 2,
+        "total": 1.4
+      },
+      "issues": []
+    },
+    {
+      "id": "Q2",
+      "kind": "facts",
+      "question": "Con base en la reclamación adjunta, resume en máximo 5 bullets los hechos centrales y cita al menos 2 fragmentos textuales.",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 25240,
+      "messageIds": {
+        "user": "544048ae-b810-4a3b-900a-86e8f1fbca43",
+        "assistant": "9c50973f-544a-4b5c-b81b-e2d746cf4161"
+      },
+      "answerPreview": "Resumen de hechos centrales con citas textuales y recomendaciones prácticas basadas en la evidencia provista. 1. [MAYOR] La reclamación se centra en resoluciones de la SMA respecto a un PdC y la consistencia de dichas resoluciones con la jurisprudencia ambiental. Se cita que la inadmisibilidad es una resolución que pronuncia sobre lo esencial de un PdC, su posibilidad de presentarse. Recomendacion: Verificar con precisión si la resolución de inadmisibilidad se ajusta a los criterios establecidos en jurisprudencia a...",
+      "answerLength": 964,
+      "citationsTotal": 2,
+      "citationsVerified": 2,
+      "citationsUnverifiable": 0,
+      "citationsSupported": 2,
+      "citationValidityRate": 1,
+      "noEvidenceDisclosure": false,
+      "usage": {
+        "promptTokens": 2592,
+        "completionTokens": 788,
+        "totalTokens": 3380
+      },
+      "assistantModel": "gpt-5-nano-2025-08-07",
+      "retrievalTrace": {
+        "id": "816347e8-f345-4733-b599-615548ec26f3",
+        "provider": "local",
+        "model": null,
+        "responseId": null,
+        "evidenceCount": 42,
+        "retrievalMs": 2,
+        "generationMs": 23108,
+        "totalMs": 24115,
+        "retrievalCoverageBefore": 0,
+        "retrievalCoverageAfter": 0,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": false,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 2,
+        "grounding": 2,
+        "honesty": 2,
+        "instruction": 1,
+        "coherence": 2,
+        "total": 1.8
+      },
+      "issues": []
+    },
+    {
+      "id": "Q3",
+      "kind": "strategy",
+      "question": "Propón hasta 3 líneas de defensa priorizadas para este caso ante SMA, indicando para cada una: riesgo y sustento documental disponible.",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 38516,
+      "messageIds": {
+        "user": "473bfc0d-5b3b-4f23-b3b3-de3e145cf265",
+        "assistant": "369dbdd5-8361-42ba-bac8-32bedc56bf77"
+      },
+      "answerPreview": "Se proponen hasta 3 líneas de defensa priorizadas ante SMA, cada una con riesgo y sustento documental disponible. Se identifican tres líneas con respaldo de evidencias relevantes en el bloque EVIDENCE; cuando respaldo directo es limitado, se indica explícitamente. 1. 1) Defensa del PdC como herramienta central y cooperativa, enfatizando su coherencia con el derecho ambiental y la finalidad de prevenir y corregir, no solo sancionar. 2. 2) Razonabilidad y principios de igualdad ante la ley para sostener que excluir P...",
+      "answerLength": 1032,
+      "citationsTotal": 3,
+      "citationsVerified": 0,
+      "citationsUnverifiable": 3,
+      "citationsSupported": 3,
+      "citationValidityRate": 1,
+      "noEvidenceDisclosure": false,
+      "usage": {
+        "promptTokens": 3494,
+        "completionTokens": 660,
+        "totalTokens": 4154
+      },
+      "assistantModel": "gpt-5-nano-2025-08-07",
+      "retrievalTrace": {
+        "id": "959379e1-4813-4966-85a3-cd7cee539765",
+        "provider": "hybrid",
+        "model": "gpt-5-nano",
+        "responseId": null,
+        "evidenceCount": 48,
+        "retrievalMs": 14022,
+        "generationMs": 22987,
+        "totalMs": 37405,
+        "retrievalCoverageBefore": 0.3042857142857144,
+        "retrievalCoverageAfter": 0.3366666666666667,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": true,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 2,
+        "grounding": 2,
+        "honesty": 2,
+        "instruction": 2,
+        "coherence": 2,
+        "total": 2
+      },
+      "issues": []
+    },
+    {
+      "id": "Q4",
+      "kind": "specificity",
+      "question": "¿Existen precedentes específicos de Huawei en las fuentes disponibles? Si no existen, indícalo explícitamente y sugiere qué documentación falta cargar.",
+      "status": "ok",
+      "httpStatus": 200,
+      "latencyMs": 12523,
+      "messageIds": {
+        "user": "14d3d3a5-64d7-4b68-8bd9-c6a9171fb10e",
+        "assistant": "999e36bb-7ca2-4549-85d0-0677829cc2bd"
+      },
+      "answerPreview": "No identifico precedentes específicos de Huawei en las fuentes disponibles del workspace. Orientacion sin respaldo documental especifico: 1. Cargar sentencias/resoluciones donde la entidad figure en caratula o cuerpo principal. 2. Cargar piezas del procedimiento sancionatorio (formulacion de cargos, PDC, resolucion sancionatoria). 3. Repetir consulta al terminar indexacion para confirmar precedentes comparables.",
+      "answerLength": 416,
+      "citationsTotal": 0,
+      "citationsVerified": 0,
+      "citationsUnverifiable": 0,
+      "citationsSupported": 0,
+      "citationValidityRate": null,
+      "noEvidenceDisclosure": true,
+      "usage": {
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "totalTokens": 0
+      },
+      "assistantModel": null,
+      "retrievalTrace": {
+        "id": "4011a6e0-27f8-4526-8eb3-02b46089568b",
+        "provider": "hybrid",
+        "model": "gpt-5-nano",
+        "responseId": null,
+        "evidenceCount": 43,
+        "retrievalMs": 11072,
+        "generationMs": 0,
+        "totalMs": 11449,
+        "retrievalCoverageBefore": 0.16666666666666669,
+        "retrievalCoverageAfter": 0.18083333333333332,
+        "retrievalDeepened": false,
+        "retrievalRerankApplied": true,
+        "retrievalExpandedScope": false
+      },
+      "score": {
+        "relevance": 2,
+        "grounding": 0,
+        "honesty": 2,
+        "instruction": 1,
+        "coherence": 2,
+        "total": 1.4
+      },
+      "issues": []
+    }
+  ]
+}

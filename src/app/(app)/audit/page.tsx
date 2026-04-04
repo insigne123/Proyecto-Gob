@@ -2,7 +2,9 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/server"
+import { AuditDashboard } from "@/components/ops/audit-dashboard"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { getAccessibleWorkspaceIdsForUser } from "@/lib/workspaces/access"
 import { ArrowLeft } from "lucide-react"
 
 export default async function AuditPage() {
@@ -13,11 +15,37 @@ export default async function AuditPage() {
 
   if (!user) redirect("/login")
 
+  const workspaceIdsResult = await getAccessibleWorkspaceIdsForUser({ supabase, userId: user.id }).catch(
+    () => null
+  )
+  const workspaceIds = Array.isArray(workspaceIdsResult) ? workspaceIdsResult : []
+
+  const { data: workspaces } = workspaceIds.length
+    ? await supabase.from("gob_workspaces").select("id,title").in("id", workspaceIds)
+    : { data: [] as any[] }
+  const workspaceTitleById = new Map((workspaces || []).map((workspace: any) => [String(workspace.id), String(workspace.title || "Proyecto")]))
+
   const { data: logs } = await supabase
     .from("gob_audit_logs")
     .select("id,timestamp,user_id,action,target_resource,details")
     .order("timestamp", { ascending: false })
-    .limit(200)
+    .limit(500)
+
+  const rows = (logs || [])
+    .map((log: any) => {
+      const details = log.details && typeof log.details === "object" && !Array.isArray(log.details) ? log.details : {}
+      const workspaceId = details?.workspace_id ? String(details.workspace_id) : null
+      return {
+        ...log,
+        workspace_id: workspaceId,
+        workspace_title: workspaceId ? workspaceTitleById.get(workspaceId) || null : null,
+        details,
+      }
+    })
+    .filter((log: any) => {
+      if (log.workspace_id && workspaceIds.includes(log.workspace_id)) return true
+      return log.user_id === user.id
+    })
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-8">
@@ -33,45 +61,10 @@ export default async function AuditPage() {
 
       <Card className="bg-card/70">
         <CardHeader>
-          <CardTitle className="text-base">Auditoria</CardTitle>
+          <CardTitle className="text-base">Auditoria accesible</CardTitle>
         </CardHeader>
         <CardContent>
-          {logs?.length ? (
-            <div className="overflow-x-auto rounded-xl border border-border/55">
-              <table className="w-full text-left text-sm">
-                <thead className="bg-background/35 text-xs text-muted-foreground">
-                  <tr>
-                    <th className="px-3 py-2">Fecha</th>
-                    <th className="px-3 py-2">Accion</th>
-                    <th className="px-3 py-2">Usuario</th>
-                    <th className="px-3 py-2">Recurso</th>
-                    <th className="px-3 py-2">Detalles</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {logs.map((l) => (
-                    <tr key={l.id} className="border-t border-border/55">
-                      <td className="px-3 py-2 text-xs text-muted-foreground">
-                        {l.timestamp ? new Date(l.timestamp).toLocaleString("es-CL") : ""}
-                      </td>
-                      <td className="px-3 py-2 font-medium">{l.action}</td>
-                      <td className="px-3 py-2 font-code text-xs">
-                        {(l.user_id as any)?.slice?.(0, 8) || "-"}
-                      </td>
-                      <td className="px-3 py-2 text-xs text-muted-foreground">
-                        {l.target_resource || ""}
-                      </td>
-                      <td className="px-3 py-2 text-xs text-muted-foreground">
-                        {l.details ? JSON.stringify(l.details) : ""}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="text-sm text-muted-foreground">Sin eventos.</div>
-          )}
+          <AuditDashboard logs={rows as any} />
         </CardContent>
       </Card>
     </div>

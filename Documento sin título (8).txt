@@ -1,0 +1,646 @@
+﻿0:00
+(Rosario Quiroz) pruebas es en que efectivamente como (Rosario Quiroz) que tenga toda la información. Ya. Entonces, eh ahí para
+0:08
+(Rosario Quiroz) contarte un poquito el proceso. Yo trabajo en juicios, (Rosario Quiroz) ¿ya? Entonces siempre nosotros somos reclamados
+0:16
+(Rosario Quiroz) o demandados, por decirlo de cierta manera. Hay un proyecto que tiene una (Rosario Quiroz) autorización y esa autorización puede ser reclamada. Entonces, nosotros siempre
+0:24
+(Rosario Quiroz) somos reclamados y esos proyectos son muchos, (Rosario Quiroz) pero de distintas índole, pero obviamente hay temas que se van repitiendo. Entonces, bueno, lo que
+0:32
+(Rosario Quiroz) yo te contaba la otra vez para para repetir no más, nosotros hoy día lo que hacemos (Rosario Quiroz) es de memoria acordarnos como, oye, ¿te acuerdas de algún proyecto de que hable de tal
+0:40
+(Rosario Quiroz) tema? Sí, este o este otro, pero más allá de la memoria no tenemos (Rosario Quiroz) nada. Y los sistemas que hemos desarrollado o que hemos los que
+0:48
+(Rosario Quiroz) hemos trabajado para tener un repositorio se nos quedan cortos por lo (Rosario Quiroz) que lo que hablábamos la otra vez de que alucinan o que de
+0:56
+(Rosario Quiroz) repente no dicen las respuestas correctas y en este sentido también hay varias (Rosario Quiroz) como fuentes públicas o fuentes al que también pagábamos
+1:04
+(Rosario Quiroz) algunos. Eh, pero también pasa eso, como que cuesta encontrar la fuente que uno (Rosario Quiroz) necesita. Entonces, e por ejemplo, hay un sistema que
+1:12
+(Rosario Quiroz) usan en otra área de de MIPEGA, que ellos mismos cuando (Rosario Quiroz) alguien trabaja en un proyecto, por ejemplo, le agregan como
+1:20
+(Rosario Quiroz) etiquetas, eh, y esas etiquetas son conceptos que uno se acordaría después. (Rosario Quiroz) Entonces, esas etiquetas les permiten filtrar. Yo el otro día veía este sistema de ellos y
+1:28
+(Rosario Quiroz) lo encontré super amigable. es interno de ellos, entonces no puedo yo (Rosario Quiroz) tener acceso como para mostrártelo, pero creo que ese es un buen sistema como
+1:36
+(Rosario Quiroz) para confirmar de que filtre bien el la página, (Rosario Quiroz) ¿ya? Eh, bueno, ahí tú ves cómo cómo lo implementas, pero creo que está
+1:44
+(Rosario Quiroz) bien. En el fondo, eh, sería (Rosario Quiroz) como claro, recopilar informes o
+1:52
+(Rosario Quiroz) sentencias que podamos filtrarlas por temas, que nosotros podemos hacer (Rosario Quiroz) quizás una lista como de estas keywords o eh conceptos
+2:00
+(Nicolas Yaur) Mira, - (Rosario Quiroz) para poder filtrar. (Nicolas Yaur) espérate, dame un minuto. Yo estaba pensando ahora que me decí
+2:08
+(Nicolas Yaur) esto, estaba pensando en una cosa que fuera como (Nicolas Yaur) antes de esto de el LML, o sea, del notebook, antes de esta
+2:16
+(Nicolas Yaur) página, que pusiéramos una cosa como esta, como el chat (Nicolas Yaur) GPT. Entonces ustedes subirían subirían los
+2:24
+(Nicolas Yaur) archivos primero, todos los archivos con los URL o por PDF, no sé cómo (Nicolas Yaur) sea, y abrirían un proyecto nuevo y
+2:32
+(Nicolas Yaur) los mandaría a esta página. ustedes subirían el procedimiento que quieren - (Rosario Quiroz) Eh, (Nicolas Yaur) evaluar, o sea, el perdón, el informe, el proyecto que quieren
+2:40
+(Nicolas Yaur) evaluar y este chat les daría un listado de (Nicolas Yaur) eh proyectos anteriores que cumplen con
+2:48
+(Nicolas Yaur) e con digamos con que se parecen, digamos, ¿no?, que tienen (Nicolas Yaur) relación. No sé si te parece una cosa - (Rosario Quiroz) Sí, yo creo que
+2:56
+(Nicolas Yaur) así. - (Rosario Quiroz) esto está bueno porque nosotros eso lo hacemos hoy día a través del Excel, (Rosario Quiroz) cachá, como que hay una fila donde tenemos, no sé, uno puede buscar o por región o por
+3:04
+(Rosario Quiroz) naturaleza del proyecto o por como tipo de (Rosario Quiroz) industria productiva o directamente ya por los temas, pero creo que
+3:12
+(Rosario Quiroz) es buena idea de que el primer filtro sea tipo de proyecto, por (Rosario Quiroz) ejemplo, hidroeléctrica y que ya te salga una primera lista de todas las hidroeléctricas
+3:20
+(Rosario Quiroz) que que se han evaluado, que uno quisiera pudiera poner los filtros (Rosario Quiroz) hidroeléctrica en la Arapucanía, eh, y que te diera
+3:28
+(Rosario Quiroz) ese como primer filtro, porque generalmente los proyectos del mismo tipo tienen (Rosario Quiroz) los mismos conflictos, no siempre, pero en general es
+3:36
+(Rosario Quiroz) así. Ya. Eh, y (Rosario Quiroz) después entrar por tema o en
+3:44
+(Rosario Quiroz) paralelo. Ahora ahí, claro, eso no (Nicolas Yaur) Ja. - (Rosario Quiroz) sé cómo sería el proceso de
+3:52
+(Rosario Quiroz) determinar cuáles son esos temas o cómo es la forma más (Nicolas Yaur) Mira, es que yo estaba - (Rosario Quiroz) fácil de de visualizarlo.
+4:00
+(Nicolas Yaur) pensando en que ustedes cargaran el proyecto que quieren (Nicolas Yaur) evaluar, tuvieran este chat y le dijeran al
+4:08
+(Nicolas Yaur) chat, búscame en la base de (Nicolas Yaur) datos eh documentos que tengan relación con tema - (Rosario Quiroz) Mhm.
+4:16
+(Nicolas Yaur) hidroeléctricos eh desde tal año año tal año y ta ta. O sea, ahí (Nicolas Yaur) le ponen los filtros y este chat de manera inteligente buscaría en toda la base de
+4:24
+(Nicolas Yaur) datos, los documentos y se lo ordenaría por (Nicolas Yaur) e les daría las citas donde aparece información relevante, les daría el link
+4:32
+(Nicolas Yaur) al documento, etcétera, (Nicolas Yaur) y después con toda esa información recaballa, ese sería como el el la
+4:40
+(Nicolas Yaur) información previa, digamos, sería como ¿cómo se llama? El marco (Nicolas Yaur) teórico. Ese marco teórico lo movemos
+4:48
+(Nicolas Yaur) a esta parte donde está el notebook lm, (Nicolas Yaur) ¿okay? Y aquí construyen el informe.
+4:56
+(Nicolas Yaur) Entonces, teníamos primero la fase de de (Nicolas Yaur) de buscar toda esta información necesaria y después la fase
+5:04
+(Nicolas Yaur) de creación. No sé si te parece una cosa así. y todo sería como por - (Rosario Quiroz) Mhm. (Nicolas Yaur) chat, entonces sería como hablar por con chat GPT y chat chat GPT - (Rosario Quiroz) Mhm.
+5:12
+(Nicolas Yaur) tendía información sobre todo su base de datos. Entonces sería hablar (Nicolas Yaur) como una como una biblioteca - (Rosario Quiroz) Ya,
+5:20
+(Rosario Quiroz) eso es super bueno porque uno cuando, por (Rosario Quiroz) ejemplo, nosotros nos llega una reclamación, tenemos 15 días
+5:28
+(Rosario Quiroz) hábiles para eh enviar el informe. Ya. (Rosario Quiroz) Eh, eso suena harto tiempo, pero muchas veces son muy
+5:36
+(Rosario Quiroz) largos. ¿Ya? Entonces, de esos 15 días, yo te (Nicolas Yaur) sería. - (Rosario Quiroz) diría que hay al menos cinco o siete que son de leer, revisar
+5:44
+(Rosario Quiroz) y analizar toda la información y la otra mitad del plazo es como de (Rosario Quiroz) realmente escribir. Entonces, e eso sería super bueno
+5:52
+(Rosario Quiroz) si podemos acortar todo ese plazo de búsqueda de lectura y (Rosario Quiroz) todo e en claro en otros proyectos que de repente
+6:00
+(Rosario Quiroz) hay temas que ya están escritos y todo. Así que yo creo que está bien eh lo que tú (Rosario Quiroz) dices o lo que estáis pensando ya.
+6:08
+(Nicolas Yaur) Oye, incluso Este este el chat que estoy pensando (Nicolas Yaur) podría hacerle un documento resumen que que
+6:16
+(Nicolas Yaur) les resuma toda la información que que puedan necesitar. Entonces (Nicolas Yaur) tendrían teniendo la información completa, los documentos completos y además
+6:24
+(Nicolas Yaur) un resumen de toda la información para que en vez de tener que leer cada (Nicolas Yaur) documento, no sé, pudieran leer la idea general de todos los documentos
+6:32
+(Nicolas Yaur) y y ver si está correcto lo que hizo - (Rosario Quiroz) Eh, sí. Y lo (Rosario Quiroz) otro que que estaría bueno es que esta cosa, por
+6:40
+(Rosario Quiroz) ejemplo, cuando nos dé el resumen, nos dé como (Rosario Quiroz) un histórico de cómo nos fue. Por ejemplo, llega una
+6:48
+(Rosario Quiroz) reclamación sobre una hidroeléctrica. Nosotros dijimos en el (Rosario Quiroz) informe nuestra línea de defensa a el
+6:56
+(Rosario Quiroz) tribunal confirmó eso o el tribunal lo rechazó porque (Nicolas Yaur) echado. - (Rosario Quiroz) independiente nuestros argumentos son propios, entonces da lo mismo que el tribunal esté de acuerdo con nosotros
+7:04
+(Rosario Quiroz) o no. Pero igual es bueno saber si es que el tribunal está (Rosario Quiroz) confirmando lo que nosotros estamos diciendo o si es que el tribunal directamente nos ha dicho todo el rato
+7:12
+(Rosario Quiroz) que que ese argumento no sirve, ¿cachá? Entonces, quizás en alguna parte como que (Rosario Quiroz) saliera una tablita como rol, porque todas las sentencias, o sea, todas
+7:20
+(Nicolas Yaur) Sí. - (Rosario Quiroz) las causas son con un número de rol, que es un número (Rosario Quiroz) rol, tema, resultado confirmada o
+7:28
+(Rosario Quiroz) favorable, desfavorable, como que tuviera algún sistema (Rosario Quiroz) de revisar si el tribunal en la sentencia confirmó eso o no,
+7:36
+(Nicolas Yaur) Me parece, sí, me - (Rosario Quiroz) si es cuando se trata de (Nicolas Yaur) parece una buena idea. E ya, - (Rosario Quiroz) jurisprudencial.
+7:44
+(Nicolas Yaur) entonces ya ya eso es la parte (Nicolas Yaur) de el marco teórico. Listo. Está listo el marco teórico, digamos,
+7:52
+(Rosario Quiroz) Eh, sí, es que yo pienso que después o en algún (Rosario Quiroz) momento igual ahora yo creo que está lo que hablamos,
+8:00
+(Rosario Quiroz) yo ya le podría le voy a decir a mi jefe como de este de este (Rosario Quiroz) proyecto para ver si de repente se pueden reunir el contigo o algo
+8:08
+(Rosario Quiroz) así y eh ver si podemos ir avanzando o cómo podemos (Nicolas Yaur) ¿no? - (Rosario Quiroz) seguir avanzando en esto. Ya. Eh, igual yo creo que en
+8:16
+(Rosario Quiroz) paralelo o hay como que tendríamos que hacer pruebas para ver si (Rosario Quiroz) efectivamente esto está funcionando. Entonces, e yo sé
+8:24
+(Rosario Quiroz) que tenemos un pasante en la oficina que él estaba trabajando en un repositorio, (Nicolas Yaur) Sí. - (Rosario Quiroz) pero un repositorio onda que él lo estaba haciendo a
+8:32
+(Rosario Quiroz) mano. Eh, pero de pronto ese instrumento podría ser porque creo que ya tenía dos o tres años (Rosario Quiroz) terminados. Eh, creo que yo podría mandarte esos
+8:40
+(Rosario Quiroz) insumos. y que ahí hiciéramos pruebas con esos años a ver si es que (Nicolas Yaur) Ya. Eso repositorio te refieres a
+8:48
+(Rosario Quiroz) funciona. Sí, son documentos Word o PDF que (Rosario Quiroz) ya este chico ha hecho como resúmenes de
+8:56
+(Rosario Quiroz) ciertos temas, pero no sé bien cómo lo está haciendo porque el paciente eso lo estaba viendo (Rosario Quiroz) con otra, no conmigo, con otra
+9:04
+(Nicolas Yaur) documento. Sí, eso sirve mucho. Eso - (Rosario Quiroz) persona, eh, pero igual lo voy a (Nicolas Yaur) sirve mucho. De todas maneras, con este sistema ustedes van a poder - (Rosario Quiroz) buscar.
+9:12
+(Nicolas Yaur) directamente desde donde estén las bases sacarlo todo. O (Nicolas Yaur) sea, eso es otra cosa que quería hablarte porque no no sabía de dónde
+9:20
+(Nicolas Yaur) sacar los documentos, pero con este sistema supuestamente ustedes solo - (Rosario Quiroz) Ah, (Nicolas Yaur) tendrí que mover una vez el URL donde el URL donde quieren sacar - (Rosario Quiroz) ya.
+9:28
+(Nicolas Yaur) todas las cosas y se iría actualizando todo el tiempo, ¿me (Nicolas Yaur) entiendes? - (Rosario Quiroz) Ya es que yo creo que los ORL lo más confiable que yo pienso que
+9:36
+(Rosario Quiroz) podríamos hacer es sacar la información directo de los (Rosario Quiroz) tribunales, porque cuando nosotros hacemos un informe lo mandamos al
+9:44
+(Rosario Quiroz) tribunal, entonces que esta sistema encontrara (Rosario Quiroz) información de los informes que nosotros evacuamos y de los y
+9:52
+(Rosario Quiroz) de las sentencias porque ahí nos aseguramos de que es la versión (Rosario Quiroz) final, de que es todo lo lo que ya dijimos y de que quizás el tribunal ya se pronunció respecto de
+10:00
+(Nicolas Yaur) Yeah. - (Rosario Quiroz) eso. E pero ahí habría que filtrar de que no (Rosario Quiroz) busque en los informes de otras partes, ¿cachá? Porque
+10:08
+(Rosario Quiroz) puede haber otras partes que puede ser el reclamante o la empresa. (Rosario Quiroz) Eh, y eso nosotros no lo no lo queremos ver porque generalmente vamos en
+10:16
+(Rosario Quiroz) contra de ellos. Entonces habría que ver que filtre (Rosario Quiroz) la información directo de los tribunales, yo pienso,
+10:24
+(Nicolas Yaur) Mira, si es que el documento, - (Rosario Quiroz) eh, de las causas donde nosotros somos (Nicolas Yaur) los documentos de ellos vienen con título y que dice algo así
+10:32
+(Nicolas Yaur) como que es de ello, lo va a filtrar (Rosario Quiroz) recorridos. Ya. Sí, dice, dice porque nosotros siempre somos reclamados, siempre va a
+10:40
+(Nicolas Yaur) instantáneo. - (Rosario Quiroz) decir informe reclamado, ¿eh? Entonces, sí, (Nicolas Yaur) Ya, mira, voy a voy a meterme a nuestro
+10:48
+(Nicolas Yaur) WhatsApp porque ahí me mandaste varios links, si - (Rosario Quiroz) sí, (Nicolas Yaur) no mal recuerdo. Entonces, quiero que nos metamos esos links para que yo
+10:56
+(Nicolas Yaur) pueda grabar eh dónde, en qué links, porque (Nicolas Yaur) así se los doy a chat que met y él me va diciendo e va
+11:04
+(Nicolas Yaur) haciendo un resumen de lo que hay que hacerón que eran eran - (Rosario Quiroz) sí. (Nicolas Yaur) como tres y yo me metí y no entendí nada. Me - (Rosario Quiroz) Ya, ya.
+11:12
+(Nicolas Yaur) metí, no entendí nada. A ver, estoy (Nicolas Yaur) metiéndome a nuestro chat.
+11:20
+(Nicolas Yaur) A (Nicolas Yaur) ver, a ver, a ver, a
+11:36
+(Nicolas Yaur) ver. En tu (Nicolas Yaur) internet. - (Rosario Quiroz) Okay.
+11:48
+(Nicolas Yaur) A ver, no sé si tiene el nombre del tribunal o la (Nicolas Yaur) el - (Rosario Quiroz) Sí, ponle primer tribunal
+11:56
+(Nicolas Yaur) link. Primer - (Rosario Quiroz) ambiental y ahí por si podemos (Nicolas Yaur) tribunal
+12:04
+(Nicolas Yaur) ambiental, pues porque me me va lento el internet, tengo demasiadas cosas - (Rosario Quiroz) probar. (Nicolas Yaur) abiertas.
+12:12
+(Nicolas Yaur) Ya. E, ¿dónde hay que (Rosario Quiroz) Baja un poquito y ahí
+12:20
+(Nicolas Yaur) meterse? - (Rosario Quiroz) consulta de causas. El primero a la izquierda que (Rosario Quiroz) salga y
+12:28
+(Rosario Quiroz) ahí espera un poquito que se cargar. Ya ahí ándate (Rosario Quiroz) a consulta de causas arriba.
+12:36
+(Nicolas Yaur) Ya causa. (Rosario Quiroz) Ya. Y ahí ponle,
+12:44
+(Rosario Quiroz) eh. Ah, no se debería abrir al (Rosario Quiroz) tiro. Ponle buscar así en blanco,
+12:52
+(Rosario Quiroz) ¿no? (Rosario Quiroz) Ya. Ahí lo que tú estás viendo es el listado de causas, ¿ya?
+13:00
+(Nicolas Yaur) Ja. - (Rosario Quiroz) que están ordenadas por fecha de ingreso. Entonces, acá habría que (Rosario Quiroz) hacer un primer filtro que este sistema debería
+13:08
+(Rosario Quiroz) buscar solamente en las causas donde en la carátula sale que (Rosario Quiroz) es con servicio de evaluación
+13:16
+(Nicolas Yaur) Ah, ya. Pero a ver, y (Nicolas Yaur) reclamación, eso no hay que filtrarlo - (Rosario Quiroz) ambiental. Ah, sí,
+13:24
+(Nicolas Yaur) también. - (Rosario Quiroz) siempre nosotros somos reclamación, que ahí arriba en el cuadrito se puede filtrar. (Nicolas Yaur) el tema el tema - (Rosario Quiroz) Eh, tiene la opción
+13:32
+(Nicolas Yaur) reclamación y luego - (Rosario Quiroz) de Sí, nosotros solo vemos (Nicolas Yaur) en carátula, que es el - (Rosario Quiroz) reclamaciones. Carátula, la
+13:40
+(Rosario Quiroz) carátula, sí, es el título que generalmente es quién demanda contra (Nicolas Yaur) título, lleve uno que - (Rosario Quiroz) quién en contra de quién demanda. Entonces, por eso siempre es eh
+13:48
+(Nicolas Yaur) dice este ilustre - (Rosario Quiroz) municipalidad con servicio. Ese (Nicolas Yaur) evaluación ambiental, servicio de evaluación ambiental. - (Rosario Quiroz) sí. Sí.
+13:56
+(Nicolas Yaur) Este es - (Rosario Quiroz) Ahora ahí viene como una dificultad, pero en general sí dice servicio de evaluación (Rosario Quiroz) ambiental, pero hay algunos que yo te los podría mandar igual. Hay
+14:04
+(Rosario Quiroz) algunos que dicen, por ejemplo, con dirección (Rosario Quiroz) ejecutiva del servicio de Evaluación Ambiental, otros dicen con eh
+14:12
+(Rosario Quiroz) dirección regional del servicio de Evaluación Ambiental, otros (Rosario Quiroz) dicen eh no sé con comité de ministro, pero en general dicen servicio de
+14:20
+(Rosario Quiroz) evaluación ambiental. Igual esas como distintas formas yo no te las podría mandar porque son (Nicolas Yaur) el Mira, no te preocupes porque voy en - (Rosario Quiroz) como cuatro no más.
+14:28
+(Nicolas Yaur) en la parte del URL voy a poner para que sea inteligente y ustedes puedan (Nicolas Yaur) poner los distintos nombres que podrían - (Rosario Quiroz) Ya, ya
+14:36
+(Rosario Quiroz) eso. Pero generalmente si tú ves ahí en la fila de carátula sale, no (Nicolas Yaur) aparecer. - (Rosario Quiroz) sé, pues, la tercera con servicio de evaluación ambiental, después un poquito más
+14:44
+(Rosario Quiroz) abajo, Manuel Alfaro con servicio de evaluación ambiental y (Nicolas Yaur) Ya metamos uno unción mental. - (Rosario Quiroz) así
+14:52
+(Nicolas Yaur) Este, entonces aquí este es el - (Rosario Quiroz) ya. (Nicolas Yaur) estado, ¿no? - (Rosario Quiroz) Ese es el estado de la causa. Sí.
+15:00
+(Rosario Quiroz) Entonces ahí eh está esta causa está (Rosario Quiroz) en una etapa más inicial. Entonces, si tú te vas ahí a la en esta como columna que sale de la
+15:08
+(Nicolas Yaur) Ya. Sí. - (Rosario Quiroz) izquierda abajo, sale qué es (Rosario Quiroz) lo que pasó o cuál es el estado y quién es lo
+15:16
+(Rosario Quiroz) que lo hizo. Entonces, si el documento el anterior que sale evacúa (Nicolas Yaur) Espérate. ¿Dónde? La - (Rosario Quiroz) informe, en esta como columna donde sale por
+15:24
+(Nicolas Yaur) izquierda. Ah, esto, esto está acá. Ya, - (Rosario Quiroz) evacuado informe, esa ahí (Nicolas Yaur) ya, - (Rosario Quiroz) son esos son los movimientos de la causa, ¿ya?
+15:32
+(Rosario Quiroz) Entonces, siempre de abajo para arriba siempre lo primero que va a salir es la (Nicolas Yaur) ya esto. Escrito inicial. - (Rosario Quiroz) demanda o la reclamación en este caso.
+15:40
+(Rosario Quiroz) ¿Ya? Entonces, por ejemplo, no lo no lo vamos a mirar (Rosario Quiroz) mucho porque eso generalmente va a ser la pega que nosotros vamos a hacer ahí vamos a
+15:48
+(Rosario Quiroz) definir o o quizás la inteligencia lo pueda hacer cuáles son los temas reclamados, (Nicolas Yaur) Ya. - (Rosario Quiroz) ¿ya? Pero lo que tendría que mirar
+15:56
+(Rosario Quiroz) esto es el documento más arriba. (Rosario Quiroz) Eh, porque todo esos son trámites, trámites, trámites y evacúa
+16:04
+(Rosario Quiroz) informe. ¿Viste que sale evacúa informe y no sé qué dice? (Nicolas Yaur) ingresada por - (Rosario Quiroz) Abogado demandado, parte demandada, algo
+16:12
+(Nicolas Yaur) abogado - (Rosario Quiroz) así. Ya, ese sería como la palabrita que tendría que (Nicolas Yaur) demandado. Ya, pero mira, - (Rosario Quiroz) buscar la palabra porque ese es el informe
+16:20
+(Nicolas Yaur) veo aquí dos que dicen ingresado por abogado demandado. hace parte - (Rosario Quiroz) nuestro. Ya, (Nicolas Yaur) y - (Rosario Quiroz) eso siempre es evacúa
+16:28
+(Nicolas Yaur) informe. - (Rosario Quiroz) informe o informe puede decir, pero ese (Rosario Quiroz) es como el el este es el informe que tenemos que ir a
+16:36
+(Nicolas Yaur) Ya. Ya. Eh, ¿y esto entonces esto qué es esto? (Nicolas Yaur) es - (Rosario Quiroz) mirar. Eso es lo que nosotros escribimos para la
+16:44
+(Rosario Quiroz) defensa de ese caso. Ya, eso nosotros ya lo escribimos. Pero, (Rosario Quiroz) ¿por qué nos interesa? Porque puede haber otro caso que es el proyecto de al
+16:52
+(Rosario Quiroz) lado que va a tener los mismos problemas. Entonces, para (Rosario Quiroz) nosotros ahorrar tiempo, vamos a ir a ese informe y vamos a decir, "Mira, aquí se
+17:00
+(Rosario Quiroz) trató eh, no sé si te vas al índice, o sea, abajo, abajo, (Rosario Quiroz) abajo, al último, debería haber un índice ahí, ¿no lo hay?" Abajo, más
+17:08
+(Nicolas Yaur) eh - (Rosario Quiroz) abajo. Ah, mira, no le puso índice. Qué gallito. (Rosario Quiroz) E ya, pero ahí por título
+17:16
+(Rosario Quiroz) generalmente los informes llevan índice, ¿eh? (Rosario Quiroz) deberían estar los temas. Entonces, ¿por qué queremos mirar esto? Porque en
+17:24
+(Rosario Quiroz) 5 años más me va a llegar una reclamación por otro proyecto que va a tener los mismos (Rosario Quiroz) temas y necesito mirar este informe, que es lo que
+17:32
+(Nicolas Yaur) Ya. - (Rosario Quiroz) dijimos, porque siempre tenemos que ante el mismo tema decir lo mismo, (Rosario Quiroz) o sea, no podemos cambiar de opinión así como así. Eh, y también nos
+17:40
+(Rosario Quiroz) ahorra tiempo si ya escribimos sobre la comunidad imara, no sé (Rosario Quiroz) cuántito, ya vamos a ver lo mismo que hicimos.
+17:48
+(Nicolas Yaur) Perfecto. Oye, ¿y esto qué aparece acá a la - (Rosario Quiroz) Ya. (Nicolas Yaur) izquierda? Certificado autenticidad.
+17:56
+(Nicolas Yaur) Ah, ya, - (Rosario Quiroz) Y eso no hay que mirar solo el informe, no los adjuntos en general, (Nicolas Yaur) ya. Y este por evacuado de informe. ¿Qué - (Rosario Quiroz) porque hay veces que hay muchos adjuntos.
+18:04
+(Rosario Quiroz) Eso es una resolución del tribunal que dijo que (Nicolas Yaur) sería? Ah, ya, ya, ya. No, ¿y dónde está - (Rosario Quiroz) recibió el
+18:12
+(Nicolas Yaur) la lo necesito ver uno que que ya (Nicolas Yaur) sea que sea resuelto ya y - (Rosario Quiroz) informe
+18:20
+(Nicolas Yaur) que y que para ver cómo es la cómo da la resolución el (Nicolas Yaur) tribunal para ir alimentando lo que dijiste de la
+18:28
+(Nicolas Yaur) tabla? - (Rosario Quiroz) antiguo. Mira, eh, baja más más o yo te voy te voy a decir un (Rosario Quiroz) rol para que lo busquemos porque justo ayer salió una sentencia acá.
+18:36
+(Nicolas Yaur) Bajo (Rosario Quiroz) Entonces, mira, escribe ahí donde arribita sale como una opción para
+18:44
+(Nicolas Yaur) más - (Rosario Quiroz) escribir. Escribe (Nicolas Yaur) 135. Ya. - (Rosario Quiroz) 135 ya. Y ahí pincha ese porque
+18:52
+(Nicolas Yaur) Este sentencia. Aquí dice - (Rosario Quiroz) ese es justo un caso que salió una sentencia (Nicolas Yaur) sentencia. Estado de sentencia.
+19:00
+(Nicolas Yaur) Ya, como decía, común indígena con dirección regional, servicio de valoración inventarial. Ah, (Nicolas Yaur) ya. Y el estado sentencia. Ya. Y ah, bueno, en este
+19:08
+(Nicolas Yaur) documento dice sentencia. Me imagino que será - (Rosario Quiroz) ayer. Ese es (Nicolas Yaur) este. Ya. Y hay algún documento anterior que haya que
+19:16
+(Nicolas Yaur) leer. - (Rosario Quiroz) claro. Acá lo mismo. Si te lo más abajo siempre es más o menos la misma (Nicolas Yaur) ¿Dónde? - (Rosario Quiroz) estructura. Escrito inicial que es la reclamación, autoriza
+19:24
+(Rosario Quiroz) poder, que es como que los abogados dicen quién los va a representar y después hay uno un poquito más (Rosario Quiroz) arriba que deía informe. Evacúa informe. Ese habría
+19:32
+(Nicolas Yaur) informe. Ya, eso, - (Rosario Quiroz) que ver ese evacúa informe y la (Nicolas Yaur) esos tres. Entonces, no, - (Rosario Quiroz) sentencia. Sí,
+19:40
+(Nicolas Yaur) no el escrito inicial, que era donde estaban los temas de por los cual los (Nicolas Yaur) demandaban, el evacúo informe que es lo que ustedes mandan
+19:48
+(Nicolas Yaur) y la sentencia. - (Rosario Quiroz) pero sí. (Rosario Quiroz) Ahora, esta sentencia eh el primer después vamos a ver el tercer tribunal
+19:56
+(Rosario Quiroz) ambiental que tiene un sistema un poquito más complejo, ¿ya? (Rosario Quiroz) Eh, entonces ahí la sentencia tendría que ir a mirar los temas. Si tú ves las sentencias
+20:04
+(Rosario Quiroz) igual son bien ordenadas. Yo creo que va a ser fácil como identificar porque ellos mismos acá (Rosario Quiroz) identifican al principio los temas, un resumen, el
+20:12
+(Nicolas Yaur) Yeah. Sí, - (Rosario Quiroz) índice siempre va con lo que los temas (Nicolas Yaur) está perfecto. Está perfecto. las imágenes va a haber problemas, pero
+20:20
+(Nicolas Yaur) pero - (Rosario Quiroz) que no, pero las imágenes no nos importan ni los cuadritos ni nada, (Rosario Quiroz) como porque lo que nosotros necesitamos es tema
+20:28
+(Nicolas Yaur) Tá. - (Rosario Quiroz) onda, área de influencia de medio humano. Por ejemplo, yo ahora estoy viendo (Rosario Quiroz) un caso que cuál es mi tema e cuál es
+20:36
+(Rosario Quiroz) la, no sé, el valor que se le da a un área (Rosario Quiroz) protegida. Entonces siempre son como temas legales los que nosotros tenemos que ver
+20:44
+(Rosario Quiroz) lo mismo las fotos y o las modelaciones específicas, sino que el tema (Nicolas Yaur) Ya, perfecto. Bueno, entonces eso sería
+20:52
+(Nicolas Yaur) todo el proceso. Escrito inicial, evacúo - (Rosario Quiroz) legal. (Nicolas Yaur) informe, sentencia. - (Rosario Quiroz) Sí, sí. Y mira, puedes meterte al ahora
+21:00
+(Rosario Quiroz) tercer tribunal ambiental, que cada tribunal tiene sus propias páginas, pero siempre el (Rosario Quiroz) sistema es más o menos lo mismo, ¿ya? El tercer tribunal ambiental es
+21:08
+(Rosario Quiroz) como en la página es como no tan amigable. (Rosario Quiroz) Entonces, ya te vas ahí
+21:16
+(Rosario Quiroz) igual, bajas un poquito y sale sistema de gestión de (Rosario Quiroz) causa. Abrir
+21:28
+(Nicolas Yaur) Yeah. - (Rosario Quiroz) acá ya (Rosario Quiroz) ponle buscar así. Ah, espera. Igual deberíamos
+21:36
+(Rosario Quiroz) filtrar por nombre. (Nicolas Yaur) Ya - (Rosario Quiroz) No, hay una parte donde se puede ahí arreglamos.
+21:44
+(Nicolas Yaur) reclamación. - (Rosario Quiroz) Sí, (Nicolas Yaur) Ya - (Rosario Quiroz) busca ya. Y ahí lo mismo, la cachá que es distinto, pero igual la carátula
+21:56
+(Rosario Quiroz) te va a decir siempre servicio de evaluación ambiental o ahí había uno que decía (Rosario Quiroz) dirección ejecutiva, pero
+22:04
+(Nicolas Yaur) dice, (Nicolas Yaur) ¿dónde María José y otros de madera? Los - (Rosario Quiroz) igual ahí por
+22:12
+(Nicolas Yaur) Ángeles, Superintendencia. - (Rosario Quiroz) ejemplo la superintendencia no tiene que (Nicolas Yaur) Este - (Rosario Quiroz) ser servicio de evaluacionamiento.
+22:20
+(Nicolas Yaur) dice procesadora de de madera los ángeles spa con (Nicolas Yaur) superintendencia del medio ambiente. Ya ese no ya tiene
+22:28
+(Nicolas Yaur) que ser - (Rosario Quiroz) No es el (Nicolas Yaur) servicio de evaluación ambiental María no sé cuánto dice
+22:36
+(Nicolas Yaur) María José y ot y otros con servicio de evaluación (Nicolas Yaur) ambiental. Y aquí el mismo
+22:44
+(Rosario Quiroz) segundo. Mismo formato. Ahora p***, esta es una causa muy reciente. Habramos otra (Nicolas Yaur) formato. - (Rosario Quiroz) más antigua para
+22:52
+(Rosario Quiroz) que vamos a (Nicolas Yaur) Ya. Ah,
+23:00
+(Nicolas Yaur) este funciona así (Nicolas Yaur) bajando. 26 de marzo. 25. Esto no - (Rosario Quiroz) abrir.
+23:08
+(Nicolas Yaur) me están - (Rosario Quiroz) Sí, (Nicolas Yaur) listo. Dice superintendencia - (Rosario Quiroz) sí.
+23:16
+(Nicolas Yaur) este de aquí win to power - (Rosario Quiroz) Ya, (Rosario Quiroz) ese ese creo que está terminado o al menos ya
+23:24
+(Nicolas Yaur) sur. Ya. A - (Rosario Quiroz) mandamos el (Nicolas Yaur) ver este a ver al inicio
+23:32
+(Nicolas Yaur) tiene reclamo por el artículo número 3 de la ley. No sé cuánto. Este me imagino que (Nicolas Yaur) es el escrito inicial. - (Rosario Quiroz) informe. Sí, es el escrito inicial, la
+23:40
+(Nicolas Yaur) lo que le reclamaron ustedes. - (Rosario Quiroz) reclamación. Sí. (Nicolas Yaur) Luego evacúen - (Rosario Quiroz) Eh, luego ahí
+23:48
+(Nicolas Yaur) bien. Y después me - (Rosario Quiroz) está. (Nicolas Yaur) imagino que estará la - (Rosario Quiroz) A ver, espérame, espera que se puedes
+23:56
+(Rosario Quiroz) volver al, o sea, esperemos que se abra porque no estoy segura (Nicolas Yaur) sentencia. ¿Dónde
+24:04
+(Nicolas Yaur) está? - (Rosario Quiroz) así porque (Nicolas Yaur) Está - (Rosario Quiroz) se este tribunal es
+24:12
+(Nicolas Yaur) lento. - (Rosario Quiroz) lento. ¿Cuál es (Rosario Quiroz) esa cuál era ese rol? Podemos ver el número sube un
+24:20
+(Nicolas Yaur) Adelante. Eh, ¿dónde aparece rol (Nicolas Yaur) 2525? - (Rosario Quiroz) poquito. Ah, que ese no es nuestro
+24:28
+(Nicolas Yaur) tampoco. Ya. Y entonces - (Rosario Quiroz) tampoco. (Nicolas Yaur) como eh pues el filtro de rol también se puede
+24:36
+(Nicolas Yaur) filtrar. - (Rosario Quiroz) No, sí, pero ahí en lo que hay que lo primero que hay que fijarse a ver si es nuestra o no es en la (Rosario Quiroz) carátula, cachá. Ese también es superintentendencia del medio ambiente, pero es
+24:44
+(Rosario Quiroz) que tiene que ser servicio porque también y ¿por qué hay que filtrar en eso? (Rosario Quiroz) Porque distintas instituciones pueden tener demandas por los mismos
+24:52
+(Rosario Quiroz) proyectos, cachá, como que hay distintas aleros de un mismo (Nicolas Yaur) Ah, aquí está. - (Rosario Quiroz) proyecto.
+25:00
+(Nicolas Yaur) Va, qué raro. ¿Por qué se metió este? No - (Rosario Quiroz) Entonces, (Nicolas Yaur) me no me deja meterme - (Rosario Quiroz) no
+25:08
+(Rosario Quiroz) causas ahí como abajito de la audiencia. (Nicolas Yaur) para Ah, causa. Oye, qué
+25:16
+(Nicolas Yaur) lento - (Rosario Quiroz) Este, por eso quería que viéramos este, el primero (Rosario Quiroz) el mejor, el segundo intermedio, este es peor. Entonces,
+25:24
+(Nicolas Yaur) va. Ya. A (Nicolas Yaur) ver, eh. Superintendencia medio ambiente Superintendencia - (Rosario Quiroz) eh, a ver, e
+25:32
+(Rosario Quiroz) este 31 ya (Nicolas Yaur) Servicioal
+25:40
+(Nicolas Yaur) S325 y tú te lo sabes así de (Nicolas Yaur) memoria que viste que - (Rosario Quiroz) es o sea que me
+25:48
+(Nicolas Yaur) no. - (Rosario Quiroz) extrañó. Sí, como que no me causó, entonces pero no se (Nicolas Yaur) Ya. Entonces, reclamación que es el escrito - (Rosario Quiroz) una pregunta.
+25:56
+(Nicolas Yaur) inicial. - (Rosario Quiroz) Sí, pues ahí está. Informe (Nicolas Yaur) Eh, ¿dónde? Este, este es - (Rosario Quiroz) sea más abajo. Ahí es.
+26:04
+(Nicolas Yaur) el informe causa, ¿no? Algo - (Rosario Quiroz) Sí, sí, es el (Rosario Quiroz) informe que nosotros mandamos. Entonces, si te fijas ahí en la parte izquierda sale parte
+26:12
+(Nicolas Yaur) así. - (Rosario Quiroz) reclamada, informe. Siempre va a decir en algo o (Rosario Quiroz) informe sea o algo así, sea es servicio de
+26:20
+(Rosario Quiroz) evaluación ambiental y se estimula así. (Rosario Quiroz) Eh, y aquí de nuevo hay que meterse al aquí en el tercer tribunal ambiental
+26:28
+(Rosario Quiroz) ellos nos piden que acompañemos muchos documentos, que es (Nicolas Yaur) Ok. - (Rosario Quiroz) todo el expediente de evaluación ambiental. Entonces, generalmente ha muchos
+26:36
+(Rosario Quiroz) eh adjuntos que son como los que salen ahí con números abajo, o sea, (Rosario Quiroz) a la izquierda. Hay que ver el principal no más, que el que se te va a estar abriendo
+26:44
+(Nicolas Yaur) Ya tenemos (Nicolas Yaur) que - (Rosario Quiroz) ahora.
+26:52
+(Rosario Quiroz) Ah, y aquí este tercer tribunal en plan tiene una dificultad adicional (Rosario Quiroz) que la primer escrito, no sé si el informe, pero al menos el primer
+27:00
+(Rosario Quiroz) escrito ellos lo transforman como a este que se llama (Rosario Quiroz) OCR, como un PDF no
+27:08
+(Rosario Quiroz) seleccionable porque tienen un sistema que si no como que se (Rosario Quiroz) les confonfigura. No sé si eso tiene alguna
+27:16
+(Nicolas Yaur) Ale Si se puede descargar - (Rosario Quiroz) influencia en cómo lo lee (Nicolas Yaur) como PDF, no habrá problema. A intentar
+27:24
+(Nicolas Yaur) Sí, se puede descargar. No, no, no daría el problema. - (Rosario Quiroz) el (Nicolas Yaur) Este entonces es el coso que se ve en ano, pero bueno, se
+27:32
+(Nicolas Yaur) ve. Entonces, este es lo que - (Rosario Quiroz) ya sí. (Nicolas Yaur) mandan. - (Rosario Quiroz) Sí. Entonces ese sí al final final debería tener un
+27:40
+(Nicolas Yaur) Ya. (Nicolas Yaur) Sí, sí, ahí lo veo. Ya. Eh, bueno, y
+27:48
+(Nicolas Yaur) entonces este también es importante que se suba. Y después la sentencia. (Nicolas Yaur) ¿Cómo cómo está la - (Rosario Quiroz) índice. Ese no tiene sentencia
+27:56
+(Nicolas Yaur) sentencia? Ah, no tiene sentencia. Cal uno que tenga sentencia para que (Nicolas Yaur) pueda para que pueda ver cómo cómo se llama, para que quede - (Rosario Quiroz) todavía.
+28:04
+(Nicolas Yaur) grabado. A ver, (Nicolas Yaur) vayamos muy antiguo. Está
+28:16
+(Nicolas Yaur) 2000. Ah, que está (Nicolas Yaur) 13. - (Rosario Quiroz) Ándate. A ver,
+28:24
+(Rosario Quiroz) aquí tengo uno que es, ponte tú el donde se puede (Rosario Quiroz) escribir 12 del 2024.
+28:32
+(Rosario Quiroz) No, ponen número de rol en 12 no (Nicolas Yaur) 12. Ah, - (Rosario Quiroz) más, porque
+28:40
+(Rosario Quiroz) también esta cuestión no busca tan bien, no busca tan bien como el (Nicolas Yaur) ya. - (Rosario Quiroz) primer tribunal ambiental. Entonces, igual está bueno. De hecho, escríbele solo 12
+28:48
+(Rosario Quiroz) porque si le pones el año se confunde (Rosario Quiroz) y busca. Muy
+28:56
+(Rosario Quiroz) bien. Y hay el 12 del 2024. (Nicolas Yaur) Valentísimo este junta de Villa del
+29:08
+(Nicolas Yaur) Bosque. (Nicolas Yaur) Ya. Entonces, ¿qué? ¿Cuál es la la
+29:16
+(Nicolas Yaur) sentencia? Sentencia definitiva. (Nicolas Yaur) Ya. Ya. Y esto. Bueno, aquí - (Rosario Quiroz) Sí, no, pero ahí
+29:28
+(Rosario Quiroz) es otra cosa la que está visualizando. Ponle de nuevo sentencia. A (Nicolas Yaur) ya no. - (Rosario Quiroz) ver
+29:36
+(Rosario Quiroz) qué sale y a ver el documento de (Rosario Quiroz) arriba. No, a
+29:48
+(Nicolas Yaur) Esto - (Rosario Quiroz) ver, pincha de nuevo sentencia porque no (Rosario Quiroz) no sé por qué no muestra.
+29:56
+(Nicolas Yaur) es. (Nicolas Yaur) Ah, ahí mostró algo - (Rosario Quiroz) Ahí
+30:04
+(Nicolas Yaur) distinto. Ya. - (Rosario Quiroz) sí, ahí (Nicolas Yaur) Documento 55
+30:12
+(Nicolas Yaur) páginas. El medio documento va a decir que - (Rosario Quiroz) sí. (Nicolas Yaur) no, eh. Ya, ya. ¿Y esto pesa
+30:20
+(Nicolas Yaur) cuánto? - (Rosario Quiroz) Sí. Ahora, en general las sentencias tienen (Rosario Quiroz) promedio 4 páginas, ¿ya?
+30:28
+(Rosario Quiroz) Eh, hay algunas largas que tienen 300 páginas, en general más de (Nicolas Yaur) Sí, pero no va a pesar más de 1 mega, - (Rosario Quiroz) 300, no muchas,
+30:36
+(Nicolas Yaur) parece. Son 716 kW. (Nicolas Yaur) Perfecto. Entonces, ya tenemos los - (Rosario Quiroz) pero ya ahora
+30:44
+(Rosario Quiroz) sí, eso si tú te fijas acá, lo siguiente que hay que todavía (Rosario Quiroz) está pendiente un poquito más arriba en este mismo tercer tribunal
+30:52
+(Rosario Quiroz) ambiental es que aquí sale recurso de (Nicolas Yaur) tribunales. ¿Dónde dice - (Rosario Quiroz) casación. Entonces esta sentencia del Tribunal
+31:00
+(Nicolas Yaur) eso? Pero, - (Rosario Quiroz) Ambiental fue objeto de un recurso que se llama (Nicolas Yaur) ¿dónde dice eso? - (Rosario Quiroz) casación. En aquí a la izquierda sale con
+31:08
+(Nicolas Yaur) Ah, ya. ¿Y qué es - (Rosario Quiroz) recursos de casación en el fondo. Casación en el (Rosario Quiroz) fondo. Eso significa que la sentencia del Tribunal Ambiental fue reclamada
+31:16
+(Nicolas Yaur) esto? Ah, ya volvemos a arreglar - (Rosario Quiroz) ante la Corte Suprema. (Rosario Quiroz) Entonces ahí esa información ya no va a estar en el
+31:24
+(Nicolas Yaur) más. - (Rosario Quiroz) deja de estar en el Tribunal Ambiental y pasa a otro sistema que es el sistema de la Corte (Nicolas Yaur) Pero esto no le interesa a - (Rosario Quiroz) Suprema. Ya nos interesa
+31:32
+(Rosario Quiroz) solo la sentencia de la Corte Suprema, (Rosario Quiroz) pero acá en este caso, por ejemplo, no todavía no hay sentencia a la Corte
+31:40
+(Nicolas Yaur) ustedes. Ah, ya. O sea, en caso de que Ya, ahora - (Rosario Quiroz) Suprema. (Nicolas Yaur) entiendo. Entonces, ¿ustedes les interesa saber si se mandó al
+31:48
+(Nicolas Yaur) Tribunal Supremo y (Nicolas Yaur) le interesa saber porque quieren saber la respuesta del Tribunal - (Rosario Quiroz) Eh, sí. Entonces,
+31:56
+(Rosario Quiroz) la Corte Suprema y qué pasa aquí con un tema de temporalidad, (Nicolas Yaur) Supremo? - (Rosario Quiroz) se demoran años. Todo este proceso, todo esto se demora
+32:04
+(Rosario Quiroz) años. Entonces, eh desde que un proyecto ingresa a una (Rosario Quiroz) reclamación judicial hasta que termina con sentencia la Corte Suprema y todo, pueden
+32:12
+(Rosario Quiroz) pasar 3 4 años. Eh, y por eso es que (Rosario Quiroz) necesitamos un sistema, porque en 3 cu años, obviamente, la mitad del equipo es distinta, uno
+32:20
+(Rosario Quiroz) ya no se acuerda, no tenéis idea de lo que pusiste en el informe hace 3 años atrás. (Nicolas Yaur) Yeah. - (Rosario Quiroz) Eh, y todo eso hoy día lo hacemos
+32:28
+(Nicolas Yaur) Oye, ¿hay un lugar donde se publique - (Rosario Quiroz) manualmente. (Nicolas Yaur) como actualizaciones de los estados de la sent de los
+32:36
+(Nicolas Yaur) de las causas? - (Rosario Quiroz) Eh, sí, ahí donde arriba sale estado (Rosario Quiroz) diario. Ahí el
+32:44
+(Nicolas Yaur) Ya también lo tiene el primer terminal porque para no estar - (Rosario Quiroz) tribunal todos los días. Sí, todo, (Nicolas Yaur) media hora este estado en este - (Rosario Quiroz) todos losales tienen
+32:52
+(Nicolas Yaur) mejor porque el otro va a estar hasta el día esperando - (Rosario Quiroz) eso. Sí. (Rosario Quiroz) Entonces, eso por ejemplo hoy día
+33:00
+(Nicolas Yaur) ya. - (Rosario Quiroz) ponle el del 18 ahí en la fecha con porque hoy día se publica el (Rosario Quiroz) estado diario de ayer. Ya. Entonces,
+33:08
+(Rosario Quiroz) esas son todas las causas que tuvieron (Nicolas Yaur) Ya,
+33:16
+(Nicolas Yaur) perfecto. Eh, ya. Entonces, (Nicolas Yaur) aquí, claro, aquí habría
+33:24
+(Nicolas Yaur) que Ya, ya, perfecto. Eh, entonces estamos (Nicolas Yaur) listos con lo en la parte. Bueno, y después volviendo ya ya quedamos listos con los
+33:32
+(Rosario Quiroz) movimiento. Sí. Y ahí yo creo que eso tendría que conversar o tenemos que (Nicolas Yaur) tribunales. - (Rosario Quiroz) hacer pruebas para que después este sistema identifique cuáles de ellos
+33:40
+(Nicolas Yaur) Sí, sí, ya. Sí, - (Rosario Quiroz) llegaron a la Corte Suprema, porque no todos llegan a la Corte Suprema. (Nicolas Yaur) sí, eso no te preocupes que que se puede hacer e porque me imagino que - (Rosario Quiroz) Eh,
+33:48
+(Nicolas Yaur) eso también aparece en estado diario, ¿no? El informe de que se manda al tribunal su (Nicolas Yaur) pregunta. Sí. Entonces está - (Rosario Quiroz) ya sí, pero llega
+33:56
+(Rosario Quiroz) llega hasta ahí no más. Después habría que el sistema ver cuál es el rol y (Nicolas Yaur) listos. Ya. Sí, pero eso se - (Rosario Quiroz) revisar en la página de la Corte Suprema.
+34:04
+(Nicolas Yaur) puede hacer. Oye, eh, bueno, entonces ya tenemos el marco teórico, tenemos los (Nicolas Yaur) datos que ya los metimos, los documentos que necesitamos meter. Nos - (Rosario Quiroz) Ya. Sí,
+34:12
+(Nicolas Yaur) metemos ahora a la parte del notebook LLM. ¿Tú qué quieres que haga en esta (Rosario Quiroz) ya. Ya. Yo quiero que me diga,
+34:20
+(Nicolas Yaur) parte? - (Rosario Quiroz) dime informes que hablen sobre la zona de interés turístico en la comuna (Nicolas Yaur) No, eso eso es la parte anterior, en el marco - (Rosario Quiroz) de Almez. Ah,
+34:28
+(Nicolas Yaur) técnico. Eso ya lo ya lo hicimos. Ya ya tenemos la la los documentos que hablan - (Rosario Quiroz) ya. (Nicolas Yaur) sobre el proyecto que quieren evaluar. Ahora estamos en la parte
+34:36
+(Nicolas Yaur) de e la digamos yo creo que aquí sería la creación del documento (Nicolas Yaur) o de lo que quieran hacer de la - (Rosario Quiroz) Ya. Mm. Ya.
+34:44
+(Rosario Quiroz) Ya. Ahí lo que nosotros la etapa que viene ahora es que nosotros nos sentamos a (Nicolas Yaur) evaluación. Sí. - (Rosario Quiroz) escribir ya y eso y
+34:52
+(Rosario Quiroz) el resultado de eso son los informes que nosotros evacuamos al al Tribunal (Rosario Quiroz) Ambiental. Entonces ahí, bueno, yo creo que tendríamos que ir viendo cómo nos
+35:00
+(Rosario Quiroz) adaptamos, pero ahí ya es trabajo como nuestro (Rosario Quiroz) intelectual, ¿cachá? Escribir, escribir, escribir, escribir, pero ocupando
+35:08
+(Nicolas Yaur) Sí. Entonces ustedes esto en realidad no - (Rosario Quiroz) todas estas fuentes. (Nicolas Yaur) necesitan esto de acá para hacerle preguntas, no para que
+35:16
+(Nicolas Yaur) escriban. Ya, para que hagas para - (Rosario Quiroz) Eh, claro. Sí. Ahora es que yo creo que igual en (Rosario Quiroz) una etapa futura eh igual yo creo que todos van a estar
+35:24
+(Nicolas Yaur) hacer es que definitivamente yo de hecho - (Rosario Quiroz) escribiendo con estas cuestiones, pues entonces (Nicolas Yaur) tenía la intención de que esto lo ocuparan como para escribir. Estoy capaz de hacerle
+35:32
+(Nicolas Yaur) un documento - (Rosario Quiroz) eh ya ahora nosotros lo que hacemos mucho, es (Rosario Quiroz) nosotros escribimos y después lo pasamos por distintas para que nos
+35:40
+(Rosario Quiroz) digan si es que se entiende bien, si es que la reacción es correcta, si la gramática es (Nicolas Yaur) entero. Sí, eso también lo puede hacer. - (Rosario Quiroz) correcta, toda esa cuestión.
+35:48
+(Nicolas Yaur) Esto, mira, lo voy a poner experto en gramática y todo (Nicolas Yaur) eso para que para que pueda revisar revisión
+35:56
+(Nicolas Yaur) de documento para - (Rosario Quiroz) Si nosotros usamos (Nicolas Yaur) detectar la falta de orgog. - (Rosario Quiroz) gramarly. Sí.
+36:04
+(Rosario Quiroz) Eh, pero eso y pero yo creo que lo que sí nos puede ayudar a describir es (Rosario Quiroz) que toda esa información que ya encontró, pasarla a este
+36:12
+(Rosario Quiroz) caso concreto, que ese hoy día un trabajo que lo hacemos manual. Eh, (Nicolas Yaur) Ya. Mira, - (Rosario Quiroz) no sé cómo lo podríamos hacer virtual, pero yo pienso que se puede y que en futuro
+36:20
+(Nicolas Yaur) yo veo este flujo, tenemos el (Nicolas Yaur) marco. Bueno, cargan el el documento. No, espérate, es que no, claro,
+36:28
+(Nicolas Yaur) no tienen cargan cargan la la demanda, (Nicolas Yaur) ¿no? lo que les lo que les llega a
+36:36
+(Nicolas Yaur) ustedes e que activa todo este proceso, la demanda lo (Nicolas Yaur) cargan al chat donde está el marco teórico, el mar ese
+36:44
+(Nicolas Yaur) chat busca temas relacionados con lo que se está (Nicolas Yaur) demandando, les da toda la información y - (Rosario Quiroz) Mhm. Mhm.
+36:52
+(Nicolas Yaur) le genera un documento resumen (Nicolas Yaur) que une ambas partes, digamos que como que conecta los
+37:00
+(Nicolas Yaur) hilos y ustedes informe lo Ese ese resumen (Nicolas Yaur) lo pueden utilizar para bueno, ese informe tendría
+37:08
+(Nicolas Yaur) todo lo los links a los documentos que (Nicolas Yaur) utilizó, eh las citas que utilizó, todo eso. Y eso lo - (Rosario Quiroz) Mhm.
+37:16
+(Nicolas Yaur) utilizarían ustedes para crear la evaluación, lo que ustedes lo que tú estás diciendo de - (Rosario Quiroz) Hhm. (Nicolas Yaur) escribir, ¿no? Luego van a esta parte de acá, le dan ese
+37:24
+(Nicolas Yaur) informe y él hace una corrección, va (Nicolas Yaur) mejorando la ortografía, revisa que hayan cosas que no sé, hayan pueda
+37:32
+(Nicolas Yaur) ha problema, errores, etcétera, en base a lo que tiene ya marco (Nicolas Yaur) teórico. Eso yo creo que sería como el flujo de ahora
+37:40
+(Nicolas Yaur) inicial, ¿te parece? Ya, - (Rosario Quiroz) Mhm. Sí, sí, sí. (Nicolas Yaur) perfecto. Eh, igual en el futuro yo creo que se podría explorar para que él
+37:48
+(Nicolas Yaur) también tenga la capacidad de construir el documento, cosa de que (Nicolas Yaur) ustedes puedan ir eh digamos en tiempo real
+37:56
+(Nicolas Yaur) ir modificando cosas. Le van diciendo que haga (Nicolas Yaur) esto y lo revisan y ustedes van modificando lo que les vaya apareciendo. - (Rosario Quiroz) Correcto.
+38:04
+(Nicolas Yaur) Eso eso les reduciría aún más el tiempo de demora, no tendría - (Rosario Quiroz) Claro. Sí. Porque (Rosario Quiroz) ahí nosotros también funcionamos harto con en esa parte con
+38:12
+(Rosario Quiroz) chatt y con otras como este es mi argumento, refútamelo (Rosario Quiroz) o dame ideas para refutar esta reclamación.
+38:20
+(Rosario Quiroz) Eh, así que sí, pues ahí yo creo que estaría bueno que vaya como aprendiendo el (Nicolas Yaur) que ya. Entonces, listo por ahí de esto.
+38:28
+(Nicolas Yaur) Ahora, el tema de eh lo de Excel, que tampoco lo entendí (Nicolas Yaur) bien, ¿no? Yo no creo que haya veces así, no no me gusta cómo se ve
+38:36
+(Nicolas Yaur) así, pero yo creo que lo voy a hacer como un que se vea - (Rosario Quiroz) sistema. (Nicolas Yaur) así, así como esto
+38:44
+(Nicolas Yaur) e que se ve (Nicolas Yaur) aquí.
+38:52
+(Rosario Quiroz) Sí, nosotros usamos, no sé si incluyen algo, pero usamos más (Nicolas Yaur) Sí, sí, pero el mi - (Rosario Quiroz) e Microsoft.
+39:00
+(Nicolas Yaur) idea, que se ve así. Entonces ustedes van a poder seleccionar (Nicolas Yaur) las pilas que quieren estar eh perdón, las columnas que quieren
+39:08
+(Nicolas Yaur) estar monitoreando. La columna y van a - (Rosario Quiroz) Ya. (Nicolas Yaur) decir, "Bueno, aquí quiero que esto se monitoree y me llegue información sobre
+39:16
+(Nicolas Yaur) esto e una vez al día o si hay cambio, al instante que - (Rosario Quiroz) Mhm. (Nicolas Yaur) haya cambio, que me avisen, ¿entiendes?" Entonces, eh lo lo que
+39:24
+(Nicolas Yaur) ustedes tendrían esa la pantalla que te acab mostrar la tendrían acá en este parte de (Nicolas Yaur) acá, la seleccionarían y configurarían todo, ¿no? - (Rosario Quiroz) Hm.
+39:32
+(Nicolas Yaur) Lo que no entendí bien es e necesito que me explique (Nicolas Yaur) de nuevo en general cómo cómo sería
+39:40
+(Rosario Quiroz) Ya. Eh, nosotros tenemos una planilla donde está toda la (Nicolas Yaur) esto. - (Rosario Quiroz) información de las causas y ahí esto tendría que
+39:48
+(Nicolas Yaur) Sí. - (Rosario Quiroz) buscarse por rol de la causa una vez al día (Rosario Quiroz) y buscar en el tribunal que corresponda, ¿ya? O sea, una columna tiene el
+39:56
+(Rosario Quiroz) tribunal, otra columna tiene el rol. Entonces ahí que no se confunda en (Rosario Quiroz) buscar ese rol, pero en otro tribunal, ya aunque sea muy básico, eh,
+40:04
+(Rosario Quiroz) porque puede haber un mismo rol en más de un tribunal. Eh, (Rosario Quiroz) entonces tienen que mirar la columna del rol, la columna del tribunal y buscar y mandarnos
+40:12
+(Rosario Quiroz) un reporte una vez al día, salvo para ciertas (Rosario Quiroz) causas que son como dos o tres a la vez, que nos tendría que enviar
+40:20
+(Rosario Quiroz) un reporte inmediato al apenas salga una (Rosario Quiroz) resolución que nos avise, pero eso no es para todas las causas, es
+40:28
+(Nicolas Yaur) Ya yo lo voy a dejar para que puedan configurar ustedes, para que - (Rosario Quiroz) para un par de causas, (Nicolas Yaur) lo hagan en su - (Rosario Quiroz) ¿no? Ya, eso. ¿Y cuál es el resultado?
+40:36
+(Rosario Quiroz) Es un correo que (Nicolas Yaur) pinta. - (Rosario Quiroz) nosotros eh nos llega, que yo te lo puedo
+40:44
+(Rosario Quiroz) eh reenviar para que tú veas qué es lo que nosotros hacemos hoy día. (Rosario Quiroz) Ya. ¿Cuál es tu Dame tu
+40:52
+(Nicolas Yaur) Es Nico punto (Nicolas Yaur) yarur acá en el - (Rosario Quiroz) correo?
+41:04
+(Nicolas Yaur) chat. Ahí (Nicolas Yaur) está.
+41:12
+(Nicolas Yaur) Oye, y lo otro, si me puedes mandar un (Nicolas Yaur) extracto, solo un extracto, digamos, una cuatro o cinco
+41:20
+(Nicolas Yaur) filas de la plantilla para que yo pueda probar con (Nicolas Yaur) es con esas cinco filas así porque no sé cuáles - (Rosario Quiroz) Mhm.
+41:28
+(Nicolas Yaur) son las columnas, pero necesito probar para que para que pueda (Nicolas Yaur) funcionar. Si puedes mandarme eso, estaría perfecto - (Rosario Quiroz) Ya
+41:36
+(Nicolas Yaur) también. - (Rosario Quiroz) te voy a mandar, voy a descargar la planilla el día de hoy (Rosario Quiroz) y creo que no hay ni un dato sensible en esta planilla, pero la voy a revisar
+41:44
+(Rosario Quiroz) por si hubiera algo y te la mando a ver (Rosario Quiroz) si eh para que la mires
+41:52
+(Rosario Quiroz) y a ver si puedes encontrar algo, porque ah que también cuando hay un nuevo (Rosario Quiroz) ingreso nosotros lo agregamos manualmente a esta planilla y
+42:00
+(Rosario Quiroz) ese nu nuevo ingreso tiene que tener un poquito más de detalle. (Nicolas Yaur) Yeah.
+42:08
+(Nicolas Yaur) Ya, esto es como el informe, ¿no? (Nicolas Yaur) De actividad. Esto es lo que te gustaría que
+42:16
+(Nicolas Yaur) llegara. Lo voy a mover - (Rosario Quiroz) Eh, sí, ese es el informe (Rosario Quiroz) que hoy día todos los días una persona se mete en la mañana y
+42:24
+(Rosario Quiroz) revisa todas las causas y (Nicolas Yaur) acá. Y llene todo el no. Y pero - (Rosario Quiroz) envía nos envía
+42:32
+(Nicolas Yaur) esta información viene de Excel. - (Rosario Quiroz) viene de un lailla. (Nicolas Yaur) Ya, ya. Entonces, tendría que hacer el
+42:40
+(Nicolas Yaur) link. Ya, perfecto. Bueno, yo me (Nicolas Yaur) queda clarísimo. Aparte ya tengo mi asistente que tomo nota
+42:48
+(Nicolas Yaur) de todo, así que estamos perfectos. cualquier cosa te te va a preguntar, (Nicolas Yaur) eh, si me puedes mandar el Excel, sería
+42:56
+(Nicolas Yaur) perfecto y yo con eso voy a trabajar esta (Nicolas Yaur) semana y voy a tener eh un - (Rosario Quiroz) Sm.
+43:04
+(Nicolas Yaur) un una preview, digamos, un MVP más trabajado (Nicolas Yaur) para que lo podamos probar en vivo y veamos si funciona bien. ¿Te parece?
+43:12
+(Rosario Quiroz) Perfecto. Te voy a mandar esta planilla. (Rosario Quiroz) Eh, esta información es pública, ¿ya? Pero
+43:20
+(Rosario Quiroz) eh como el acceso a las planillas no es público, entonces yo te voy a mandar esa (Rosario Quiroz) planilla como extractada, eh, para que para que tú veas con todas las
+43:28
+(Nicolas Yaur) Ja. - (Rosario Quiroz) columnas que tiene y todo. (Nicolas Yaur) Ya, perfecto. Bueno, Rosario, que - (Rosario Quiroz) Ya, ya. Eso
+43:36
+(Nicolas Yaur) estés bien. Salud. Estamos hablando - (Rosario Quiroz) ya igual estamos hablando. (Nicolas Yaur) díao.

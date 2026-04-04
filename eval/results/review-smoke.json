@@ -1,0 +1,32 @@
+{
+  "summary": {
+    "cases": 1,
+    "avgLatencyMs": 34410,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null
+  },
+  "results": [
+    {
+      "id": "review-smoke-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "route": "professional",
+      "sourceId": "825a8669-4329-4aa7-9687-793593f53fce",
+      "focus": [
+        "strategy",
+        "evidence"
+      ],
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "model": null,
+      "evidenceCount": 0,
+      "findingsCount": 0,
+      "outputPreview": "La estrategia defensiva es conceptualmente sólida y bien articulada, especialmente en el desafío al alcance de las exigencias de la SMA y la demostración de cumplimiento del PDC. Sin embargo, la falta de respaldo verificable para afirmaciones clave sobre el proceso de la SMA y la ausencia de análisis de medidas por parte de la autoridad, introduce un riesgo jurídico significativo que podría debilitar la defensa si no se subsana con evidencia concreta.\nRevisar y citar las fechas exactas de notificación de la SMA para los plazos de presentación del PDC original y refundido, para sustentar la afirmación de 'breves plazos'.\nIdentificar y citar la normativa o jurisprudencia que establece el número de rondas de observaciones para un PDC, o proporcionar ejemplos concretos de 'otros casos' si se u",
+      "elapsedMs": 34410,
+      "notes": "Smoke case for professional review on onboarding claim source"
+    }
+  ]
+}

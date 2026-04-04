@@ -1,8 +1,19 @@
 "use client"
 
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import {
   ArrowLeft,
   ExternalLink,
@@ -23,6 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { cn } from "@/lib/utils"
 
 type Provider = "google" | "microsoft"
 
@@ -35,9 +47,19 @@ type OAuthConnection = {
 type WatchlistRow = {
   id: string
   provider: Provider
+  connection_id?: string | null
+  file_id?: string | null
   file_name: string | null
+  sheet_name?: string | null
   status: string
   next_check_at: string | null
+  next_email_at?: string | null
+  email_schedule?: { type?: "daily" | "immediate" | "interval"; time?: string | null; interval_minutes?: number | null } | null
+  key_columns?: string[]
+  watched_columns?: string[]
+  check_every_minutes?: number | null
+  recipients?: string[]
+  rules?: Record<string, any> | null
 }
 
 type ProviderFile = {
@@ -65,12 +87,68 @@ type PreviewPayload = {
   sampleRows: Array<Record<string, any>>
 }
 
+type WatchedRowSelection = {
+  rowKey: string
+  label: string
+}
+
+type WatchedCellSelection = {
+  rowKey: string
+  rowLabel: string
+  column: string
+}
+
+type CellContextMenu = {
+  x: number
+  y: number
+  rowKey: string
+  rowLabel: string
+  column: string
+}
+
 type WatchRule = {
-  type: "column_changed" | "column_equals" | "new_row"
+  type: "column_changed" | "column_equals" | "new_row" | "removed_row" | "column_condition"
   column?: string
   equals?: string
+  operator?: "equals" | "contains" | "empty" | "not_empty" | "gt" | "gte" | "lt" | "lte"
+  trigger?: "changed" | "current"
+  value?: string
   severity?: "info" | "warning" | "critical"
   message?: string
+}
+
+function connectionLabel(connection: OAuthConnection, index: number) {
+  const provider = connection.provider === "google" ? "Google Drive" : "OneDrive"
+  const createdAt = connection.created_at ? new Date(connection.created_at).toLocaleDateString("es-CL") : "sin fecha"
+  return `${provider} · cuenta ${index + 1} · ${createdAt}`
+}
+
+function ruleSummary(rule: WatchRule) {
+  if (rule.type === "new_row") return "Alerta cuando aparezca una fila nueva."
+  if (rule.type === "removed_row") return "Alerta cuando desaparezca una fila existente."
+  if (rule.type === "column_changed") return rule.column ? `Alerta si cambia la columna ${rule.column}.` : "Alerta si cambia una columna elegida."
+  if (rule.type === "column_equals") {
+    return rule.column && rule.equals
+      ? `Alerta cuando ${rule.column} pase a ser ${rule.equals}.`
+      : "Alerta cuando una columna tome un valor exacto."
+  }
+
+  const trigger = rule.trigger === "current" ? "estado actual" : "cambio detectado"
+  const operatorMap: Record<string, string> = {
+    equals: "sea igual a",
+    contains: "contenga",
+    empty: "quede vacia",
+    not_empty: "tenga valor",
+    gt: "sea mayor que",
+    gte: "sea mayor o igual que",
+    lt: "sea menor que",
+    lte: "sea menor o igual que",
+  }
+  const operatorLabel = operatorMap[rule.operator || "equals"] || "cumpla la condicion"
+  const suffix = rule.value && !["empty", "not_empty"].includes(rule.operator || "equals") ? ` ${rule.value}` : ""
+  return rule.column
+    ? `Evalua ${rule.column} sobre ${trigger}: ${operatorLabel}${suffix}.`
+    : "Evalua una condicion de columna personalizada."
 }
 
 function uniqueStrings(values: string[]) {
@@ -95,6 +173,157 @@ function parseCsv(raw: string) {
   )
 }
 
+function normalizeColumnName(value: string) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
+function isSameColumn(a: string, b: string) {
+  return normalizeColumnName(a) === normalizeColumnName(b)
+}
+
+function uniqueColumns(values: string[]) {
+  const out: string[] = []
+  for (const value of values) {
+    const clean = String(value || "").trim()
+    if (!clean) continue
+    if (out.some((x) => isSameColumn(x, clean))) continue
+    out.push(clean)
+  }
+  return out
+}
+
+function sortColumnsAlphabetically(values: string[]) {
+  return [...values].sort((a, b) => a.localeCompare(b, "es-CL", { sensitivity: "base" }))
+}
+
+function getRowValueByConfiguredColumn(row: Record<string, any>, configuredColumn: string) {
+  if (configuredColumn in row) return row?.[configuredColumn]
+  const normalizedTarget = normalizeColumnName(configuredColumn)
+  const actualKey = Object.keys(row || {}).find((key) => normalizeColumnName(key) === normalizedTarget)
+  return actualKey ? row?.[actualKey] : null
+}
+
+function buildPreviewRowKey(row: Record<string, any>, keyColumns: string[]) {
+  const cols = uniqueColumns(keyColumns)
+  if (!cols.length) return null
+  const parts = cols.map((column) => String(getRowValueByConfiguredColumn(row, column) ?? "").trim())
+  if (parts.every((part) => !part)) return null
+  return parts.join("|")
+}
+
+function buildPreviewRowLabel(row: Record<string, any>, keyColumns: string[], index: number) {
+  const cols = uniqueColumns(keyColumns)
+  const parts = cols
+    .map((column) => {
+      const value = String(getRowValueByConfiguredColumn(row, column) ?? "").trim()
+      if (!value) return null
+      return `${column}: ${value}`
+    })
+    .filter(Boolean)
+  return parts.length ? parts.join(" · ") : `Fila ${index + 1}`
+}
+
+function pickColumnsByKeywords(columns: string[], keywords: string[]) {
+  const normalizedKeywords = keywords.map((k) => normalizeColumnName(k))
+  return columns.filter((column) => {
+    const colNorm = normalizeColumnName(column)
+    if (!colNorm) return false
+    return normalizedKeywords.some((key) => colNorm.includes(key))
+  })
+}
+
+type MonitorGroup = {
+  id: string
+  label: string
+  description: string
+  keywords: string[]
+}
+
+const MONITOR_GROUPS: MonitorGroup[] = [
+  {
+    id: "estado",
+    label: "Estado procesal",
+    description: "Cambios de estado, observaciones, admisibilidad y resultado.",
+    keywords: [
+      "estado",
+      "observacion",
+      "resultado sentencia",
+      "resultado sentencia corte",
+      "admisibilidad",
+      "materias",
+      "evacuado informe",
+      "alegato",
+      "acuerdo",
+    ],
+  },
+  {
+    id: "roles",
+    label: "Roles y tribunal",
+    description: "ROL TA/ICA/CS, tribunal y region.",
+    keywords: ["rol", "tribunal", "region", "rol ica", "rol cs"],
+  },
+  {
+    id: "proyecto",
+    label: "Proyecto y partes",
+    description: "Proyecto, caratula, recurrente y recurrida.",
+    keywords: ["proyecto", "caratula", "recurrente", "recurrida", "conector"],
+  },
+  {
+    id: "fechas",
+    label: "Fechas clave",
+    description: "Ingresos, resoluciones y fechas de movimiento.",
+    keywords: ["fecha", "ingreso recurso", "sentencia", "evacuado", "notificacion"],
+  },
+]
+
+function buildRecommendedWatchColumns(columns: string[], keyColumns: string[]) {
+  const groupColumns = MONITOR_GROUPS.flatMap((group) => pickColumnsByKeywords(columns, group.keywords))
+  const filtered = groupColumns.filter(
+    (column) => !keyColumns.some((keyColumn) => isSameColumn(keyColumn, column))
+  )
+
+  const deduped = uniqueColumns(filtered)
+  if (deduped.length) return deduped
+
+  return columns
+    .filter((column) => !keyColumns.some((keyColumn) => isSameColumn(keyColumn, column)))
+    .slice(0, 10)
+}
+
+function buildWatchColumnsFromGroups(columns: string[], keyColumns: string[], selectedGroupIds: string[]) {
+  const selectedGroups = MONITOR_GROUPS.filter((group) => selectedGroupIds.includes(group.id))
+  const picked = selectedGroups.flatMap((group) => pickColumnsByKeywords(columns, group.keywords))
+  const filtered = picked.filter(
+    (column) => !keyColumns.some((keyColumn) => isSameColumn(keyColumn, column))
+  )
+  return uniqueColumns(filtered)
+}
+
+function pickDefaultKeyColumns(columns: string[]) {
+  const tribunal = columns.find((c) => normalizeColumnName(c).includes("tribunal")) || null
+  const rol =
+    columns.find((c) => {
+      const n = normalizeColumnName(c)
+      return n === "rol" || n.includes("numero de rol") || n.includes("n de rol") || n.includes("rol causa")
+    }) || null
+
+  const selected = [tribunal, rol].filter(Boolean) as string[]
+  if (selected.length >= 2) return selected
+
+  if (selected.length === 1) {
+    const fallback = columns.find((c) => c.toLowerCase() !== selected[0].toLowerCase())
+    return fallback ? [selected[0], fallback] : selected
+  }
+
+  return columns[0] ? [columns[0]] : []
+}
+
 function formatDate(iso: string | null) {
   if (!iso) return "-"
   const ts = Date.parse(iso)
@@ -112,6 +341,7 @@ function ColumnTagsEditor(props: {
 }) {
   const { label, value, onChange, suggestions, placeholder, hint } = props
   const [draft, setDraft] = useState("")
+  const sortedSuggestions = useMemo(() => sortColumnsAlphabetically(suggestions), [suggestions])
 
   function addDraft() {
     const parsed = parseCsv(draft)
@@ -164,11 +394,11 @@ function ColumnTagsEditor(props: {
         </div>
       ) : null}
 
-      {suggestions.length ? (
+      {sortedSuggestions.length ? (
         <div className="space-y-1">
           <div className="text-[11px] text-muted-foreground">Sugerencias detectadas</div>
           <div className="flex flex-wrap gap-2">
-            {suggestions.map((column) => {
+            {sortedSuggestions.map((column) => {
               const exists = value.some((v) => v.toLowerCase() === column.toLowerCase())
               return (
                 <button
@@ -215,10 +445,19 @@ export function WatchlistsManager({
   const [preview, setPreview] = useState<PreviewPayload | null>(null)
   const [isPreviewLoading, setIsPreviewLoading] = useState(false)
   const [previewError, setPreviewError] = useState<string | null>(null)
+  const [editingWatchlistId, setEditingWatchlistId] = useState<string | null>(null)
 
   const [sheetName, setSheetName] = useState("")
   const [keyColumns, setKeyColumns] = useState<string[]>([])
   const [watchedColumns, setWatchedColumns] = useState<string[]>([])
+  const [watchedRows, setWatchedRows] = useState<WatchedRowSelection[]>([])
+  const [watchedCells, setWatchedCells] = useState<WatchedCellSelection[]>([])
+  const [immediateColumns, setImmediateColumns] = useState<string[]>([])
+  const [immediateCells, setImmediateCells] = useState<WatchedCellSelection[]>([])
+  const [cellContextMenu, setCellContextMenu] = useState<CellContextMenu | null>(null)
+  const [monitorMode, setMonitorMode] = useState<"recommended" | "all" | "custom">("recommended")
+  const [monitorGroups, setMonitorGroups] = useState<string[]>(["estado", "roles", "proyecto", "fechas"])
+  const [showAdvancedConfig, setShowAdvancedConfig] = useState(false)
   const [checkEveryMinutes, setCheckEveryMinutes] = useState(15)
   const [emailSchedule, setEmailSchedule] = useState<"daily" | "immediate" | "interval">("daily")
   const [emailTime, setEmailTime] = useState("18:00")
@@ -229,13 +468,157 @@ export function WatchlistsManager({
   const [watchlistError, setWatchlistError] = useState<string | null>(null)
   const [actionError, setActionError] = useState<string | null>(null)
   const [actionInfo, setActionInfo] = useState<string | null>(null)
+  const [oauthError, setOauthError] = useState<string | null>(null)
   const [actingWatchlistId, setActingWatchlistId] = useState<string | null>(null)
   const [actingKind, setActingKind] = useState<"pause" | "resume" | "check" | "delete" | null>(null)
+  const [pendingDeleteWatchlist, setPendingDeleteWatchlist] = useState<WatchlistRow | null>(null)
+
+  const searchParams = useSearchParams()
 
   const connectionsForProvider = useMemo(
     () => connections.filter((c) => c.provider === watchProvider),
     [connections, watchProvider]
   )
+
+  const sampleRowSelections = useMemo(
+    () =>
+      (preview?.sampleRows || []).map((row, index) => ({
+        index,
+        row,
+        rowKey: buildPreviewRowKey(row, keyColumns),
+        rowLabel: buildPreviewRowLabel(row, keyColumns, index),
+      })),
+    [keyColumns, preview?.sampleRows]
+  )
+
+  function applyRecommendedConfig(columns: string[]) {
+    const keys = pickDefaultKeyColumns(columns)
+    setKeyColumns(keys)
+    setWatchedColumns(buildRecommendedWatchColumns(columns, keys))
+    setWatchedRows([])
+    setWatchedCells([])
+    setMonitorMode("recommended")
+  }
+
+  function applyAllColumnsConfig(columns: string[]) {
+    const keys = pickDefaultKeyColumns(columns)
+    setKeyColumns(keys)
+    setWatchedColumns(
+      columns.filter((column) => !keys.some((keyColumn) => isSameColumn(keyColumn, column)))
+    )
+    setWatchedRows([])
+    setWatchedCells([])
+    setMonitorMode("all")
+  }
+
+  function applyCustomGroupConfig(columns: string[], groups: string[]) {
+    const keys = pickDefaultKeyColumns(columns)
+    setKeyColumns(keys)
+    const custom = buildWatchColumnsFromGroups(columns, keys, groups)
+    setWatchedColumns(
+      custom.length
+        ? custom
+        : buildRecommendedWatchColumns(columns, keys)
+    )
+    setWatchedRows([])
+    setWatchedCells([])
+    setMonitorMode("custom")
+  }
+
+  function resetBuilderForm() {
+    setEditingWatchlistId(null)
+    setFileQuery("")
+    setFileResults([])
+    setSelectedFile(null)
+    setPreview(null)
+    setPreviewError(null)
+    setSheetName("")
+    setKeyColumns([])
+    setWatchedColumns([])
+    setWatchedRows([])
+    setWatchedCells([])
+    setImmediateColumns([])
+    setImmediateCells([])
+    setCellContextMenu(null)
+    setMonitorMode("recommended")
+    setMonitorGroups(["estado", "roles", "proyecto", "fechas"])
+    setShowAdvancedConfig(false)
+    setCheckEveryMinutes(15)
+    setEmailSchedule("daily")
+    setEmailTime("18:00")
+    setEmailEveryMinutes(60)
+    setRecipients("")
+    setWatchRules([])
+    setWatchlistError(null)
+  }
+
+  function toggleKeyColumn(column: string) {
+    setKeyColumns((prev) => {
+      const exists = prev.some((item) => isSameColumn(item, column))
+      const next = exists ? prev.filter((item) => !isSameColumn(item, column)) : uniqueColumns([...prev, column])
+      return next
+    })
+    setWatchedColumns((prev) => prev.filter((item) => !isSameColumn(item, column)))
+    setImmediateColumns((prev) => prev.filter((item) => !isSameColumn(item, column)))
+    setImmediateCells((prev) => prev.filter((item) => !isSameColumn(item.column, column)))
+    setWatchedRows([])
+    setWatchedCells([])
+  }
+
+  function toggleWatchedColumn(column: string) {
+    if (keyColumns.some((item) => isSameColumn(item, column))) return
+    setWatchedColumns((prev) => {
+      const exists = prev.some((item) => isSameColumn(item, column))
+      return exists ? prev.filter((item) => !isSameColumn(item, column)) : uniqueColumns([...prev, column])
+    })
+  }
+
+  function toggleImmediateColumn(column: string) {
+    setImmediateColumns((prev) => {
+      const exists = prev.some((item) => isSameColumn(item, column))
+      return exists ? prev.filter((item) => !isSameColumn(item, column)) : uniqueColumns([...prev, column])
+    })
+  }
+
+  function setKeyColumnsFromEditor(next: string[]) {
+    setKeyColumns(next)
+    setWatchedColumns((prev) => prev.filter((item) => !next.some((keyColumn) => isSameColumn(keyColumn, item))))
+    setImmediateColumns((prev) => prev.filter((item) => !next.some((keyColumn) => isSameColumn(keyColumn, item))))
+    setWatchedRows([])
+    setWatchedCells([])
+    setImmediateCells([])
+    setCellContextMenu(null)
+  }
+
+  function toggleWatchedRow(rowKey: string, rowLabel: string) {
+    if (!rowKey) return
+    setWatchedRows((prev) => {
+      const exists = prev.some((item) => item.rowKey === rowKey)
+      return exists
+        ? prev.filter((item) => item.rowKey !== rowKey)
+        : [...prev, { rowKey, label: rowLabel }]
+    })
+  }
+
+  function toggleWatchedCell(rowKey: string, rowLabel: string, column: string) {
+    if (!rowKey || !column) return
+    setWatchedCells((prev) => {
+      const exists = prev.some((item) => item.rowKey === rowKey && isSameColumn(item.column, column))
+      return exists
+        ? prev.filter((item) => !(item.rowKey === rowKey && isSameColumn(item.column, column)))
+        : [...prev, { rowKey, rowLabel, column }]
+    })
+  }
+
+  function toggleImmediateCell(rowKey: string, rowLabel: string, column: string) {
+    if (!rowKey || !column) return
+    setImmediateCells((prev) => {
+      const exists = prev.some((item) => item.rowKey === rowKey && isSameColumn(item.column, column))
+      return exists
+        ? prev.filter((item) => !(item.rowKey === rowKey && isSameColumn(item.column, column)))
+        : [...prev, { rowKey, rowLabel, column }]
+    })
+  }
 
   async function loadAll() {
     setLoadError(null)
@@ -285,6 +668,31 @@ export function WatchlistsManager({
   }, [connectionsForProvider, watchConnectionId])
 
   useEffect(() => {
+    const code = searchParams.get("oauth_error")
+    if (!code) {
+      setOauthError(null)
+      return
+    }
+
+    if (code === "google_app_not_configured") {
+      setOauthError(
+        "Falta configurar GOOGLE_CLIENT_ID/GOOGLE_CLIENT_SECRET en el servidor. Esto no fija un Drive unico: cada usuario autoriza su propia cuenta de Google."
+      )
+      return
+    }
+
+    if (code === "microsoft_app_not_configured") {
+      setOauthError(
+        "Falta configurar MICROSOFT_CLIENT_ID/MICROSOFT_CLIENT_SECRET en el servidor. Cada usuario conecta su propia cuenta de OneDrive."
+      )
+      return
+    }
+
+    setOauthError("No se pudo iniciar OAuth. Revisa la configuracion del proveedor.")
+  }, [searchParams])
+
+  useEffect(() => {
+    if (editingWatchlistId) return
     setFileResults([])
     setSelectedFile(null)
     setPreview(null)
@@ -292,7 +700,10 @@ export function WatchlistsManager({
     setSheetName("")
     setKeyColumns([])
     setWatchedColumns([])
-  }, [watchConnectionId])
+    setMonitorMode("recommended")
+    setMonitorGroups(["estado", "roles", "proyecto", "fechas"])
+    setShowAdvancedConfig(false)
+  }, [editingWatchlistId, watchConnectionId])
 
   async function searchFiles() {
     setFilesError(null)
@@ -328,13 +739,15 @@ export function WatchlistsManager({
     file: ProviderFile
     desiredSheet?: string
     seedColumns?: boolean
+    connectionIdOverride?: string
+    preserveConfiguredColumns?: boolean
   }) {
     setPreviewError(null)
     setIsPreviewLoading(true)
 
     try {
       const query = new URLSearchParams()
-      query.set("connectionId", watchConnectionId)
+      query.set("connectionId", params.connectionIdOverride || watchConnectionId)
       query.set("fileId", params.file.id)
       if (params.desiredSheet) query.set("sheetName", params.desiredSheet)
 
@@ -351,16 +764,18 @@ export function WatchlistsManager({
       setSheetName(data.selectedSheet || "")
 
       if (params.seedColumns) {
-        const first = data.columns[0] ? [data.columns[0]] : []
-        const suggestedWatch = data.columns.slice(first.length, 4)
-        setKeyColumns(first)
-        setWatchedColumns(suggestedWatch)
+        setMonitorGroups(["estado", "roles", "proyecto", "fechas"])
+        applyRecommendedConfig(data.columns)
+      } else if (params.preserveConfiguredColumns) {
+        // Keep existing manual configuration when editing an existing monitor.
       } else {
-        setKeyColumns((prev) => {
-          const kept = prev.filter((c) => data.columns.includes(c))
-          return kept.length ? kept : data.columns[0] ? [data.columns[0]] : []
-        })
-        setWatchedColumns((prev) => prev.filter((c) => data.columns.includes(c)))
+        if (monitorMode === "all") {
+          applyAllColumnsConfig(data.columns)
+        } else if (monitorMode === "custom") {
+          applyCustomGroupConfig(data.columns, monitorGroups)
+        } else {
+          applyRecommendedConfig(data.columns)
+        }
       }
     } catch (err: any) {
       setPreview(null)
@@ -371,12 +786,84 @@ export function WatchlistsManager({
   }
 
   async function selectFile(file: ProviderFile) {
+    setEditingWatchlistId(null)
     setSelectedFile(file)
     setPreview(null)
     setKeyColumns([])
     setWatchedColumns([])
+    setMonitorMode("recommended")
+    setMonitorGroups(["estado", "roles", "proyecto", "fechas"])
+    setShowAdvancedConfig(false)
     setWatchlistError(null)
     await loadPreview({ file, seedColumns: true })
+  }
+
+  async function editWatchlist(watchlist: WatchlistRow) {
+    const connectionId = String(watchlist.connection_id || "")
+    const fileId = String(watchlist.file_id || "")
+    if (!connectionId || !fileId) {
+      setActionError("Este monitor no tiene suficiente informacion para editarse desde la UI.")
+      return
+    }
+
+    const file: ProviderFile = {
+      id: fileId,
+      name: watchlist.file_name || "Archivo",
+      provider: watchlist.provider,
+      modifiedAt: null,
+      webUrl: null,
+      mimeType: null,
+    }
+
+    setActionError(null)
+    setActionInfo(`Editando monitor: ${watchlist.file_name || "Archivo"}`)
+    setEditingWatchlistId(watchlist.id)
+    setWatchProvider(watchlist.provider)
+    setWatchConnectionId(connectionId)
+    setSelectedFile(file)
+    setSheetName(String(watchlist.sheet_name || ""))
+    setKeyColumns(Array.isArray(watchlist.key_columns) ? watchlist.key_columns : [])
+    setWatchedColumns(Array.isArray(watchlist.watched_columns) ? watchlist.watched_columns : [])
+    setWatchedRows(
+      Array.isArray((watchlist.rules as any)?.watched_rows)
+        ? ((watchlist.rules as any).watched_rows as WatchedRowSelection[])
+        : []
+    )
+    setWatchedCells(
+      Array.isArray((watchlist.rules as any)?.watched_cells)
+        ? ((watchlist.rules as any).watched_cells as WatchedCellSelection[])
+        : []
+    )
+    setImmediateColumns(
+      Array.isArray((watchlist.rules as any)?.immediate_columns)
+        ? ((watchlist.rules as any).immediate_columns as string[])
+        : []
+    )
+    setImmediateCells(
+      Array.isArray((watchlist.rules as any)?.immediate_cells)
+        ? ((watchlist.rules as any).immediate_cells as WatchedCellSelection[])
+        : []
+    )
+    setCellContextMenu(null)
+    setCheckEveryMinutes(Math.max(1, Math.min(1440, Number(watchlist.check_every_minutes || 15))))
+    setEmailSchedule((watchlist.email_schedule?.type as any) || "daily")
+    setEmailTime(String(watchlist.email_schedule?.time || "18:00"))
+    setEmailEveryMinutes(Math.max(5, Math.min(10080, Number(watchlist.email_schedule?.interval_minutes || 60))))
+    setRecipients(Array.isArray(watchlist.recipients) ? watchlist.recipients.join(", ") : "")
+
+    const extractedRules = Array.isArray((watchlist.rules as any)?.rules)
+      ? ((watchlist.rules as any).rules as WatchRule[])
+      : []
+    setWatchRules(extractedRules)
+    setShowAdvancedConfig(false)
+
+    await loadPreview({
+      file,
+      desiredSheet: String(watchlist.sheet_name || "") || undefined,
+      seedColumns: false,
+      connectionIdOverride: connectionId,
+      preserveConfiguredColumns: true,
+    })
   }
 
   async function saveWatchlist() {
@@ -404,6 +891,41 @@ export function WatchlistsManager({
         (column) => !uniqueKeyColumns.some((k) => k.toLowerCase() === column.toLowerCase())
       )
     )
+    const uniqueWatchedRows = watchedRows.filter((row, index, all) => {
+      if (!row.rowKey) return false
+      return all.findIndex((candidate) => candidate.rowKey === row.rowKey) === index
+    })
+    const uniqueWatchedCells = watchedCells.filter((cell, index, all) => {
+      if (!cell.rowKey || !cell.column) return false
+      return (
+        all.findIndex(
+          (candidate) => candidate.rowKey === cell.rowKey && isSameColumn(candidate.column, cell.column)
+        ) === index
+      )
+    })
+
+    if (
+      uniqueWatchedColumns.length === 0 &&
+      uniqueWatchedRows.length === 0 &&
+      uniqueWatchedCells.length === 0
+    ) {
+      setWatchlistError("Selecciona al menos una columna, fila o celda a monitorear")
+      return
+    }
+
+    const uniqueImmediateColumns = uniqueStrings(
+      immediateColumns.filter(
+        (column) => !uniqueKeyColumns.some((key) => isSameColumn(key, column))
+      )
+    )
+    const uniqueImmediateCells = immediateCells.filter((cell, index, all) => {
+      if (!cell.rowKey || !cell.column) return false
+      return (
+        all.findIndex(
+          (candidate) => candidate.rowKey === cell.rowKey && isSameColumn(candidate.column, cell.column)
+        ) === index
+      )
+    })
 
     setIsSavingWatchlist(true)
     try {
@@ -411,6 +933,7 @@ export function WatchlistsManager({
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
+          watchlistId: editingWatchlistId || undefined,
           provider: watchProvider,
           connectionId: watchConnectionId,
           fileId: selectedFile.id,
@@ -426,7 +949,14 @@ export function WatchlistsManager({
               ? Math.min(10080, Math.max(5, Number(emailEveryMinutes) || 60))
               : undefined,
           recipients: parseCsv(recipients),
-          rules: { rules: watchRules },
+          criticalAlerts: false,
+          rules: {
+            rules: watchRules,
+            watched_rows: uniqueWatchedRows,
+            watched_cells: uniqueWatchedCells,
+            immediate_columns: uniqueImmediateColumns,
+            immediate_cells: uniqueImmediateCells,
+          },
         }),
       })
 
@@ -435,15 +965,9 @@ export function WatchlistsManager({
         throw new Error(json?.error || "No se pudo crear el monitor")
       }
 
-      setFileQuery("")
-      setFileResults([])
-      setSelectedFile(null)
-      setPreview(null)
-      setSheetName("")
-      setKeyColumns([])
-      setWatchedColumns([])
-      setRecipients("")
-      setWatchRules([])
+      setActionInfo(json?.mode === "updated" ? "Monitor actualizado." : "Monitor creado.")
+
+      resetBuilderForm()
 
       await loadAll()
     } catch (err: any) {
@@ -464,19 +988,17 @@ export function WatchlistsManager({
     kind: "pause" | "resume" | "check" | "delete"
   }) {
     const { watchlist, kind } = params
+    if (kind === "delete") {
+      setPendingDeleteWatchlist(watchlist)
+      return
+    }
+
     setActionError(null)
     setActionInfo(null)
     setActingWatchlistId(watchlist.id)
     setActingKind(kind)
 
     try {
-      if (kind === "delete") {
-        const ok = window.confirm(
-          `Se eliminara el monitor '${watchlist.file_name || "Archivo"}' junto a su historial. Esta accion no se puede deshacer.`
-        )
-        if (!ok) return
-      }
-
       let response: Response
       if (kind === "check") {
         response = await fetch(
@@ -485,10 +1007,6 @@ export function WatchlistsManager({
             method: "POST",
           }
         )
-      } else if (kind === "delete") {
-        response = await fetch(`/api/workspaces/${workspaceId}/watchlists/${watchlist.id}`, {
-          method: "DELETE",
-        })
       } else {
         response = await fetch(`/api/workspaces/${workspaceId}/watchlists/${watchlist.id}`, {
           method: "PATCH",
@@ -512,7 +1030,6 @@ export function WatchlistsManager({
 
       if (kind === "pause") setActionInfo("Monitor pausado.")
       if (kind === "resume") setActionInfo("Monitor reanudado y revision encolada.")
-      if (kind === "delete") setActionInfo("Monitor eliminado.")
 
       await loadAll()
     } catch (err: any) {
@@ -523,7 +1040,57 @@ export function WatchlistsManager({
     }
   }
 
-  const availableColumns = preview?.columns ?? []
+  async function confirmDeleteWatchlist() {
+    if (!pendingDeleteWatchlist) return
+
+    const watchlist = pendingDeleteWatchlist
+    setActionError(null)
+    setActionInfo(null)
+    setActingWatchlistId(watchlist.id)
+    setActingKind("delete")
+
+    try {
+      const response = await fetch(`/api/workspaces/${workspaceId}/watchlists/${watchlist.id}`, {
+        method: "DELETE",
+      })
+
+      const json = await response.json().catch(() => null)
+      if (!response.ok) {
+        throw new Error(json?.error || "No se pudo ejecutar la accion")
+      }
+
+      setActionInfo("Monitor eliminado.")
+      setPendingDeleteWatchlist(null)
+      await loadAll()
+    } catch (err: any) {
+      setActionError(err?.message ?? "Error al ejecutar accion")
+    } finally {
+      setActingWatchlistId(null)
+      setActingKind(null)
+    }
+  }
+
+  const availableColumns = useMemo(() => preview?.columns ?? [], [preview])
+  const groupMatches = useMemo(() => {
+    const map: Record<string, string[]> = {}
+    for (const group of MONITOR_GROUPS) {
+      map[group.id] = pickColumnsByKeywords(availableColumns, group.keywords)
+    }
+    return map
+  }, [availableColumns])
+
+  useEffect(() => {
+    setCellContextMenu(null)
+  }, [preview, keyColumns])
+
+  function toggleMonitorGroup(groupId: string) {
+    const next = monitorGroups.includes(groupId)
+      ? monitorGroups.filter((id) => id !== groupId)
+      : [...monitorGroups, groupId]
+
+    setMonitorGroups(next)
+    applyCustomGroupConfig(availableColumns, next)
+  }
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8">
@@ -556,13 +1123,13 @@ export function WatchlistsManager({
           <CardContent className="space-y-3">
             <div className="flex flex-wrap gap-2">
               <Button asChild variant="outline" size="sm">
-                <a href={`/api/oauth/google/start?next=${encodeURIComponent(`/excel/${workspaceId}`)}`}>
+                <a href={`/api/oauth/google/start?next=${encodeURIComponent(`/excel`)}`}>
                   Conectar Google Drive
                 </a>
               </Button>
               <Button asChild variant="outline" size="sm">
                 <a
-                  href={`/api/oauth/microsoft/start?next=${encodeURIComponent(`/excel/${workspaceId}`)}`}
+                  href={`/api/oauth/microsoft/start?next=${encodeURIComponent(`/excel`)}`}
                 >
                   Conectar OneDrive
                 </a>
@@ -579,9 +1146,19 @@ export function WatchlistsManager({
               </Badge>
             </div>
 
+            <div className="text-xs text-muted-foreground">
+              La app usa credenciales OAuth del sistema (Client ID/Secret) para identificarse, pero cada usuario autoriza su propio Google Drive/OneDrive.
+            </div>
+
             {loadError ? (
               <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
                 {loadError}
+              </div>
+            ) : null}
+
+            {oauthError ? (
+              <div className="rounded-md border border-amber-500/35 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
+                {oauthError}
               </div>
             ) : null}
           </CardContent>
@@ -589,16 +1166,35 @@ export function WatchlistsManager({
 
         <Card className="bg-card/70 lg:col-span-2">
           <CardHeader>
-            <CardTitle className="text-base">Crear monitor</CardTitle>
+            <CardTitle className="flex items-center justify-between gap-2 text-base">
+              <span>{editingWatchlistId ? "Editar monitor" : "Configurar monitor"}</span>
+              <div className="flex items-center gap-2">
+                {editingWatchlistId ? (
+                  <Badge variant="outline" className="border-emerald-500/35 text-emerald-200">
+                    Edicion activa
+                  </Badge>
+                ) : null}
+                <Button variant="outline" size="sm" onClick={resetBuilderForm}>
+                  {editingWatchlistId ? "Cancelar edicion" : "Limpiar"}
+                </Button>
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="rounded-xl border border-border/55 bg-background/20 px-3 py-2 text-xs text-muted-foreground">
+              Cada monitor funciona de forma independiente. Puedes configurar varios archivos, hojas y reglas dentro del mismo workspace.
+            </div>
+
             <div className="grid gap-3 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Proveedor</Label>
                 <select
                   className="flex h-10 w-full rounded-md border border-input bg-background/35 px-3 py-2 text-sm"
                   value={watchProvider}
-                  onChange={(e) => setWatchProvider(e.target.value as Provider)}
+                  onChange={(e) => {
+                    setEditingWatchlistId(null)
+                    setWatchProvider(e.target.value as Provider)
+                  }}
                 >
                   <option value="google">Google Drive</option>
                   <option value="microsoft">OneDrive</option>
@@ -610,12 +1206,15 @@ export function WatchlistsManager({
                 <select
                   className="flex h-10 w-full rounded-md border border-input bg-background/35 px-3 py-2 text-sm"
                   value={watchConnectionId}
-                  onChange={(e) => setWatchConnectionId(e.target.value)}
+                  onChange={(e) => {
+                    setEditingWatchlistId(null)
+                    setWatchConnectionId(e.target.value)
+                  }}
                 >
                   {connectionsForProvider.length ? (
-                    connectionsForProvider.map((c) => (
+                    connectionsForProvider.map((c, idx) => (
                       <option key={c.id} value={c.id}>
-                        {c.id.slice(0, 8)}...
+                        {connectionLabel(c, idx)}
                       </option>
                     ))
                   ) : (
@@ -765,52 +1364,391 @@ export function WatchlistsManager({
                     </div>
                   </div>
 
-                  <ColumnTagsEditor
-                    label="Clave de fila"
-                    value={keyColumns}
-                    onChange={setKeyColumns}
-                    suggestions={availableColumns}
-                    placeholder="Ej: ID, Codigo"
-                    hint="Usa columnas que identifiquen una fila de forma unica."
-                  />
+                  <div className="space-y-3 rounded-lg border border-border/55 bg-background/25 p-3">
+                    <div>
+                      <div className="text-sm font-medium">Que quieres monitorear</div>
+                      <div className="text-xs text-muted-foreground">
+                        Elige un preset rapido y despues ajusta directamente sobre la hoja. La configuracion avanzada queda abajo como opcion secundaria.
+                      </div>
+                    </div>
 
-                  <ColumnTagsEditor
-                    label="Columnas a monitorear"
-                    value={watchedColumns}
-                    onChange={setWatchedColumns}
-                    suggestions={availableColumns.filter(
-                      (column) => !keyColumns.some((k) => k.toLowerCase() === column.toLowerCase())
+                    <div className="grid gap-2 md:grid-cols-3">
+                      <Button
+                        type="button"
+                        variant={monitorMode === "recommended" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => applyRecommendedConfig(availableColumns)}
+                      >
+                        Recomendado
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={monitorMode === "all" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => applyAllColumnsConfig(availableColumns)}
+                      >
+                        Todo el archivo
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={monitorMode === "custom" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => applyCustomGroupConfig(availableColumns, monitorGroups)}
+                      >
+                        Personalizado
+                      </Button>
+                    </div>
+
+                    {monitorMode === "custom" ? (
+                      <div className="grid gap-2 md:grid-cols-2">
+                        {MONITOR_GROUPS.map((group) => {
+                          const matched = groupMatches[group.id] || []
+                          return (
+                            <label
+                              key={group.id}
+                              className="flex items-start gap-2 rounded-md border border-border/55 bg-background/25 px-2.5 py-2"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={monitorGroups.includes(group.id)}
+                                onChange={() => toggleMonitorGroup(group.id)}
+                                className="mt-0.5"
+                              />
+                              <div>
+                                <div className="text-sm font-medium">{group.label}</div>
+                                <div className="text-[11px] text-muted-foreground">{group.description}</div>
+                                <div className="mt-1 text-[11px] text-muted-foreground">
+                                  {matched.length ? `${matched.length} columnas detectadas` : "Sin columnas detectadas"}
+                                </div>
+                              </div>
+                            </label>
+                          )
+                        })}
+                      </div>
+                    ) : null}
+
+                    <div className="rounded-md border border-border/55 bg-background/20 px-3 py-2">
+                      <div className="text-[11px] text-muted-foreground">Identificador de fila</div>
+                      <div className="text-xs">{keyColumns.join(" + ") || "(sin definir)"}</div>
+                      <div className="mt-1 text-[11px] text-muted-foreground">
+                        Es la combinacion de columnas que le dice al sistema cual fila es cual entre una revision y la siguiente. Ejemplo recomendado: `Tribunal + Rol` o un `ID` unico.
+                      </div>
+                      <div className="mt-2 text-[11px] text-muted-foreground">
+                        Columnas monitoreadas: {watchedColumns.length} · Filas: {watchedRows.length} · Celdas: {watchedCells.length}
+                      </div>
+                      <div className="mt-1 text-[11px] text-muted-foreground">
+                        Alertas inmediatas especiales: columnas {immediateColumns.length} · celdas {immediateCells.length}
+                      </div>
+                      <div className="mt-1 flex flex-wrap gap-1">
+                        {watchedColumns.slice(0, 12).map((column) => (
+                          <span
+                            key={column}
+                            className="rounded-full border border-border/55 bg-background/25 px-2 py-0.5 text-[11px] text-muted-foreground"
+                          >
+                            {column}
+                          </span>
+                        ))}
+                        {watchedColumns.length > 12 ? (
+                          <span className="rounded-full border border-border/55 bg-background/25 px-2 py-0.5 text-[11px] text-muted-foreground">
+                            +{watchedColumns.length - 12} mas
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 rounded-lg border border-border/55 bg-background/25 p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <div className="text-sm font-medium">Configuracion avanzada</div>
+                        <div className="text-[11px] text-muted-foreground">Usala solo si quieres editar manualmente columnas, filas o reglas.</div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowAdvancedConfig((prev) => !prev)}
+                      >
+                        {showAdvancedConfig ? "Ocultar" : "Editar manualmente"}
+                      </Button>
+                    </div>
+
+                    {showAdvancedConfig ? (
+                      <>
+                        <ColumnTagsEditor
+                          label="Identificador de fila"
+                          value={keyColumns}
+                          onChange={setKeyColumnsFromEditor}
+                          suggestions={availableColumns}
+                          placeholder="Ej: Tribunal, Rol"
+                          hint="Usa columnas estables que identifiquen una fila de forma unica. Evita Estado u Observaciones porque esas cambian." 
+                        />
+
+                        <ColumnTagsEditor
+                          label="Columnas a monitorear"
+                          value={watchedColumns}
+                          onChange={setWatchedColumns}
+                          suggestions={availableColumns.filter(
+                            (column) => !keyColumns.some((k) => isSameColumn(k, column))
+                          )}
+                          placeholder="Ej: Estado, Observaciones"
+                          hint="Solo estas columnas disparan cambios en el diff."
+                        />
+                      </>
+                    ) : (
+                      <div className="text-xs text-muted-foreground">
+                        Usa esta seccion solo si quieres controlar manualmente columnas clave y columnas monitoreadas. La seleccion principal deberia hacerse desde la vista tipo hoja.
+                      </div>
                     )}
-                    placeholder="Ej: Estado, Responsable"
-                    hint="Solo estas columnas disparan cambios en el diff."
-                  />
+                  </div>
 
                   {preview.sampleRows.length ? (
-                    <div className="space-y-2">
-                      <Label>Muestra rapida</Label>
-                      <div className="overflow-x-auto rounded-xl border border-border/55">
-                        <table className="w-full text-left text-xs">
-                          <thead className="bg-background/35 text-muted-foreground">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <div>
+                          <Label>Vista tipo spreadsheet</Label>
+                          <div className="text-[11px] text-muted-foreground">
+                            Click en encabezado para monitorear columna, click en numero de fila para monitorear fila y click derecho en celda para monitorear solo esa casilla.
+                          </div>
+                        </div>
+                        <div className="text-[11px] text-muted-foreground">
+                          {keyColumns.length ? "El identificador de fila ya permite seleccionar filas y celdas." : "Primero define el identificador de fila si quieres monitorear filas o celdas."}
+                        </div>
+                      </div>
+
+                      <div className="rounded-lg border border-border/55 bg-background/20 px-3 py-2 text-[11px] text-muted-foreground">
+                        <span className="font-medium text-foreground">Como empezar:</span> 1) marca el identificador de fila, 2) haz click en las columnas importantes, 3) si quieres algo mas preciso, marca una fila o haz click derecho en una celda.
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 text-[11px]">
+                        <span className="rounded-full border border-sky-400/40 bg-sky-500/15 px-2 py-1 text-sky-200">Identificador de fila</span>
+                        <span className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-2 py-1 text-emerald-200">Columna monitoreada</span>
+                        <span className="rounded-full border border-amber-400/40 bg-amber-500/15 px-2 py-1 text-amber-100">Fila monitoreada</span>
+                        <span className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-2 py-1 text-fuchsia-100">Celda monitoreada</span>
+                      </div>
+
+                      {(watchedRows.length > 0 || watchedCells.length > 0) ? (
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <div className="rounded-xl border border-border/55 bg-background/20 p-3">
+                            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Filas monitoreadas</div>
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {watchedRows.length ? watchedRows.map((row) => (
+                                <button
+                                  key={row.rowKey}
+                                  type="button"
+                                  onClick={() => toggleWatchedRow(row.rowKey, row.label)}
+                                  className="rounded-full border border-amber-400/40 bg-amber-500/15 px-2.5 py-1 text-[11px] text-amber-100"
+                                >
+                                  {row.label} x
+                                </button>
+                              )) : <span className="text-xs text-muted-foreground">Sin filas seleccionadas.</span>}
+                            </div>
+                          </div>
+
+                          <div className="rounded-xl border border-border/55 bg-background/20 p-3">
+                            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Celdas monitoreadas</div>
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {watchedCells.length ? watchedCells.map((cell) => (
+                                <button
+                                  key={`${cell.rowKey}:${cell.column}`}
+                                  type="button"
+                                  onClick={() => toggleWatchedCell(cell.rowKey, cell.rowLabel, cell.column)}
+                                  className="rounded-full border border-fuchsia-400/40 bg-fuchsia-500/15 px-2.5 py-1 text-[11px] text-fuchsia-100"
+                                >
+                                  {cell.rowLabel} · {cell.column} x
+                                </button>
+                              )) : <span className="text-xs text-muted-foreground">Sin celdas seleccionadas.</span>}
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+
+                      <div className="relative overflow-x-auto rounded-xl border border-border/55 bg-background/15" onClick={() => setCellContextMenu(null)}>
+                        <table className="w-full min-w-[960px] text-left text-xs">
+                          <thead className="sticky top-0 z-10 bg-background/90 text-muted-foreground backdrop-blur">
                             <tr>
-                              {availableColumns.slice(0, 8).map((column) => (
-                                <th key={column} className="px-2.5 py-2 font-medium">
-                                  {column}
-                                </th>
-                              ))}
+                              <th className="w-12 px-2 py-2 text-center font-medium">#</th>
+                              {availableColumns.slice(0, 24).map((column) => {
+                                const isKey = keyColumns.some((item) => isSameColumn(item, column))
+                                const isWatched = watchedColumns.some((item) => isSameColumn(item, column))
+                                return (
+                                  <th
+                                    key={column}
+                                    className={cn(
+                                      "min-w-[180px] border-l border-border/40 px-2.5 py-2 align-top font-medium",
+                                      isKey && "bg-sky-500/10",
+                                      isWatched && "bg-emerald-500/10"
+                                    )}
+                                  >
+                                    <button
+                                      type="button"
+                                      onClick={() => toggleWatchedColumn(column)}
+                                      className="w-full rounded-lg px-1 py-1 text-left hover:bg-background/30"
+                                    >
+                                      <div className="truncate text-foreground">{column}</div>
+                                      <div className="mt-1 flex flex-wrap gap-1">
+                                        <span
+                                          className={cn(
+                                            "rounded-full border px-2 py-0.5 text-[10px]",
+                                            isKey
+                                              ? "border-sky-400/50 bg-sky-500/15 text-sky-200"
+                                              : "border-border/55 bg-background/25"
+                                          )}
+                                          onClick={(event) => {
+                                            event.stopPropagation()
+                                            toggleKeyColumn(column)
+                                          }}
+                                        >
+                                          {isKey ? "ID fila" : "Marcar ID fila"}
+                                        </span>
+                                        <span
+                                          className={cn(
+                                            "rounded-full border px-2 py-0.5 text-[10px]",
+                                            isWatched
+                                              ? "border-emerald-400/50 bg-emerald-500/15 text-emerald-200"
+                                              : "border-border/55 bg-background/25"
+                                          )}
+                                        >
+                                          {isWatched ? "Monitoreada" : "Click monitorea"}
+                                        </span>
+                                      </div>
+                                    </button>
+                                  </th>
+                                )
+                              })}
                             </tr>
                           </thead>
                           <tbody>
-                            {preview.sampleRows.slice(0, 6).map((row, idx) => (
-                              <tr key={idx} className="border-t border-border/55">
-                                {availableColumns.slice(0, 8).map((column) => (
-                                  <td key={`${idx}:${column}`} className="px-2.5 py-2 text-muted-foreground">
-                                    {String(row?.[column] ?? "")}
+                            {sampleRowSelections.slice(0, 14).map((sampleRow) => {
+                              const rowKey = sampleRow.rowKey
+                              const rowMonitored = rowKey ? watchedRows.some((item) => item.rowKey === rowKey) : false
+                              return (
+                                <tr key={sampleRow.index} className={cn("border-t border-border/55", rowMonitored && "bg-amber-500/8")}>
+                                  <td className="px-2 py-2 text-center text-[11px]">
+                                    <button
+                                      type="button"
+                                      disabled={!rowKey}
+                                      onClick={() => rowKey && toggleWatchedRow(rowKey, sampleRow.rowLabel)}
+                                      className={cn(
+                                        "w-full rounded-md px-1 py-1 text-[11px] text-muted-foreground hover:bg-background/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-45",
+                                        rowMonitored && "bg-amber-500/15 text-amber-100"
+                                      )}
+                                      title={rowKey ? `Monitorear fila ${sampleRow.rowLabel}` : "Define un identificador de fila para monitorear esta fila"}
+                                    >
+                                      {sampleRow.index + 1}
+                                    </button>
                                   </td>
-                                ))}
-                              </tr>
-                            ))}
+                                  {availableColumns.slice(0, 24).map((column) => {
+                                    const isKey = keyColumns.some((item) => isSameColumn(item, column))
+                                    const isWatchedColumn = watchedColumns.some((item) => isSameColumn(item, column))
+                                    const isWatchedCell = rowKey
+                                      ? watchedCells.some((item) => item.rowKey === rowKey && isSameColumn(item.column, column))
+                                      : false
+                                    return (
+                                      <td
+                                        key={`${sampleRow.index}:${column}`}
+                                        onContextMenu={(event) => {
+                                          if (!rowKey) return
+                                          event.preventDefault()
+                                          setCellContextMenu({
+                                            x: event.clientX,
+                                            y: event.clientY,
+                                            rowKey,
+                                            rowLabel: sampleRow.rowLabel,
+                                            column,
+                                          })
+                                        }}
+                                        className={cn(
+                                          "border-l border-border/40 px-2.5 py-2 align-top text-muted-foreground",
+                                          isKey && "bg-sky-500/8 text-foreground",
+                                          isWatchedColumn && "bg-emerald-500/8 text-foreground",
+                                          rowMonitored && "bg-amber-500/5 text-foreground",
+                                          isWatchedCell && "outline outline-1 outline-fuchsia-400/70 bg-fuchsia-500/10 text-foreground"
+                                        )}
+                                      >
+                                        {String(sampleRow.row?.[column] ?? "")}
+                                      </td>
+                                    )
+                                  })}
+                                </tr>
+                              )
+                            })}
                           </tbody>
                         </table>
+
+                        {cellContextMenu ? (
+                          <div
+                            className="fixed z-50 w-64 rounded-xl border border-border/70 bg-popover p-2 shadow-2xl"
+                            style={{ left: cellContextMenu.x, top: cellContextMenu.y }}
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            <div className="border-b border-border/60 px-2 py-1 text-[11px] text-muted-foreground">
+                              {cellContextMenu.rowLabel} · {cellContextMenu.column}
+                            </div>
+                            <div className="mt-2 space-y-1">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  toggleWatchedCell(cellContextMenu.rowKey, cellContextMenu.rowLabel, cellContextMenu.column)
+                                  setCellContextMenu(null)
+                                }}
+                                className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-background/60"
+                              >
+                                {watchedCells.some((item) => item.rowKey === cellContextMenu.rowKey && isSameColumn(item.column, cellContextMenu.column))
+                                  ? "Quitar monitoreo de esta celda"
+                                  : "Monitorear esta celda"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  toggleWatchedRow(cellContextMenu.rowKey, cellContextMenu.rowLabel)
+                                  setCellContextMenu(null)
+                                }}
+                                className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-background/60"
+                              >
+                                {watchedRows.some((item) => item.rowKey === cellContextMenu.rowKey)
+                                  ? "Quitar monitoreo de esta fila"
+                                  : "Monitorear toda esta fila"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  toggleWatchedColumn(cellContextMenu.column)
+                                  setCellContextMenu(null)
+                                }}
+                                className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-background/60"
+                              >
+                                {watchedColumns.some((item) => isSameColumn(item, cellContextMenu.column))
+                                  ? "Quitar monitoreo de esta columna"
+                                  : "Monitorear esta columna"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  toggleImmediateColumn(cellContextMenu.column)
+                                  setCellContextMenu(null)
+                                }}
+                                className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-background/60"
+                              >
+                                {immediateColumns.some((item) => isSameColumn(item, cellContextMenu.column))
+                                  ? "Quitar alerta inmediata de esta columna"
+                                  : "Alerta inmediata para esta columna"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  toggleImmediateCell(cellContextMenu.rowKey, cellContextMenu.rowLabel, cellContextMenu.column)
+                                  setCellContextMenu(null)
+                                }}
+                                className="w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-background/60"
+                              >
+                                {immediateCells.some((item) => item.rowKey === cellContextMenu.rowKey && isSameColumn(item.column, cellContextMenu.column))
+                                  ? "Quitar alerta inmediata de esta celda"
+                                  : "Alerta inmediata para esta celda"}
+                              </button>
+                            </div>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   ) : null}
@@ -844,6 +1782,36 @@ export function WatchlistsManager({
                   <option value="immediate">Inmediato</option>
                   <option value="interval">Intervalo (minutos)</option>
                 </select>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setEmailSchedule("daily")
+                      setCheckEveryMinutes(60)
+                      setEmailTime("18:00")
+                      setImmediateColumns([])
+                      setImmediateCells([])
+                    }}
+                  >
+                    Preset diario general
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setEmailSchedule("daily")
+                      setCheckEveryMinutes(15)
+                      setEmailTime("18:00")
+                      setImmediateColumns(watchedColumns.slice(0, 2))
+                      setImmediateCells([])
+                    }}
+                  >
+                    Preset causa critica
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -879,6 +1847,49 @@ export function WatchlistsManager({
               />
             </div>
 
+            <div className="space-y-3 rounded-lg border border-border/55 bg-background/20 px-3 py-3">
+              <div>
+                <div className="text-sm font-medium">Alertas inmediatas especiales</div>
+                <div className="text-xs text-muted-foreground">
+                  Sirven para disparar un correo apenas cambie una columna o celda importante, aunque tu programacion normal sea diaria o por intervalo. Si arriba eliges `Inmediato`, entonces todos los cambios mandan correo altiro y estas reglas especiales dejan de ser necesarias.
+                </div>
+              </div>
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <div className="rounded-xl border border-border/55 bg-background/20 p-3">
+                  <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Columnas con alerta inmediata</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {immediateColumns.length ? immediateColumns.map((column) => (
+                      <button
+                        key={`immediate_${column}`}
+                        type="button"
+                        onClick={() => toggleImmediateColumn(column)}
+                        className="rounded-full border border-rose-400/40 bg-rose-500/15 px-2.5 py-1 text-[11px] text-rose-100"
+                      >
+                        {column} x
+                      </button>
+                    )) : <span className="text-xs text-muted-foreground">Sin columnas inmediatas.</span>}
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-border/55 bg-background/20 p-3">
+                  <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Celdas con alerta inmediata</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {immediateCells.length ? immediateCells.map((cell) => (
+                      <button
+                        key={`immediate_cell_${cell.rowKey}:${cell.column}`}
+                        type="button"
+                        onClick={() => toggleImmediateCell(cell.rowKey, cell.rowLabel, cell.column)}
+                        className="rounded-full border border-rose-400/40 bg-rose-500/15 px-2.5 py-1 text-[11px] text-rose-100"
+                      >
+                        {cell.rowLabel} · {cell.column} x
+                      </button>
+                    )) : <span className="text-xs text-muted-foreground">Sin celdas inmediatas.</span>}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Label>Reglas (alertas)</Label>
               <div className="space-y-2">
@@ -901,6 +1912,8 @@ export function WatchlistsManager({
                           <option value="column_changed">Cuando cambie columna</option>
                           <option value="column_equals">Cuando columna sea igual a...</option>
                           <option value="new_row">Cuando aparezca nueva fila</option>
+                          <option value="removed_row">Cuando desaparezca fila</option>
+                          <option value="column_condition">Condicion avanzada</option>
                         </select>
                       </div>
 
@@ -926,7 +1939,7 @@ export function WatchlistsManager({
                         </select>
                       </div>
 
-                      {rule.type !== "new_row" ? (
+                      {rule.type !== "new_row" && rule.type !== "removed_row" ? (
                         <div className="space-y-2 md:col-span-2">
                           <Label className="text-xs">Columna</Label>
                           <Input
@@ -943,6 +1956,29 @@ export function WatchlistsManager({
                             }
                             placeholder="Ej: Estado"
                           />
+                          {availableColumns.length ? (
+                            <div className="flex flex-wrap gap-1.5">
+                              {availableColumns.slice(0, 12).map((column) => (
+                                <button
+                                  key={`${idx}_${column}`}
+                                  type="button"
+                                  onClick={() =>
+                                    setWatchRules((prev) => {
+                                      const next = [...prev]
+                                      next[idx] = {
+                                        ...next[idx],
+                                        column,
+                                      }
+                                      return next
+                                    })
+                                  }
+                                  className="rounded-full border border-border/55 bg-background/25 px-2 py-0.5 text-[10px] text-muted-foreground hover:text-foreground"
+                                >
+                                  {column}
+                                </button>
+                              ))}
+                            </div>
+                          ) : null}
                         </div>
                       ) : null}
 
@@ -966,6 +2002,78 @@ export function WatchlistsManager({
                         </div>
                       ) : null}
 
+                      {rule.type === "column_condition" ? (
+                        <>
+                          <div className="space-y-2">
+                            <Label className="text-xs">Evaluar sobre</Label>
+                            <select
+                              className="flex h-10 w-full rounded-md border border-input bg-background/35 px-3 py-2 text-sm"
+                              value={rule.trigger || "changed"}
+                              onChange={(e) =>
+                                setWatchRules((prev) => {
+                                  const next = [...prev]
+                                  next[idx] = {
+                                    ...next[idx],
+                                    trigger: e.target.value as WatchRule["trigger"],
+                                  }
+                                  return next
+                                })
+                              }
+                            >
+                              <option value="changed">Cambio detectado</option>
+                              <option value="current">Estado actual de la fila</option>
+                            </select>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label className="text-xs">Operador</Label>
+                            <select
+                              className="flex h-10 w-full rounded-md border border-input bg-background/35 px-3 py-2 text-sm"
+                              value={rule.operator || "equals"}
+                              onChange={(e) =>
+                                setWatchRules((prev) => {
+                                  const next = [...prev]
+                                  next[idx] = {
+                                    ...next[idx],
+                                    operator: e.target.value as WatchRule["operator"],
+                                  }
+                                  return next
+                                })
+                              }
+                            >
+                              <option value="equals">Igual a</option>
+                              <option value="contains">Contiene</option>
+                              <option value="empty">Vacio</option>
+                              <option value="not_empty">No vacio</option>
+                              <option value="gt">Mayor que</option>
+                              <option value="gte">Mayor o igual que</option>
+                              <option value="lt">Menor que</option>
+                              <option value="lte">Menor o igual que</option>
+                            </select>
+                          </div>
+
+                          {!(["empty", "not_empty"] as string[]).includes(rule.operator || "equals") ? (
+                            <div className="space-y-2 md:col-span-2">
+                              <Label className="text-xs">Valor de referencia</Label>
+                              <Input
+                                value={rule.value || ""}
+                                onChange={(e) =>
+                                  setWatchRules((prev) => {
+                                    const next = [...prev]
+                                    next[idx] = {
+                                      ...next[idx],
+                                      value: e.target.value,
+                                    }
+                                    return next
+                                  })
+                                }
+                                placeholder="Ej: Admitido, 10, vencido"
+                              />
+                            </div>
+                          ) : null}
+                        </>
+                      ) : null}
+
                       <div className="space-y-2 md:col-span-2">
                         <Label className="text-xs">Mensaje (opcional)</Label>
                         <Input
@@ -982,6 +2090,10 @@ export function WatchlistsManager({
                           }
                           placeholder="Ej: Estado paso a Critico"
                         />
+                      </div>
+
+                      <div className="rounded-lg border border-border/45 bg-background/25 px-3 py-2 text-xs text-muted-foreground md:col-span-2">
+                        {ruleSummary(rule)}
                       </div>
                     </div>
 
@@ -1032,7 +2144,7 @@ export function WatchlistsManager({
                 className="gap-2"
               >
                 {isSavingWatchlist ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sheet className="h-4 w-4" />}
-                Guardar monitor
+                {editingWatchlistId ? "Guardar cambios" : "Crear monitor"}
               </Button>
             </div>
           </CardContent>
@@ -1040,7 +2152,7 @@ export function WatchlistsManager({
 
         <Card className="bg-card/70 lg:col-span-1">
           <CardHeader>
-            <CardTitle className="text-base">Monitores</CardTitle>
+            <CardTitle className="text-base">Monitores activos</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {actionInfo ? (
@@ -1073,9 +2185,45 @@ export function WatchlistsManager({
                     <div className="mt-1 text-[11px] text-muted-foreground">
                       Prox revision: {formatDate(watchlist.next_check_at)}
                     </div>
+                    <div className="mt-1 text-[11px] text-muted-foreground">
+                      Prox correo: {formatDate(watchlist.next_email_at || null)}
+                    </div>
+                    <div className="mt-1 text-[11px] text-muted-foreground">
+                      Clave: {(watchlist.key_columns || []).join(", ") || "(sin definir)"}
+                    </div>
+                    <div className="mt-1 text-[11px] text-muted-foreground">
+                      Hoja: {watchlist.sheet_name || "Primera hoja"} · Columnas monitoreadas: {Array.isArray(watchlist.watched_columns) ? watchlist.watched_columns.length : 0} · Filas: {Array.isArray((watchlist.rules as any)?.watched_rows) ? (watchlist.rules as any).watched_rows.length : 0} · Celdas: {Array.isArray((watchlist.rules as any)?.watched_cells) ? (watchlist.rules as any).watched_cells.length : 0}
+                    </div>
+                    <div className="mt-1 text-[11px] text-muted-foreground">
+                      Alertas inmediatas especiales: columnas {Array.isArray((watchlist.rules as any)?.immediate_columns) ? (watchlist.rules as any).immediate_columns.length : 0} · celdas {Array.isArray((watchlist.rules as any)?.immediate_cells) ? (watchlist.rules as any).immediate_cells.length : 0}
+                    </div>
+                    {(Array.isArray((watchlist.rules as any)?.immediate_columns) && (watchlist.rules as any).immediate_columns.length > 0) || (Array.isArray((watchlist.rules as any)?.immediate_cells) && (watchlist.rules as any).immediate_cells.length > 0) ? (
+                      <div className="mt-1">
+                        <Badge variant="outline" className="border-rose-500/35 text-rose-200">
+                          Reglas inmediatas
+                        </Badge>
+                      </div>
+                    ) : null}
+                    {Boolean((watchlist.rules as any)?.monitor_tribunal_activity) ? (
+                      <div className="mt-1">
+                        <Badge variant="outline" className="border-sky-500/35 text-sky-200">
+                          Seguimiento tribunal
+                        </Badge>
+                      </div>
+                    ) : null}
                   </Link>
 
                   <div className="mt-2 flex flex-wrap gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="gap-1.5"
+                      onClick={() => editWatchlist(watchlist).catch(() => null)}
+                    >
+                      Editar
+                    </Button>
+
                     <Button
                       type="button"
                       variant="outline"
@@ -1152,6 +2300,30 @@ export function WatchlistsManager({
           </CardContent>
         </Card>
       </div>
+
+      <AlertDialog open={!!pendingDeleteWatchlist} onOpenChange={(open) => !open && setPendingDeleteWatchlist(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Eliminar monitor</AlertDialogTitle>
+            <AlertDialogDescription>
+              Se eliminara el monitor &apos;{pendingDeleteWatchlist?.file_name || "Archivo"}&apos; junto con su historial. Esta accion no se puede deshacer.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={actingKind === "delete"}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              disabled={actingKind === "delete"}
+              onClick={(event) => {
+                event.preventDefault()
+                confirmDeleteWatchlist().catch(() => null)
+              }}
+            >
+              {actingKind === "delete" ? <Loader2 className="h-4 w-4 animate-spin" /> : "Eliminar"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

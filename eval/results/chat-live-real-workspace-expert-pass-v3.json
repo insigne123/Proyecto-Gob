@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 37504,
+    "avgCitations": 3,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "partial": 3,
+      "strong": 3
+    },
+    "totalTokens": 38286
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 7020,
+      "elapsedMs": 32884,
+      "preview": "1. La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n2. En R-118-2025, - [ ] Priorizar informe y sentencia del SEA como base para defensa técnica:\n\nCitas textuales adicionales:\n- \"Adenda y Adenda Complementaria.\"\n- \"15 Recurrida, infringen el Principio de Congruencia, a que el Comité de Ministros actuó dentro del ámbito de sus competencias y que lo solicitado por la Reclamante implica una transgresión del ordenamiento jurídico, a co...\"",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 7448,
+      "elapsedMs": 33065,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.\n\nCitas textuales adicionales:\n- \"1 PROCEDIMIENTO: Reclamación del artículo 17 N°6 Ley 20.600 RECLAMANTE: OCEANA INC.\"\n- \"1 PROCEDIMIENTO: Reclamación del artículo 17 N°6 Ley 20.600 RECLAMANTE: Javiera Espinoza Jara RUT: 16.015.526-4 PATROCINANTE: Marcos Emilfork Orthusteguy RUT: 18.144.588-2 RECLAMADA: Comité de Ministros RUT: 72.443.600-5...\"",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6139,
+      "elapsedMs": 87856,
+      "preview": "El uso incorrecto de sentencias o precedentes puede generar riesgos en la defensa, como la sobredimensión de la aplicabilidad y la ignorancia del contexto fáctico y procedimental.\n\n1. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n2. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n3. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6502,
+      "elapsedMs": 26746,
+      "preview": "Los criterios útiles para la defensa del SEA se basan en el análisis de informes que delimitan claramente las competencias, la consideración de las observaciones ciudadanas y la normativa sobre los informes de los órganos evaluadores.\n\n1. El informe R-35-2019 precisa que los Tribunales Ambientales no son competentes para conocer de cuestiones que no fueron observadas en el proceso PAC y que deben limitarse a las observaciones consideradas en dicho proceso.\n\n2. El informe R-35-2019 también señala que las observaciones no consideradas oportunamente en los fundamentos de la resolución hacen que esta pierda válida fundamentación legal.\n\n3. El informe R-44-2021 aclara que los informes de los órganos evaluadores en el SEIA no son vinculantes para el SEA, siendo el cumplimiento de la normativa sectorial el criterio guía.",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5622,
+      "elapsedMs": 21627,
+      "preview": "Lineas de defensa prioritarias:\n1. Lineas de defensa prioritarias:\n2. Orden documental recomendado:",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5555,
+      "elapsedMs": 22846,
+      "preview": "1. En R-118-2025, Precedente util:\n2. R-44-2021 (informe Evacúa Informe) aporta análisis del SEA sobre subsanabilidad de deficiencias y criterios de competencia del Comité de Ministros, útil para contextualizar criterios de control ambiental y posibles subsanaciones dentro del marco SEA.\n\nCitas textuales adicionales:\n- \"52 diferencias arbitrarias (art.\"",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

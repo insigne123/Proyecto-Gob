@@ -1,0 +1,28 @@
+{
+  "caseLabel": "R-151-2026 (1TA)",
+  "startedAt": "2026-02-22T22:07:19.956Z",
+  "finishedAt": "2026-02-22T22:07:24.221Z",
+  "durationMs": 4265,
+  "appUrl": "http://localhost:9002",
+  "pdfPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\0e562d7a-2802-44f8-be46-dcbdc4b260a0_foleado.pdf",
+  "rol": "R-151-2026",
+  "tribunal": "1TA",
+  "workspaceId": null,
+  "recommendStatus": null,
+  "recommendationCount": 0,
+  "hasUiResults": false,
+  "continueEnabled": false,
+  "redirectedToNotebook": false,
+  "sourceCount": 0,
+  "snapshotCount": 0,
+  "chunksCount": 0,
+  "notesCount": 0,
+  "retrievalTracesCount": 0,
+  "onboardingCompleted": false,
+  "warnings": [
+    "workspace_id_missing"
+  ],
+  "success": false,
+  "markdownReportPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\reports\\qa_proyectos\\reporte_e2e_proyectos_2026-02-22T22-07-24-220Z.md",
+  "screenshotPath": null
+}

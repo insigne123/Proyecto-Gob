@@ -3,6 +3,7 @@ import { z } from "zod"
 
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
+import { isExcelMonitorWorkspaceDescription } from "@/lib/workspaces/system-workspaces"
 
 const CreateWorkspaceSchema = z.object({
   title: z.string().trim().min(3).max(140),
@@ -23,7 +24,10 @@ export async function GET() {
     .order("updated_at", { ascending: false })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ workspaces: data ?? [] })
+  const workspaces = (data ?? []).filter(
+    (workspace) => !isExcelMonitorWorkspaceDescription((workspace as any).description)
+  )
+  return NextResponse.json({ workspaces })
 }
 
 export async function POST(request: Request) {
@@ -73,6 +77,34 @@ export async function POST(request: Request) {
       { error: "Workspace created but membership failed", details: mErr.message },
       { status: 500 }
     )
+  }
+
+  const { error: profileErr } = await admin.from("gob_workspace_profiles").upsert(
+    {
+      workspace_id: workspace.id,
+      created_at: now,
+      updated_at: now,
+      created_by: user.id,
+      metadata: {
+        onboarding: {
+          required: true,
+          completed: false,
+          version: 1,
+          started_at: now,
+        },
+      },
+    },
+    { onConflict: "workspace_id" }
+  )
+
+  if (profileErr) {
+    await supabase.from("gob_audit_logs").insert({
+      user_id: user.id,
+      action: "workspace.onboarding.seed_error",
+      target_resource: "gob_workspace_profiles",
+      details: { workspace_id: workspace.id, error: profileErr.message },
+      timestamp: now,
+    })
   }
 
   await supabase.from("gob_audit_logs").insert({

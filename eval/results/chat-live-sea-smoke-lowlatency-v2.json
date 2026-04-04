@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 52724,
+    "avgCitations": 3.25,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 3,
+      "weak": 1
+    },
+    "totalTokens": 20962
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 7,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-mini-2025-08-07",
+      "totalTokens": 6061,
+      "elapsedMs": 53819,
+      "preview": "Criterio util para la defensa del SEA: priorizar criterios tecnicos y de evaluacion ambiental que aparezcan en informes y documentos evacuados, y usar esos criterios como base de la respuesta.\n\nEn R-44-2021, - [ ] Priorizar primero los informes del SEA y luego las sentencias vinculadas: los informes porque describen el rol y fundamentos técnicos/administrativos del SEA en el SEIA y establecen la evaluación de observaciones ciudadanas, y las sentencias porque permiten extraer ratio decidendi y estándares de control aplicados por los tribunales.\n\n- [ ] Dentro de los informes, priorizar aquellos que contienen análisis de procedencia de consultas indígenas y afectación a GHPPI, ya que aportan antecedentes técnicos sobre impactos a medio humano y medidas adoptadas por la Dirección Regional del SEA.\n\n- [ ] Priorizar informes que expliquen atribuciones del SEA en el procedimiento de evaluación ",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 5,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5946,
+      "elapsedMs": 28169,
+      "preview": "En R-44-2021, Uno de los criterios defensivos del SEA que aparece en los antecedentes es la correcta determinación de la línea de base del área de influencia, conforme a la normativa establecida en el RSEIA y en la Guía para la Descripción del Área de Influencia en el Sistema de Evaluación de Impacto Ambiental del SEA. Esto se sustenta en la afirmación que indica: \"la línea de base fue determinada de manera correcta, conforme a la normativa establecida en el RSEIA y en la Guía para la Descripción del Área de Influencia en el Sistema de Evaluación de Impacto Ambiental del SEA\" (chunkId=8df19a36-eefe-4e75-9431-ecdbd1d40a1a), ayudando a eliminar posibles impactos negativos al definir adecuadamente los efectos del proyecto.\n\nOtro criterio relevante es la evaluación del impacto por olores y vectores sanitarios en zonas residenciales, conforme a lo establecido en la normativa. La autoridad ref",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 0,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 3984,
+      "elapsedMs": 23554,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4971,
+      "elapsedMs": 105354,
+      "preview": "Riesgo principal: extrapolar un precedente o una sentencia favorable fuera de su contexto factico, normativo y procesal.\n\nLa evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nEn R-44-2021, - [ ] Riesgo de considerar aportes de documentos sin rigor científico o metodología validada: se señala que las actas del subproceso del articulo 86 y las denuncias no constituyen antecedentes con rigor científico para sostener la presencia de un impacto significativo. \"las actas del subproceso del articulo 86 se encuentran públicas... no son antecedentes con un rigor científico ni el uso de una metodología validada\" (EVIDENCE 4)",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

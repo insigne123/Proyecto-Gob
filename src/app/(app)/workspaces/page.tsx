@@ -3,7 +3,7 @@ import { redirect } from "next/navigation"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/server"
-import { Briefcase, FileSpreadsheet, ArrowRight } from "lucide-react"
+import { Briefcase, FileSpreadsheet, ArrowRight, CalendarClock } from "lucide-react"
 
 export default async function ModulesHomePage() {
   const supabase = await createClient()
@@ -22,7 +22,7 @@ export default async function ModulesHomePage() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <Link href="/projects" className="group block">
           <Card className="h-full bg-card/70 transition-colors group-hover:bg-card/90">
             <CardHeader>
@@ -53,6 +53,23 @@ export default async function ModulesHomePage() {
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground">
               Crea y administra monitores de hojas Excel/Sheets y revisa alertas por cambios.
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/estado-diario" className="group block">
+          <Card className="h-full bg-card/70 transition-colors group-hover:bg-card/90">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between gap-3 text-lg">
+                <span className="inline-flex items-center gap-2">
+                  <CalendarClock className="h-5 w-5 text-amber-300" />
+                  Estado Diario
+                </span>
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Supervisa corridas 1TA/2TA, cambios detectados y digests operativos del dia.
             </CardContent>
           </Card>
         </Link>

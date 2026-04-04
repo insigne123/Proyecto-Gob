@@ -1,0 +1,153 @@
+
+> nextn@0.1.0 onboarding:enrich-corpus
+> tsx scripts/enrich-onboarding-corpus-by-anchors.ts fb432da5-99a3-4c86-931f-cf1da83fb8f3 --tribunal=2TA --rol=R-202-2026 --apply=true --wait-ms=480000
+
+{
+  "action": "onboarding_anchor_corpus_enrichment",
+  "startedAt": "2026-03-06T01:36:30.854Z",
+  "completedAt": "2026-03-06T01:36:55.157Z",
+  "workspace": {
+    "id": "fb432da5-99a3-4c86-931f-cf1da83fb8f3",
+    "title": "QA CriticalAnchor Final5 R-202-2026 2026-03-06T00-43-57-314Z",
+    "runId": "eac44ad4-156f-4c33-8314-002d29e60ccd",
+    "tribunal": "2TA",
+    "rol": "R-202-2026"
+  },
+  "corpus": {
+    "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+    "workspaceTitle": "Base Jurisprudencial Tribunal Ambiental",
+    "created": false
+  },
+  "apply": true,
+  "terms": [
+    "sma",
+    "cumplimiento",
+    "sancionatorio",
+    "huawei",
+    "rep",
+    "tramite"
+  ],
+  "missingTermsBefore": [
+    "huawei"
+  ],
+  "coverage": {
+    "before": [
+      {
+        "term": "sma",
+        "hits": 91,
+        "error": null
+      },
+      {
+        "term": "cumplimiento",
+        "hits": 120,
+        "error": null
+      },
+      {
+        "term": "sancionatorio",
+        "hits": 30,
+        "error": null
+      },
+      {
+        "term": "huawei",
+        "hits": 0,
+        "error": null
+      },
+      {
+        "term": "rep",
+        "hits": 19,
+        "error": null
+      },
+      {
+        "term": "tramite",
+        "hits": 120,
+        "error": null
+      }
+    ],
+    "after": [
+      {
+        "term": "sma",
+        "hits": 91,
+        "error": null
+      },
+      {
+        "term": "cumplimiento",
+        "hits": 120,
+        "error": null
+      },
+      {
+        "term": "sancionatorio",
+        "hits": 30,
+        "error": null
+      },
+      {
+        "term": "huawei",
+        "hits": 0,
+        "error": null
+      },
+      {
+        "term": "rep",
+        "hits": 19,
+        "error": null
+      },
+      {
+        "term": "tramite",
+        "hits": 120,
+        "error": null
+      }
+    ]
+  },
+  "jobs": {
+    "queued": [
+      {
+        "type": "tribunal_cause_sync",
+        "id": "0112e227-ec96-468c-80db-9e029ec926f8",
+        "created": true
+      },
+      {
+        "type": "tribunal_corpus_sync",
+        "id": "9bef4153-a5ef-40f4-8ae5-650835e79589",
+        "created": true
+      }
+    ],
+    "wait": {
+      "done": true,
+      "timedOut": false,
+      "jobs": [
+        {
+          "id": "0112e227-ec96-468c-80db-9e029ec926f8",
+          "status": "failed",
+          "lastError": "2TA request returned empty JSON body",
+          "attempts": 6
+        },
+        {
+          "id": "9bef4153-a5ef-40f4-8ae5-650835e79589",
+          "status": "failed",
+          "lastError": "TypeError: fetch failed",
+          "attempts": 6
+        }
+      ]
+    },
+    "ingestWait": {
+      "done": true,
+      "timedOut": false,
+      "pending": 0
+    }
+  },
+  "poolRefresh": {
+    "eligibleCauses": 360,
+    "excludedCauses": 332,
+    "eligibleDocs": 728,
+    "poolRowsUpserted": 360,
+    "poolRowsDeleted": 0,
+    "causeProfilesUpdated": 0,
+    "causeProfilesSkipped": 0,
+    "docProfilesUpdated": 0,
+    "docProfilesSkipped": 0,
+    "llmProfilesApplied": 0,
+    "refreshProfiles": false,
+    "maxCauseProfilesPerRun": 240,
+    "maxDocProfilesPerRun": 900,
+    "causeOffset": 0,
+    "docOffset": 0
+  }
+}

@@ -54,7 +54,7 @@ export default function LoginClient({ next }: { next: string }) {
           </div>
           <h1 className="text-2xl font-semibold tracking-tight">Cuaderno Ambiental</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Acceso para analisis documental con citas y monitoreo de Excel.
+            Acceso para analisis documental con citas, monitor Excel y Estado Diario.
           </p>
         </div>
 

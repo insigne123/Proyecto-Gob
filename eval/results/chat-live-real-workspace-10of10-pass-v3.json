@@ -1,0 +1,160 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 42585,
+    "avgCitations": 1.5,
+    "mustIncludeAllMatchedRate": 0.8333,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 2,
+      "partial": 2,
+      "unknown": 1,
+      "none": 1
+    },
+    "totalTokens": 29757
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6073,
+      "elapsedMs": 40307,
+      "preview": "Para sustentar la defensa del SEA, se deberían priorizar los informes (EVIDENCE 2, 3, 4, 6, 8, 9, 12) y las sentencias (EVIDENCE 7, 8, 11, 12), ya que contienen criterios técnicos y jurídicos relevantes que clarifican el rol, competencia y valoración de los informes del SEA, además de los fallos en reclamaciones similares. Esto permite construir una defensa fundamentada en normas, precedentes y el marco legal vigente.\n\n1. La sentencia R-95-2023 es clave para fundamentar que las reclamaciones deben ser controladas dentro del marco legal y que la nulidad total de una resolución no procede sin un vicio esencial, aspecto que el SEA puede usar para rechazar reclamaciones que no contienen fundamentos de vicio grave.\n\n2. El informe R-107-2024 enfatiza la importancia de la evaluación del cambio climático dentro del SEIA y muestra que la autoridad está trabajando en la integración de estos aspect",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 0,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 3847,
+      "elapsedMs": 20414,
+      "preview": "En el marco teorico, la reclamacion debe usarse como contexto, no como prueba principal.",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": null,
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4683,
+      "elapsedMs": 127122,
+      "preview": "La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nEl marco teórico advierte que el uso indebido de sentencias o precedentes favorables puede conducir a errores en la interpretación, application de la ley y a decisiones que no consideren las particularidades del caso. Además, la dependencia excesiva de antecedentes no directos o comparables puede generar riesgos en la defensa ambiental.\n\n1. El uso de precedentes o sentencias sin respaldo de la resolución final o sin verificar su contexto y aplicabilidad puede desviar la defensa de la normativa y principios relevantes (EVIDENCE 11).\n\n2. Una interpretación rígida o formalista de las sentencias puede desatender el espíritu del sistema y los fines de la normativa ambiental, lo que resulta en riesgos de decisiones inadecuadas (EVIDENCE 9).",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5039,
+      "elapsedMs": 23995,
+      "preview": "El marco teórico del SEA establece que el análisis del concepto de espacio geográfico no se limita solo al espacio terrestre, sino que también puede incluir el espacio aéreo y acuático, dependiendo del elemento analizado receptor del impacto. Además, se consideran distintos componentes que interactúan con el medio ambiente, como el componente Medio Humano y sus atributos socioeconómicos relacionados con actividades productivas dependientes de recursos naturales.",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4633,
+      "elapsedMs": 18169,
+      "preview": "A continuación se prioriza la evidencia disponible en el marco de defensa ambiental, destacando dos documentos clave en orden de importancia: primero, una sentencia que integra criterios de defensa técnica y competencia del Comité de Ministros en el marco SEIA, a partir de R-1-2017 (Sentencia). Como se cita: “REPÚBLICA DE CHILE PRIMER TRIBUNAL AMBIENTAL 62 … y a las incertezas propias del futuro, los argumentos del Comité de Ministros respecto a que la medida excede la vida útil del proyecto y que la responsabilidad recaería sobre un tercero no resultan argumentos suficientes para rechazar el mismo. Sobre todo, cuando este Comité tiene las competencias para cambiar la RCA…”\n\nEn segundo lugar se cita el fallo R-44-2021, que documenta la interacción entre el Informe y el Recurso de reclamación en el marco del SEIA, señalando que el Tribunal ha admitido las reclamaciones y que el SEA evacua",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "none",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5482,
+      "elapsedMs": 25505,
+      "preview": "Los antecedentes documentales sobre la obligatoriedad y el efecto de los precedentes administrativos en la normativa chilena parecen ser los más relevantes para mantener criterios consistentes del SEA, especialmente por las citas de los expertos y las interpretaciones de la Contraloría, que refuerzan la importancia de la uniformidad y la estabilidad en la resolución de los procedimientos ambientales.\n\n1. El mismo documento cita también que los precedentes administrativos pueden atribuir efectos jurídicos relevantes, lo cual es relevante para mantener criterios consistentes en las decisiones ambientales.",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

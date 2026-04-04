@@ -1,0 +1,2 @@
+{"id":"review-001","workspaceId":"<workspace_uuid>","route":"professional","sourceId":"<source_uuid>","focus":["strategy","evidence"],"mustInclude":["informe","sentencia"],"mustNotInclude":["sin evidencia"],"notes":"Debe priorizar estrategia defensiva sustentada en informe y resultado"}
+{"id":"review-002","workspaceId":"<workspace_uuid>","route":"inline","sourceId":"<source_uuid>","focus":[],"mustInclude":["estrategia","precedentes"],"mustNotInclude":["alucinacion"],"notes":"La revision guiada debe cruzar documento con precedentes utiles"}

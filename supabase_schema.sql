@@ -294,6 +294,16 @@ create table if not exists gob_chunks (
 create index if not exists gob_chunks_workspace_idx on gob_chunks(workspace_id);
 create index if not exists gob_chunks_snapshot_idx on gob_chunks(snapshot_id);
 create index if not exists gob_chunks_tsv_idx on gob_chunks using gin (to_tsvector('spanish', coalesce(content, '')));
+create index if not exists gob_chunks_context_tsv_idx on gob_chunks using gin (
+  to_tsvector(
+    'spanish',
+    coalesce(content, '') ||
+    ' ' ||
+    coalesce(section, '') ||
+    ' ' ||
+    coalesce(metadata->>'context_summary', '')
+  )
+);
 
 -- Vector index (requires enough rows for ivfflat to be effective)
 create index if not exists gob_chunks_embedding_idx on gob_chunks using ivfflat (embedding vector_cosine_ops)
@@ -593,7 +603,9 @@ $$;
 create or replace function gob_retention_cleanup(
   p_jobs_days integer default 30,
   p_excel_runs_days integer default 120,
-  p_email_runs_days integer default 120
+  p_email_runs_days integer default 120,
+  p_estado_diario_days integer default 180,
+  p_cause_updates_days integer default 180
 )
 returns jsonb
 language plpgsql
@@ -604,6 +616,9 @@ declare
   v_jobs integer := 0;
   v_excel integer := 0;
   v_email integer := 0;
+  v_estado_diario_runs integer := 0;
+  v_estado_diario_email integer := 0;
+  v_cause_updates integer := 0;
 begin
   delete from gob_jobs
   where status in ('completed', 'failed')
@@ -618,10 +633,25 @@ begin
   where created_at < now() - make_interval(days => greatest(1, p_email_runs_days));
   get diagnostics v_email = row_count;
 
+  delete from gob_estado_diario_runs
+  where fetched_at < now() - make_interval(days => greatest(1, p_estado_diario_days));
+  get diagnostics v_estado_diario_runs = row_count;
+
+  delete from gob_estado_diario_email_runs
+  where created_at < now() - make_interval(days => greatest(1, p_estado_diario_days));
+  get diagnostics v_estado_diario_email = row_count;
+
+  delete from gob_tribunal_cause_updates
+  where created_at < now() - make_interval(days => greatest(1, p_cause_updates_days));
+  get diagnostics v_cause_updates = row_count;
+
   return jsonb_build_object(
     'jobs', v_jobs,
     'excel_runs', v_excel,
     'email_runs', v_email,
+    'estado_diario_runs', v_estado_diario_runs,
+    'estado_diario_email_runs', v_estado_diario_email,
+    'tribunal_cause_updates', v_cause_updates,
     'at', timezone('utc'::text, now())
   );
 end;
@@ -687,7 +717,14 @@ as $$
     c.id as chunk_id,
     c.content,
     ts_rank_cd(
-      to_tsvector('spanish', coalesce(c.content, '')),
+      to_tsvector(
+        'spanish',
+        coalesce(c.content, '') ||
+        ' ' ||
+        coalesce(c.section, '') ||
+        ' ' ||
+        coalesce(c.metadata->>'context_summary', '')
+      ),
       websearch_to_tsquery('spanish', coalesce(p_query_text, ''))
     )::double precision as rank,
     c.source_url,
@@ -697,7 +734,14 @@ as $$
   from gob_chunks c
   where c.workspace_id = p_workspace_id
     and length(trim(coalesce(p_query_text, ''))) > 0
-    and to_tsvector('spanish', coalesce(c.content, '')) @@ websearch_to_tsquery('spanish', coalesce(p_query_text, ''))
+    and to_tsvector(
+      'spanish',
+      coalesce(c.content, '') ||
+      ' ' ||
+      coalesce(c.section, '') ||
+      ' ' ||
+      coalesce(c.metadata->>'context_summary', '')
+    ) @@ websearch_to_tsquery('spanish', coalesce(p_query_text, ''))
   order by rank desc
   limit p_match_count;
 $$;
@@ -724,6 +768,207 @@ create table if not exists gob_rag_retrieval_traces (
 create index if not exists gob_rag_retrieval_traces_ws_idx on gob_rag_retrieval_traces(workspace_id, created_at desc);
 create index if not exists gob_rag_retrieval_traces_report_idx on gob_rag_retrieval_traces(report_id, created_at desc);
 create index if not exists gob_rag_retrieval_traces_thread_idx on gob_rag_retrieval_traces(thread_id, created_at desc);
+
+-- =========================================================
+-- Estado Diario 1TA + Actualizaciones de Causas
+-- =========================================================
+
+create table if not exists gob_estado_diario_runs (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  fetched_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  tribunal text not null,
+  daily_date date not null,
+  status text not null default 'ok' check (status in ('ok', 'error')),
+  is_signed boolean,
+  entry_count integer not null default 0,
+  hash text,
+  error text,
+  metadata jsonb not null default '{}'::jsonb
+);
+
+create index if not exists gob_estado_diario_runs_date_idx on gob_estado_diario_runs(tribunal, daily_date, fetched_at desc);
+create index if not exists gob_estado_diario_runs_status_idx on gob_estado_diario_runs(status, fetched_at desc);
+create unique index if not exists gob_estado_diario_runs_unique_hash_idx
+  on gob_estado_diario_runs(tribunal, daily_date, hash)
+  where hash is not null and status = 'ok';
+
+create table if not exists gob_estado_diario_entries (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  run_id uuid references gob_estado_diario_runs(id) on delete cascade not null,
+  tribunal text not null,
+  daily_date date not null,
+  line_no integer not null,
+  rol text not null,
+  id_causa_1ta text,
+  caratula text,
+  tipo text,
+  providencias integer not null default 0,
+  providencias_palabras text,
+  rol_palabras text,
+  is_digital boolean not null default false
+);
+
+create index if not exists gob_estado_diario_entries_run_idx on gob_estado_diario_entries(run_id, line_no);
+create index if not exists gob_estado_diario_entries_daily_idx on gob_estado_diario_entries(daily_date, rol);
+create unique index if not exists gob_estado_diario_entries_run_rol_uidx on gob_estado_diario_entries(run_id, rol);
+
+create table if not exists gob_estado_diario_changes (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  run_id uuid references gob_estado_diario_runs(id) on delete cascade not null,
+  tribunal text not null,
+  daily_date date not null,
+  rol text not null,
+  id_causa_1ta text,
+  caratula text,
+  change_kind text not null check (change_kind in ('new_rol', 'providencias_up', 'providencias_down')),
+  providencias_before integer,
+  providencias_after integer,
+  metadata jsonb not null default '{}'::jsonb
+);
+
+create index if not exists gob_estado_diario_changes_date_idx on gob_estado_diario_changes(daily_date, rol);
+create unique index if not exists gob_estado_diario_changes_run_rol_uidx on gob_estado_diario_changes(run_id, rol);
+
+create table if not exists gob_tribunal_cause_updates (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  source text not null default 'estado_diario',
+  source_date date,
+  tribunal text not null,
+  cause_id uuid,
+  rol text not null,
+  previous_estado text,
+  current_estado text,
+  previous_estado_subtipo text,
+  current_estado_subtipo text,
+  previous_movimiento text,
+  current_movimiento text,
+  has_casacion boolean not null default false,
+  recurso_tipo text,
+  metadata jsonb not null default '{}'::jsonb
+);
+
+create index if not exists gob_tribunal_cause_updates_date_idx on gob_tribunal_cause_updates(source_date, tribunal, rol);
+create index if not exists gob_tribunal_cause_updates_cause_idx on gob_tribunal_cause_updates(cause_id, created_at desc);
+
+create table if not exists gob_estado_diario_email_runs (
+  id uuid default gen_random_uuid() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  daily_date date not null,
+  recipients text[] not null default '{}',
+  subject text not null,
+  status text not null default 'sent' check (status in ('sent', 'error', 'skipped')),
+  error text,
+  metadata jsonb not null default '{}'::jsonb
+);
+
+create index if not exists gob_estado_diario_email_runs_date_idx on gob_estado_diario_email_runs(daily_date, created_at desc);
+
+grant select on public.gob_estado_diario_runs to authenticated;
+grant select on public.gob_estado_diario_entries to authenticated;
+grant select on public.gob_estado_diario_changes to authenticated;
+grant select on public.gob_tribunal_cause_updates to authenticated;
+grant select on public.gob_estado_diario_email_runs to authenticated;
+
+-- =========================================================
+-- Onboarding defense pool + profiles
+-- =========================================================
+
+create table if not exists gob_onboarding_cause_pool (
+  cause_id uuid primary key references gob_tribunal_causes(id) on delete cascade,
+  tribunal text,
+  rol text,
+  caratula text,
+  has_sea_defendant boolean not null default false,
+  has_sma_token boolean not null default false,
+  docs_count integer not null default 0,
+  key_docs_count integer not null default 0,
+  eligibility_reason text,
+  metadata jsonb not null default '{}'::jsonb,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+create index if not exists gob_onboarding_cause_pool_tribunal_idx on gob_onboarding_cause_pool(tribunal);
+create index if not exists gob_onboarding_cause_pool_updated_idx on gob_onboarding_cause_pool(updated_at desc);
+
+create table if not exists gob_onboarding_cause_profiles (
+  cause_id uuid primary key references gob_tribunal_causes(id) on delete cascade,
+  source_hash text,
+  summary text,
+  interesting_if text[] not null default '{}',
+  risky_if text[] not null default '{}',
+  key_signals text[] not null default '{}',
+  recommended_doc_roles text[] not null default '{}',
+  profile_version text not null default 'v1',
+  model text,
+  metadata jsonb not null default '{}'::jsonb,
+  generated_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+create index if not exists gob_onboarding_cause_profiles_updated_idx on gob_onboarding_cause_profiles(updated_at desc);
+
+create table if not exists gob_onboarding_document_profiles (
+  document_id uuid primary key references gob_tribunal_documents(id) on delete cascade,
+  cause_id uuid references gob_tribunal_causes(id) on delete cascade,
+  source_hash text,
+  doc_role text,
+  relevance_score numeric,
+  summary text,
+  key_points text[] not null default '{}',
+  profile_version text not null default 'v1',
+  model text,
+  metadata jsonb not null default '{}'::jsonb,
+  generated_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+create index if not exists gob_onboarding_document_profiles_cause_idx on gob_onboarding_document_profiles(cause_id);
+create index if not exists gob_onboarding_document_profiles_role_idx on gob_onboarding_document_profiles(doc_role);
+
+alter table gob_onboarding_cause_pool enable row level security;
+alter table gob_onboarding_cause_profiles enable row level security;
+alter table gob_onboarding_document_profiles enable row level security;
+
+drop policy if exists "onboarding_cause_pool_select" on gob_onboarding_cause_pool;
+create policy "onboarding_cause_pool_select" on gob_onboarding_cause_pool
+  for select
+  to authenticated
+  using (true);
+
+drop policy if exists "onboarding_cause_profiles_select" on gob_onboarding_cause_profiles;
+create policy "onboarding_cause_profiles_select" on gob_onboarding_cause_profiles
+  for select
+  to authenticated
+  using (true);
+
+drop policy if exists "onboarding_document_profiles_select" on gob_onboarding_document_profiles;
+create policy "onboarding_document_profiles_select" on gob_onboarding_document_profiles
+  for select
+  to authenticated
+  using (true);
+
+grant select on public.gob_onboarding_cause_pool to authenticated;
+grant select on public.gob_onboarding_cause_profiles to authenticated;
+grant select on public.gob_onboarding_document_profiles to authenticated;
+
+-- Optional enrichments for tribunal documents (safe on older installs)
+alter table if exists gob_tribunal_documents add column if not exists cod_asiento text;
+alter table if exists gob_tribunal_documents add column if not exists cod_documento text;
+alter table if exists gob_tribunal_documents add column if not exists source_origin text default 'legacy';
+alter table if exists gob_tribunal_documents add column if not exists updated_at timestamp with time zone default timezone('utc'::text, now()) not null;
+
+do $$
+begin
+  if to_regclass('public.gob_tribunal_documents') is not null then
+    execute 'create unique index if not exists gob_tribunal_documents_cause_asiento_uidx on public.gob_tribunal_documents(cause_id, cod_asiento) where cod_asiento is not null';
+    execute 'create index if not exists gob_tribunal_documents_cod_documento_idx on public.gob_tribunal_documents(cod_documento)';
+  end if;
+end;
+$$;
 
 -- =========================================================
 -- Audit + Alerts
@@ -776,6 +1021,11 @@ alter table gob_oauth_states enable row level security;
 alter table gob_excel_watchlists enable row level security;
 alter table gob_excel_runs enable row level security;
 alter table gob_email_runs enable row level security;
+alter table gob_estado_diario_runs enable row level security;
+alter table gob_estado_diario_entries enable row level security;
+alter table gob_estado_diario_changes enable row level security;
+alter table gob_tribunal_cause_updates enable row level security;
+alter table gob_estado_diario_email_runs enable row level security;
 alter table gob_workers enable row level security;
 alter table gob_alerts enable row level security;
 alter table gob_audit_logs enable row level security;
@@ -1205,10 +1455,39 @@ create policy "email_runs_select" on gob_email_runs
     )
   );
 
+-- Estado Diario / Tribunal updates (shared legal feed)
+drop policy if exists "estado_diario_runs_select" on gob_estado_diario_runs;
+create policy "estado_diario_runs_select" on gob_estado_diario_runs
+  for select
+  using (auth.role() = 'authenticated');
+
+drop policy if exists "estado_diario_entries_select" on gob_estado_diario_entries;
+create policy "estado_diario_entries_select" on gob_estado_diario_entries
+  for select
+  using (auth.role() = 'authenticated');
+
+drop policy if exists "estado_diario_changes_select" on gob_estado_diario_changes;
+create policy "estado_diario_changes_select" on gob_estado_diario_changes
+  for select
+  using (auth.role() = 'authenticated');
+
+drop policy if exists "tribunal_cause_updates_select" on gob_tribunal_cause_updates;
+create policy "tribunal_cause_updates_select" on gob_tribunal_cause_updates
+  for select
+  using (auth.role() = 'authenticated');
+
+drop policy if exists "estado_diario_email_runs_select" on gob_estado_diario_email_runs;
+create policy "estado_diario_email_runs_select" on gob_estado_diario_email_runs
+  for select
+  using (auth.role() = 'authenticated');
+
 -- Alerts (workspace members)
 drop policy if exists "alerts_select" on gob_alerts;
 create policy "alerts_select" on gob_alerts
-  for select using (workspace_id is null or gob_is_workspace_member(workspace_id));
+  for select using (
+    workspace_id is not null
+    and gob_is_workspace_member(workspace_id)
+  );
 
 drop policy if exists "alerts_write" on gob_alerts;
 create policy "alerts_write" on gob_alerts
@@ -1219,11 +1498,23 @@ create policy "alerts_write" on gob_alerts
 -- Audit logs (workspace members only; broad by default)
 drop policy if exists "audit_select" on gob_audit_logs;
 create policy "audit_select" on gob_audit_logs
-  for select using (auth.role() = 'authenticated');
+  for select using (
+    user_id = auth.uid()
+    or (
+      details ? 'workspace_id'
+      and gob_is_workspace_member((details ->> 'workspace_id')::uuid)
+    )
+  );
 
 drop policy if exists "audit_insert" on gob_audit_logs;
 create policy "audit_insert" on gob_audit_logs
-  for insert with check (auth.role() = 'authenticated');
+  for insert with check (
+    auth.role() = 'authenticated'
+    and (
+      user_id is null
+      or user_id = auth.uid()
+    )
+  );
 
 -- Jobs: no policies (service role bypasses RLS)
 alter table gob_jobs enable row level security;

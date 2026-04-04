@@ -1,0 +1,30 @@
+{
+  "caseLabel": "R-151-2026 (1TA)",
+  "startedAt": "2026-03-06T01:37:31.918Z",
+  "finishedAt": "2026-03-06T01:42:43.504Z",
+  "durationMs": 311586,
+  "appUrl": "http://localhost:9002",
+  "pdfPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\0e562d7a-2802-44f8-be46-dcbdc4b260a0_foleado.pdf",
+  "rol": "R-151-2026",
+  "tribunal": "1TA",
+  "workspaceId": "dbc6fabe-7fd8-466d-b55b-12e1337ad633",
+  "recommendStatus": 200,
+  "recommendationCount": 8,
+  "hasUiResults": true,
+  "continueEnabled": true,
+  "redirectedToNotebook": true,
+  "sourceCount": 1,
+  "snapshotCount": 1,
+  "chunksCount": 163,
+  "notesCount": 1,
+  "retrievalTracesCount": 1,
+  "onboardingCompleted": false,
+  "warnings": [
+    "Sync corpus warning: TypeError: fetch failed",
+    "Pool defensivo activo: 360 causas SEA elegibles.",
+    "Search warning (9): TypeError: fetch failed"
+  ],
+  "success": false,
+  "markdownReportPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\reports\\reporte_e2e_proyectos_2026-03-06T01-42-43-502Z.md",
+  "screenshotPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\reports\\e2e_onboarding_dbc6fabe-7fd8-466d-b55b-12e1337ad633.png"
+}

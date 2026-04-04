@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 49673,
+    "avgCitations": 3.25,
+    "mustIncludeAllMatchedRate": 0.75,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "unknown": 1,
+      "strong": 1,
+      "partial": 2
+    },
+    "totalTokens": 18507
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 4,
+      "supportStrength": null,
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5676,
+      "elapsedMs": 65784,
+      "preview": "Para construir la defensa del SEA, los documentos prioritarios deben ser aquellos que abordan los criterios de evaluación, antecedentes normativos y resoluciones judiciales que interpretan la normativa ambiental, como los informes y sentencias relacionados con la evaluación de impacto ambiental y las consideraciones sobre impactos acumulativos y vulnerabilidad social y ambiental.\n\n1. Los informes y resoluciones judiciales que analizan la legalidad, los criterios de control y la interpretación del marco normativo ambiental, como la sentencia R-92-2023 y R-37-2020.\n\n2. Los antecedentes sectoriales y normativos relacionados con los criterios y procedimientos del SEIA, incluyendo informes del SEA y las atribuciones del organismo.\n\n3. Las consideraciones sobre impactos acumulativos y sinérgicos, y las evaluaciones sobre vulnerabilidad social y ambiental, tales como los análisis de impactos en",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 6,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5338,
+      "elapsedMs": 34140,
+      "preview": "El criterio de considerar el análisis del espacio geográfico en su complejidad y diferentes componentes, incluyendo los aspectos socioeconómicos y naturales, está respaldado por el criterio N° 2 y 3 de la Guía de AI del SEA. Esto ayuda a sostener la evaluación ambiental al asegurar que la determinación del área de influencia tenga en cuenta todos los elementos relevantes, y, en consecuencia, la evaluación de impacto sea más completa y realista.\n\nEl análisis de la base de la línea de base, realizado en el capítulo 2 del EIA, considerando los sectores y componentes ambientales, refleja una metodología adecuada para identificar y evaluar los efectos potenciales del proyecto, en línea con las directrices del SEIA, fortaleciendo la evaluación ambiental y su fundamentación técnica.\n\nEl uso del término anticipado para la finalización del procedimiento cuando la evaluación carece de información ",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 3122,
+      "elapsedMs": 18383,
+      "preview": "La reclamación es un acto procesal formal que se presenta ante el Tribunal Ambiental y su tramitación se detalla en el escrito inicial, como se observa en el primer otrosí de la reclamación, donde se acompaña documentación y se señala la forma de notificación (chunkId=7340fbae-849e-4f1a-b6cb-c69c0b8a8d3b).",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4371,
+      "elapsedMs": 80383,
+      "preview": "- [ ] Riesgo 1: uso indebido de precedentes puede erosionar la legitimidad del procedimiento y generar sesgos en la defensa si no se verifica la procedencia y contexto de las sentencias citadas. Cita: \"N°2 confirma y consolida un error procedimental de carácter sustancial\" y que ello afecta elementos esenciales del procedimiento (EVIDENCE 1, EVIDENCE 2).\n\n- [ ] Riesgo 3: la utilización de precedentes como PdC debe ser consistente con la interpretación sistemática y teleológica de principios ambientales, para evitar vulnerar criterios de rechazo/acogida y ratio decidendi de las sentencias (R-111-2024; R-92-2023; R-44-2021; R-37-2020).",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}

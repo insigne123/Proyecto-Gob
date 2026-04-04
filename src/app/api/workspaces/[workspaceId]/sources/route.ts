@@ -4,6 +4,10 @@ import { z } from "zod"
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { getAccessibleWorkspaceIdsForUser } from "@/lib/workspaces/access"
+import { ingestSourceJob } from "@/worker/jobs/source-ingest"
+
+export const runtime = "nodejs"
+export const maxDuration = 300
 
 const SourceMetadataSchema = z
   .object({
@@ -32,15 +36,22 @@ function normalizeMetadata(metadata?: z.infer<typeof SourceMetadataSchema>) {
       ? Math.floor(input.year)
       : null
 
+  const normalizedAttributes = Object.fromEntries(
+    Object.entries(input.attributes || {}).map(([key, value]) => [
+      String(key || "").trim(),
+      typeof value === "string" ? value.trim() : value,
+    ])
+  )
+
   return {
     doc_type: input.docType ? String(input.docType) : null,
     year,
     region: input.region ? String(input.region) : null,
     sector: input.sector ? String(input.sector) : null,
     project_name: input.projectName ? String(input.projectName) : null,
-    source_origin: input.sourceOrigin ? String(input.sourceOrigin) : null,
-    language: input.language ? String(input.language) : "es",
-    attributes: input.attributes || {},
+    source_origin: input.sourceOrigin ? String(input.sourceOrigin).trim().toLowerCase() : null,
+    language: input.language ? String(input.language).trim().toLowerCase() : "es",
+    attributes: normalizedAttributes,
   }
 }
 
@@ -77,6 +88,28 @@ function parseMaybeText(value: FormDataEntryValue | null) {
   if (typeof value !== "string") return null
   const clean = value.trim()
   return clean ? clean : null
+}
+
+function parseMaybeBool(value: FormDataEntryValue | null) {
+  if (typeof value !== "string") return false
+  const clean = value.trim().toLowerCase()
+  return clean === "1" || clean === "true" || clean === "yes" || clean === "on"
+}
+
+function detectUploadKind(file: File): "pdf" | "docx" | null {
+  const mime = String(file.type || "").toLowerCase()
+  const name = String(file.name || "").toLowerCase().trim()
+
+  if (mime.includes("pdf") || name.endsWith(".pdf")) return "pdf"
+  if (
+    mime.includes("wordprocessingml.document") ||
+    mime.includes("application/msword") ||
+    name.endsWith(".docx")
+  ) {
+    return "docx"
+  }
+
+  return null
 }
 
 export async function GET(
@@ -122,6 +155,9 @@ export async function GET(
   const sourceWorkspaceIds = Array.from(
     new Set((sources || []).map((s: any) => String(s.workspace_id || "")).filter(Boolean))
   )
+  const sourceIds = Array.from(
+    new Set((sources || []).map((s: any) => String(s.id || "")).filter(Boolean))
+  )
 
   const workspaceTitleById = new Map<string, string>()
   if (sourceWorkspaceIds.length) {
@@ -135,12 +171,34 @@ export async function GET(
     }
   }
 
+  const latestSnapshotBySourceId = new Map<string, { id: string; status: string | null }>()
+  if (sourceIds.length) {
+    const { data: snapshots } = await supabase
+      .from("gob_source_snapshots")
+      .select("id,source_id,status,created_at")
+      .in("source_id", sourceIds)
+      .order("created_at", { ascending: false })
+
+    for (const row of snapshots || []) {
+      const sourceId = String((row as any).source_id || "")
+      if (!sourceId || latestSnapshotBySourceId.has(sourceId)) continue
+      latestSnapshotBySourceId.set(sourceId, {
+        id: String((row as any).id),
+        status: (row as any).status ? String((row as any).status) : null,
+      })
+    }
+  }
+
   const withWorkspace = (sources || []).map((row: any) => {
     const wsId = String(row.workspace_id || "")
+    const sourceId = String(row.id || "")
+    const latestSnapshot = sourceId ? latestSnapshotBySourceId.get(sourceId) : null
     return {
       ...row,
       workspace_id: wsId || null,
       workspace_title: wsId ? workspaceTitleById.get(wsId) || "Proyecto" : null,
+      latest_snapshot_id: latestSnapshot?.id || null,
+      latest_snapshot_status: latestSnapshot?.status || null,
     }
   })
 
@@ -313,8 +371,18 @@ export async function POST(
   }
   const file = form.get("file") as File | null
   if (!file) return NextResponse.json({ error: "Missing file" }, { status: 400 })
-  if (file.type !== "application/pdf") {
-    return NextResponse.json({ error: "Only PDF is supported" }, { status: 400 })
+  const uploadKind = detectUploadKind(file)
+  if (!uploadKind) {
+    return NextResponse.json(
+      {
+        error: "Only PDF or DOCX is supported",
+        details: {
+          receivedType: file.type || null,
+          filename: file.name || null,
+        },
+      },
+      { status: 400 }
+    )
   }
   if (file.size > 50 * 1024 * 1024) {
     return NextResponse.json({ error: "File too large (max 50MB)" }, { status: 400 })
@@ -350,6 +418,8 @@ export async function POST(
     language: parseMaybeLanguage(form.get("language")),
     attributes,
   })
+  const processNowRequested = parseMaybeBool(form.get("processNow"))
+  const processInline = processNowRequested || metadata.source_origin === "onboarding-claim"
 
   // Insert source+snapshot first (RLS validated), then upload via service role.
   const { data: source, error: sErr } = await supabase
@@ -381,13 +451,18 @@ export async function POST(
     .single()
   if (snapErr) return NextResponse.json({ error: snapErr.message }, { status: 500 })
 
-  const uploadPath = `uploads/${workspaceId}/${source.id}/${snapshot.id}.pdf`
+  const uploadExt = uploadKind === "docx" ? "docx" : "pdf"
+  const uploadPath = `uploads/${workspaceId}/${source.id}/${snapshot.id}.${uploadExt}`
   const admin = createAdminClient()
   const buf = Buffer.from(await file.arrayBuffer())
+  const uploadContentType =
+    uploadKind === "docx"
+      ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      : "application/pdf"
   const { error: upErr } = await admin.storage
     .from("gob_sources")
     .upload(uploadPath, buf, {
-      contentType: "application/pdf",
+      contentType: uploadContentType,
       upsert: false,
     })
 
@@ -400,23 +475,34 @@ export async function POST(
 
   const { error: snapUpErr } = await supabase
     .from("gob_source_snapshots")
-    .update({ storage_path: uploadPath, content_type: "application/pdf" })
+    .update({ storage_path: uploadPath, content_type: uploadContentType })
     .eq("id", snapshot.id)
 
   if (snapUpErr) {
     return NextResponse.json({ error: snapUpErr.message }, { status: 500 })
   }
 
-  const { error: jErr } = await admin.from("gob_jobs").insert({
-    type: "source_ingest",
-    status: "pending",
-    available_at: now,
-    attempts: 0,
-    max_attempts: 5,
-    payload: { workspace_id: workspaceId, source_id: source.id, snapshot_id: snapshot.id },
-    created_at: now,
-  })
-  if (jErr) return NextResponse.json({ error: jErr.message }, { status: 500 })
+  if (processInline) {
+    await ingestSourceJob({
+      supabase: admin,
+      job: {
+        id: `inline-source-ingest-${snapshot.id}`,
+        type: "source_ingest",
+        payload: { workspace_id: workspaceId, source_id: source.id, snapshot_id: snapshot.id },
+      },
+    })
+  } else {
+    const { error: jErr } = await admin.from("gob_jobs").insert({
+      type: "source_ingest",
+      status: "pending",
+      available_at: now,
+      attempts: 0,
+      max_attempts: 5,
+      payload: { workspace_id: workspaceId, source_id: source.id, snapshot_id: snapshot.id },
+      created_at: now,
+    })
+    if (jErr) return NextResponse.json({ error: jErr.message }, { status: 500 })
+  }
 
   await supabase.from("gob_audit_logs").insert({
     user_id: user.id,
@@ -426,5 +512,10 @@ export async function POST(
     timestamp: now,
   })
 
-  return NextResponse.json({ id: source.id, snapshotId: snapshot.id })
+  return NextResponse.json({
+    id: source.id,
+    snapshotId: snapshot.id,
+    ingestMode: processInline ? "inline" : "queued",
+    status: processInline ? "ready" : "pending",
+  })
 }

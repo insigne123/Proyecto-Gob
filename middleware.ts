@@ -14,6 +14,13 @@ function isPublicPath(pathname: string) {
   return PUBLIC_PATH_PREFIXES.some((p) => pathname.startsWith(p))
 }
 
+function withCopiedCookies(source: NextResponse, target: NextResponse) {
+  source.cookies.getAll().forEach((cookie) => {
+    target.cookies.set(cookie)
+  })
+  return target
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -32,6 +39,16 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => {
+            request.cookies.set(name, value)
+          })
+
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+
           cookiesToSet.forEach(({ name, value, options }) => {
             response.cookies.set(name, value, options)
           })
@@ -52,7 +69,7 @@ export async function middleware(request: NextRequest) {
     if (user && pathname.startsWith("/login")) {
       const url = request.nextUrl.clone()
       url.pathname = "/workspaces"
-      return NextResponse.redirect(url)
+      return withCopiedCookies(response, NextResponse.redirect(url))
     }
     return response
   }
@@ -61,7 +78,7 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl.clone()
     url.pathname = "/login"
     url.searchParams.set("next", pathname)
-    return NextResponse.redirect(url)
+    return withCopiedCookies(response, NextResponse.redirect(url))
   }
 
   return response

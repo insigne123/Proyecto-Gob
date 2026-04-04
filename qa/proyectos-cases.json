@@ -1,0 +1,14 @@
+{
+  "appUrl": "http://localhost:9002",
+  "reportDir": "reports/qa_proyectos",
+  "cases": [
+    {
+      "label": "R-151-2026 escrito inicial",
+      "pdfPath": "0e562d7a-2802-44f8-be46-dcbdc4b260a0_foleado.pdf",
+      "rol": "R-151-2026",
+      "tribunal": "1TA",
+      "caratula": "Agricola Tarapaca S.A. con Superintendencia del Medio Ambiente",
+      "titlePrefix": "QA Batch Marco Teorico"
+    }
+  ]
+}

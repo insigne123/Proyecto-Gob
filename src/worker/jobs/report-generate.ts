@@ -1,6 +1,6 @@
-import { ai } from "../../ai/genkit"
 import { getRagProvider } from "../../lib/env"
 import { toVectorLiteral } from "../../lib/pgvector"
+import { embedTextsWithOpenAI } from "../../lib/rag/openai-embeddings"
 import {
   isHybridRagMode,
   listKnowledgeBasesForWorkspaces,
@@ -41,6 +41,9 @@ function toEvidenceChunk(m: any): EvidenceChunk {
     snapshotId: m.snapshot_id ? String(m.snapshot_id) : null,
     page: typeof m.page === "number" ? m.page : m.page ? Number(m.page) : null,
     section: m.section ? String(m.section) : null,
+    docRole: m.doc_role ? String(m.doc_role) : null,
+    documentType: m.document_type ? String(m.document_type) : m.doc_type ? String(m.doc_type) : null,
+    documentTitle: m.title ? String(m.title) : m.name ? String(m.name) : null,
   }
 }
 
@@ -558,10 +561,10 @@ export async function reportGenerateJob(params: { supabase: any; job: any }) {
     const useLocalFallback =
       ragProvider !== "openai" && (ragProvider === "local" || isHybridRagMode() || kbs.length === 0)
     const embedded = useLocalFallback
-      ? await ai.embedMany({
-          embedder: "googleai/gemini-embedding-001",
-          content: queries,
-          options: { taskType: "RETRIEVAL_QUERY", outputDimensionality: 768 },
+      ? await embedTextsWithOpenAI(queries, {
+          task: "query",
+          maxRetries: 2,
+          batchSize: Math.min(32, Math.max(1, queries.length)),
         })
       : []
 
@@ -628,7 +631,7 @@ export async function reportGenerateJob(params: { supabase: any; job: any }) {
       }
 
       if (useLocalFallback && sectionRows.length < 6) {
-        const vec = (embedded as any[])?.[i]?.embedding as number[] | undefined
+        const vec = (embedded as number[][])?.[i] as number[] | undefined
         let matches: any[] = []
 
         const perWorkspaceCount = Math.max(

@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 41132,
+    "avgCitations": 3.17,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 4,
+      "partial": 2
+    },
+    "totalTokens": 38917
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 7359,
+      "elapsedMs": 43192,
+      "preview": "Criterio util para la defensa del SEA: priorizar criterios tecnicos y de evaluacion ambiental que aparezcan en informes y documentos evacuados, y usar esos criterios como base de la respuesta.\n\nEn R-118-2025, - [ ] Se recomienda priorizar la revisión del informe R-44-2021, ya que proporciona un análisis detallado sobre la valoración y competencia de los organismos públicos en la evaluación ambiental y la normativa sectorial que regula sus informes, además de destacar que \"los informes que emiten los OAECA en el marco del SEIA no son vinculantes para el SEA\" (chunkId=61891df7-358c-4bde-be87-f42ea77e0da2). Esto ayuda a contextualizar el rol del SEA en relación a los informes, resaltando la importancia de fundamentar la defensa en los informes propios del SEA y en las decisiones judiciales.\n\n- [ ] La sentencia R-95-2023 es clave, pues extrae el control judicial sobre la base de la normativa",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 7319,
+      "elapsedMs": 24464,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6181,
+      "elapsedMs": 81978,
+      "preview": "1. extrapolar un precedente o una sentencia favorable fuera de su contexto factico, normativo y procesal.\n2. util para extraer ratio decidendi, estandar de control y criterios de rechazo/acogida.\n3. La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n4. En R-118-2025, - [ ] Riesgo adicional:\n\nCitas textuales adicionales:\n- \"Como se puede apreciar, en ninguna de las mencionadas declaraciones de término anticipado se sostienen que los respectivos proyectos en evaluación hayan ingresado incorrectamente mediante una declaración de impacto ambie...\"",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 4,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6960,
+      "elapsedMs": 35620,
+      "preview": "1. En R-118-2025, El marco teórico menciona que los criterios útiles para la defensa del SEA incluyen la consideración de que los informes de los órganos de evaluación ambiental del SEA no son vinculantes y deben ser considerados estrictamente en relación con las materias que les competen, según el artículo 24 del RSEIA y el artículo 38 de la Ley N° 19.880.\n2. Esto resalta la importancia de que las decisiones sean fundamentadas en aspectos específicos y competentes del proceso.\n3. El marco teórico también indica que los pronunciamientos del SEA deben estar estrictamente fundados en las materias que corresponden y que las consideraciones generales o no específicas pueden afectar la coherencia y legalidad de la decisión, según se extrae del texto que afirma que “todo pronunciamiento de un organismo público que participe en la evaluación ambiental de un proyecto debe ser fundado y remitirse",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5501,
+      "elapsedMs": 34943,
+      "preview": "Lineas de defensa prioritarias:\n1. En R-118-2025, Para construir un informe evacuado a partir del marco teórico, la priorización de las líneas de defensa debe fundamentarse en los documentos que contienen criterios y decisiones explícitas del Tribunal o del Servicio de Evaluación Ambiental (SEA).\n2. En primer lugar, se recomienda considerar la sentencia R-44-2021, la cual ha sido utilizada por la jurisprudencia para entender el alcance de las facultades del Comité de Ministros en el contexto de recursos de reclamación y cómo estos deben fundarse en los antecedentes que consten en los expedientes, y además, establece que el tribunal admitió la reclamación y solicitó informes del SEA \"reclamante=y, en su recurso\" (chunkId=ee9fe844-0b80-4379-825e-c7f4b9d871db).",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5597,
+      "elapsedMs": 26592,
+      "preview": "1. En R-118-2025, Entre las fuentes disponibles, los documentos que describen el marco de precedentes administrativos y su obligatoriedad/eficacia para asegurar previsibilidad y uniformidad de la actuación administrativa son los más útiles para sustentar criterios consistentes del SEA.\n2. En particular, los fragmentos de las reclamaciones citan explícitamente que “el precedente administrativo … permite que la actuación administrativa gane en previsibilidad” y que la “obligatoriedad de los precedentes” implica uniformidad y estabilidad en la actuación (snapshot de Reclamacion Huawei 2TA).\n3. Esto respalda un enfoque donde secciones técnicas y criterios de decisión del SEA se formulan con base en criterios reiterados y vinculantes de decisiones previas, favoreciendo consistencia.\n4. \"el sistema jurídico basado en el precedente administrativo -esto es, la interpretación uniforme de una mism",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

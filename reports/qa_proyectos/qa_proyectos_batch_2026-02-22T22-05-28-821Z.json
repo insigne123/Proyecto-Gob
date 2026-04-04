@@ -1,0 +1,30 @@
+{
+  "runId": "2026-02-22T22-05-28-821Z",
+  "appUrl": "http://localhost:9002",
+  "configPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\qa\\proyectos-cases.json",
+  "successCount": 0,
+  "failCount": 1,
+  "avgDurationMs": 0,
+  "totalRecommendations": 0,
+  "results": [
+    {
+      "caseLabel": "R-151-2026 escrito inicial",
+      "startedAt": "2026-02-22T22:05:28.823Z",
+      "finishedAt": "2026-02-22T22:05:28.823Z",
+      "durationMs": 0,
+      "workspaceId": null,
+      "recommendStatus": null,
+      "recommendationCount": 0,
+      "onboardingCompleted": false,
+      "success": false,
+      "warnings": [
+        "Caso 1: no existe PDF C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\qa\\0e562d7a-2802-44f8-be46-dcbdc4b260a0_foleado.pdf"
+      ],
+      "markdownReportPath": "",
+      "screenshotPath": null,
+      "error": "Caso 1: no existe PDF C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\qa\\0e562d7a-2802-44f8-be46-dcbdc4b260a0_foleado.pdf",
+      "index": 1,
+      "rol": "R-151-2026"
+    }
+  ]
+}

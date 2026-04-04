@@ -1,0 +1,1389 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <link rel="shortcut icon" href="assets/img/logo_1TA_ico-32x32.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/t1.css?version=1.0.5">
+    <!-- JQuery -->
+    <script src="assets/lib/jquery/jquery-3.6.1.min.js"></script>
+    <!-- Customs JQ actions -->
+    <script src="assets/custom-actions-ver-causas.js"></script>
+    <!-- Alerts -->
+    <script src="assets/lib/sweetalert2/sweetalert2.all.js" type="text/javascript"></script>
+    <!-- Manejo de Cookies -->
+    <script src="assets/lib/js.cookie/js.cookie.js"></script>
+    <!-- Menú Dinamico -->
+    <script src="common/menu.js" type="text/javascript"></script>
+    <!-- Funciones del Header -->
+    <script src="common/header-ver-causa.js?v=1.0.4" type="text/javascript"></script>
+    <!-- Parametros de configuracion -->
+    <script src="common/configuracion.js" type="text/javascript"></script>
+    <!-- Funciones Personalizadas -->
+    <script src="ver-causa.js?v=1.0.18" type="text/javascript"></script>
+    <!-- Funciones Utiles -->
+    <script src="common/utils.js" type="text/javascript"></script>
+    <!-- DateTimePiker -->
+    <link rel="stylesheet" type="text/css" href="assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+    <script src="assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="assets/lib/datetimepicker/js/locales/bootstrap-datetimepicker.es.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/lib/datepicker/css/bootstrap-datepicker.min.css" />
+    <script src="assets/lib/datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="assets/lib/datepicker/locales/bootstrap-datepicker.es.min.js" type="text/javascript"></script>
+
+    <script src="assets/lib/moment.js/moment.js" type="text/javascript"></script>
+    <!-- Funciones De Los Tres Puntitos -->
+    <!--link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/-->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.bundle.js"></script>
+    <!--link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.css" rel="stylesheet"/-->
+    <!-- Titulo pagina -->
+    <!-- Mascara de rut -->
+    <script src="assets/lib/inputmask/inputmask.js" type="text/javascript"></script>
+    <script src="assets/lib/inputmask/jquery.inputmask.bundle.js" type="text/javascript"></script>
+    <!-- Login -->
+    <script src="common/login.js"></script>
+    <!-- SHA -->
+    <script src="assets/lib/jssha/sha.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+    </script>
+    <title>Primer Tribunal Ambiental - Detalle Causa</title>
+</head>
+
+<body id="body" class="be-loading">
+    <!--Datos de la causa-->
+    <input type="hidden" id="p_idCausa">
+    <input type="hidden" id="p_rolCausa">
+    <input type="hidden" id="p_tipoCausa">
+    <input type="hidden" id="p_codTipoCausa">
+    <input type="hidden" id="p_idUsuario">
+    <!-- Se completa en header.js -->
+    <input type="hidden" id="p_rolUsuario">
+    <!-- Se completa en header.js -->
+    <input type="hidden" id="p_docEntrada">
+    <input type="hidden" id="p_adjuntoEntrada">
+    <input type="hidden" id="p_causaTerminada">
+    <!--Datos del documento activo-->
+    <input type="hidden" id="p_idCuaderno">
+    <input type="hidden" id="p_idAsiento">
+    <input type="hidden" id="p_idDocumento">
+    <input type="hidden" id="p_idAdjunto">
+    <input type="hidden" id="p_tipoDocumento">
+    <input type="hidden" id="p_linkDocumentoOriginal">
+    <input type="hidden" id="p_linkDocumentoFoleado">
+    <input type="hidden" id="p_linkDocumentoFirmado">
+    <input type="hidden" id="p_documentoPublicado">
+    <input type="hidden" id="p_documentoFirmado">
+    <input type="hidden" id="p_documentoHabilitadoFirma">
+    <!--Box de archivos-->
+    <div id="box-archivos"></div>
+    <!--Box de escritos (resoluciones)-->
+    <div id="box-escritos"></div>
+    <!--Box de ministros-->
+    <div id="box-ministros"></div>
+	<!--Datos firmantes-->
+    <input type="hidden" id="p_cantidadFirmantesSeleccionados" value="0">
+    <div id="box-firmantes"></div>
+    <header></header>
+    <div class="contenedor-principal">
+        <!-- <h1>Viualización de litigio</h1> -->
+        <section class="seccion">
+            <h2 class="flex documento">
+                <span id="lbl-caratulaCausa" class="nombre"><!--Paulina Andrea Silva Heredia con Estado - Fisco de Chile y otro--></span>
+                <span id="lbl-tipoCausa" class="tipo"><!--Tipo: Demanda--></span>
+                <span id="lbl-rolCausa" class="rol"><!--Rol: D-73-2022--></span>
+            </h2>
+            <div class="caja-doc">
+                <div class="info-adicional">
+                    <span id="lbl-relator" class="relator"></span>
+                    <span id="lbl-redactor" class="redactor"></span>
+                    <p id="lbl-ministro" class="ministros">Ministros: </p>
+                </div>
+
+                <!--TREN DE ESTADOS-->
+                <div class="pasos">
+                    <ul id="box-estados" class="progressBar">
+                        <!--<li class="done">
+                            <span class="suceso">Lorem ipsum</span>
+                            <span class="step hide-desktop">Paso<p>1 de 5</p></span>
+                            <span class="state">Ingreso</span>
+                            <span class="date">22/09/2022</span>
+                            <span class="days">999 días</span>
+                        </li>
+                        <li class="done">
+                            <span class="suceso">Lorem ipsum</span>
+                            <span class="step hide-desktop">Paso<p>2 de 5</p></span>
+                            <span class="state">Adminisión</span>
+                            <span class="date">22/09/2022</span>
+                            <span class="days">999 días</span>
+                        </li>
+                        <li class="active">
+                            <span class="suceso activo">
+                                <div class="suceso-doc">
+                                    <div class="suceso-tooltip">
+                                        <img src="assets/img/icon-doc-subway.svg">
+                                        <span class="tooltiptext">Acta de audiencia 22/09/2022</span>
+                                    </div>                                    
+                                </div>
+                                <div class="suceso-doc">
+                                    <div class="suceso-tooltip">
+                                        <img src="assets/img/icon-doc-subway.svg">
+                                        <span class="tooltiptext">Acta de audiencia 22/09/2022</span>
+                                    </div>                                    
+                                </div>
+                                <div class="suceso-doc">
+                                    <div class="suceso-tooltip">
+                                        <img src="assets/img/icon-doc-subway.svg">
+                                        <span class="tooltiptext">Acta de audiencia 22/09/2022</span>
+                                    </div>                                    
+                                </div>
+                            </span>
+                            <span class="step hide-desktop">Paso<p>3 de 5</p></span>
+                            <span class="state">En tramitación</span>
+                            <span class="date">22/09/2022</span>
+                        </li>
+                        <li class="none">
+                            <span class="suceso">Lorem ipsum</span>
+                            <span class="step hide-desktop">Paso<p>4 de 5</p></span>
+                            <span class="state">En estudio</span>
+                            <span class="date">22/09/2022</span>
+                        </li>
+                        <li class="none">
+                            <span class="suceso">Lorem ipsum</span>
+                            <span class="step hide-desktop">Paso<p>5 de 5</p></span>
+                            <span class="state">Terminada</span>
+                            <span class="date">22/09/2022</span>
+                        </li-->
+                    </ul>
+                </div>
+                <!--TREN DE ESTADOS-->
+
+                <div class="info-adicional">
+                    <span id="lbl-relator" class="relator" style="margin-top:25px; margin-bottom:-25px;">
+                        <span id="box-titulo-acumuladas"><!--TITULO--></span>
+                        <span id="box-detalle-acumuladas"><!--DETALLE--></span>
+                    </span>
+                </div>
+
+                <!--PESTAÑAS-->
+                <div class="pestanas">
+                    <div class="tabbed">
+                        <input type="radio" id="tab1" name="css-tabs" checked>
+                        <input type="radio" id="tab2" name="css-tabs">
+                        <input type="radio" id="tab3" name="css-tabs">
+                        <ul class="tabs">
+                            <li id="btn_sheet_record" class="tab" style="display:none"><label for="tab1">Expediente</label></li>
+                            <li id="btn_sheet_litigant" class="tab" style="display:none"><label for="tab2">Litigantes</label></li>
+                            <li id="btn_sheet_admin" class="tab" style="display:none"><label for="tab3">Administración</label></li>
+                        </ul>
+
+                        <!--TAB1-->
+                        <div class="tab-content">
+                            <form class="filters">
+                                <div class="col-3 flex">
+                                    <div class="question select">
+                                        <select id="p_listaCuadernos" onchange="cargarSeleccionCuaderno();">
+                                            <option></option>
+                                        </select>
+                                        <label>Cuaderno</label>
+                                    </div>
+                                    <a id="btn_agregar_cuaderno" href="javascrip:void(0)" class="add-cuaderno" style="display:none"><img src="assets/img/icon-plus-circle.svg"></a>
+                                </div>
+                                <div class="col-3 flex">
+                                    <div class="question select">
+                                        <select id="p_listaDocumentos" onchange="filtraAsientoCuaderno()">
+                                            <option></option>
+                                        </select>
+                                        <label>Tipo de documento</label>
+                                    </div>
+                                    <a id="btn_agregar_documento" href="javascrip:void(0)" class="add-document" style="display:none">
+                                        <img src="assets/img/icon-plus-circle.svg">
+                                    </a>
+                                </div>
+                                <div class="col-3 hide-mobile text-center">
+                                    <a id="btn_copiar_link_documento" style="width:150px; margin-top: 22px; display:none" href="javascript:void(0)" class="btn btn-secondary" onclick="btn_copiar_link_documento()">
+                                        Copiar Ref. doc.
+                                    </a>
+                                    <a id="btn_descargar_asiento"
+                                       style="width:150px; margin-top: 22px; display:none" href="javascript:void(0)"
+                                       class="btn btn-doc icon-download-files" onclick="btn_descargar_asiento()">
+                                        Descargar
+                                    </a>
+                                </div>
+                                <div class="col-3">
+                                    <div class="question select">
+                                        <select id="acciones_asiento" style="display:none" onchange="accionesAsiento();">
+                                            <option>Acciones sobre el asiento</option>
+                                            <option value="foliar">Foliar</option>
+                                            <option value="refoliar">Refoliar</option>
+                                            <option value="firmar">Requerir Firma Electrónica</option>
+                                            <option value="publicarConNotificar">Publicar y Notificar</option>
+                                            <option value="publicarSinNotificar">Publicar Sin Notificar</option>
+                                            <option value="despublicar">Despublicar</option>
+                                            <option value="descarga_foliado">Descargar Foliada</option>
+                                            <option value="descarga_original">Descargar Original</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="document-view row">
+                                <div class="col-4 colapsable collapsed">
+                                    <!--Lista documentos-->
+                                    <div class="scroll-docs">
+                                        <div class="toggle-doc-view hide-mobile"></div>
+                                        <div id="box-asiento"></div>
+                                    </div>
+                                    <!--Lista documentos-->
+
+                                    <!--Lista Fojas-->
+                                    <div class="fojas">
+                                        <span>Fojas</span>
+                                        <div id="box-documentos"></div>
+                                    </div>
+                                    <!--Lista Fojas-->
+                                </div>
+                                <!--Vista documento-->
+                                <div class="col-8 embed-pdf">
+                                    <iframe id="obj-visor-pdf-iframe" src=""></iframe>
+                                    <object id="obj-visor-pdf" type="application/pdf" data="" width="100%" height="100%">
+                                        <div style="text-align:center; color:#AAAAAA;">
+                                            </br>
+                                            </br>
+                                            Se produjo un error en la vista del documento. <a href="" id="a-visor-pdf" target="_blank">Ver acá</a>
+                                        </div>
+                                    </object>
+                                    <div id="pdf-container" style="width: 100%; max-height: 80vh; overflow: auto;">
+                                        <div id="pdf-viewer" style="width: 100%;"></div>
+                                    </div>
+                                    <div id="pdf-controls" style="width: 100%; text-align: center; padding: 10px 0;">
+                                        <button id="prev-page">Anterior</button>
+                                        <span id="page-num"></span> / <span id="page-count"></span>
+                                        <button id="next-page">Siguiente</button>
+                                    </div>
+                                </div>
+                                <!--Vista documento-->
+                            </div>
+                            <div class="accordions">
+                                <div id="panel_relacionados" style="display:none">
+                                    <h3 class="accordion">Documentos relacionados: <span id="txt-box-resueltos" class="no-data"><!--No existen documentos resueltos.--></span></h3>
+                                    <div id="box-resueltos" class="accordion-body empty">
+                                        <!-- este div trae el contenido -->
+                                        <!-- este div tiene la clase "empty" cuando no trae datos -->
+                                    </div>
+                                </div>
+                                <div id="panel_custodias" style="display:none">
+                                    <h3 class="accordion">Custodias: <span id="txt-box-custodias" class="no-data"><!--No existen solicitudes de custodias a resolver.--></span></h3>
+                                    <div id="box-custodias" class="accordion-body empty">
+                                        <!-- este div trae el contenido -->
+                                        <!-- este div tiene la clase "empty" cuando no trae datos -->
+                                    </div>
+                                </div>
+                                <div id="panel_patrocinadores" style="display:none">
+                                    <h3 class="accordion useful">Firmantes: <span id="nro-box-patrocinadores" class="data">(0)</span></h3>
+                                    <div id="box-patrocinadores" class="accordion-body empty" style="margin-left: 15px;">
+                                        <!-- este div trae el contenido -->
+                                        <!-- este div tiene la clase "empty" cuando no trae datos -->
+                                    </div>
+                                </div>
+                                <div id="panel_notificaciones" style="display:none">
+                                    <h3 class="accordion useful">Notificaciones: <span id="nro-box-notificaciones" class="data">(0)</span></h3>
+                                    <div id="box-notificaciones" class="accordion-body empty" style="margin-left: 15px;">
+                                        <div id="box-notificaciones-internos"></div>
+                                        <hr id="box-notificaciones-divisor" style="display: none">
+                                        <div id="box-notificaciones-externos"></div>
+                                        <!-- este div trae el contenido -->
+                                        <!-- este div tiene la clase "empty" cuando no trae datos -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row acciones-doc" style="margin-top:15px;">
+                                <div class="col-4">
+                                    <div id="hacerseParte_ingresarEscrito_ingresarCertificacion" style="display:none">
+                                        <a href="javascript:void(0)" id="btn-hacerse-parte" class="btn-doc icon-user-include" onclick="hacerseParte()" style="display:none">Hacerse parte</a>
+                                        <a href="javascript:void(0)" id="btn-ingresar-escrito" class="btn-doc icon-add-doc" onclick="ingresarEscrito()" style="display:none">Ingresar Escrito</a>
+                                        <a href="javascript:void(0)" id="btn-ingresar-certificacion" class="btn-doc icon-add-doc ingreso-certificacion" onclick="cargaModalCertificaciones()" style="display:none">Ingreso certificación</a>
+                                    </div>
+                                </div>
+                                <div class="col-8 hide-mobile">
+                                    <a href="javascript:void(0)" id="btn-visualizar-ubicacion" class="btn-doc icon-map ver-ubicacion">Mostrar ubicación</a>
+                                    <a href="javascript:void(0)" id="btn-visualizar-audiencia" class="btn-doc icon-yt ver-audiencia">Visualizar audiencia</a>
+                                    <a href="javascript:void(0)" id="btn-descargar-expediente-unificado" class="btn-doc icon-download" onclick="descargarExpedienteUnificado()" hidden>Descargar expediente unificado</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--TAB1-->
+
+                        <!--TAB2-->
+                        <div class="tab-content">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="sub-title">
+                                        <h3 id="p_litigantes_titulo1">titulo 1</h3>
+                                    </div>
+                                    <div id="box-litigantes-demandantes" class="demandantes-demandados">
+                                    </div>
+
+                                    <h3 id="p_litigantes_subtitulo1" class="inner-sub-title" hidden>subtitulo 1</h3>
+                                    <div id="box-litigantes-demandantes-abogados" class="abogados" hidden>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="sub-title">
+                                        <h3 id="p_litigantes_titulo2">titulo 2</h3>
+                                        <!--Los tres puntitos-->
+                                        <div id="dropdown_demandado" class="dropdown" style="display:none">
+                                            <a onclick="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/img/icon-options.svg" style="padding-bottom:10px;"></a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="inicioAgregarLitigante(1)">Agregar</a>
+                                            </div>
+                                        </div>
+                                        <!--Los tres puntitos-->
+                                    </div>
+                                    <div id="box-litigantes-demandados" class="demandantes-demandados" hidden>
+                                        <!--div class="person">
+                                            <div class="title">
+                                                <h6>Estado - Fisco de Chile</h6>
+                                                <a href="" onclick=""><img src="assets/img/icon-options.svg"></a>
+                                            </div>
+                                        </div-->
+                                        <!--div class="person">
+                                            <div class="title">
+                                                <h6>Iluistre Municipalidad de Utopia</h6>
+                                                <a href="" onclick=""><img src="assets/img/icon-options.svg"></a>
+                                            </div>
+                                        </div-->
+                                    </div>
+                                    <h3 id="p_litigantes_subtitulo2" class="inner-sub-title" hidden>subtitulo 2</h3>
+                                    <div id="box-litigantes-demandados-abogados" class="abogados" hidden>
+                                        <!--div class="person">
+                                            <div class="title">
+                                                <h6>Marcela Alejandra Rodriguez Rodriguez</h6>
+                                                <a href="" onclick=""><img src="assets/img/icon-options.svg"></a>
+                                            </div>
+                                            <p>
+                                                <span class="rut">12.345.678-9</span>
+                                                <span class="email">gonzalez.abogado@gmail.com</span>
+                                            </p>
+                                        </div-->
+                                        <!--div class="person">
+                                            <div class="title">
+                                                <h6>Yizlen Greta Trinajstic Müller</h6>
+                                                <a href="" onclick=""><img src="assets/img/icon-options.svg"></a>
+                                            </div>
+                                            <p>
+                                                <span class="rut">12.345.678-9</span>
+                                                <span class="email">gonzalez.abogado@gmail.com</span>
+                                            </p>
+                                        </div-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="div-box-litigantes-amicus-curie" class="row" style="margin-top:25px;" hidden>
+                                <div class="col-6">
+                                    <div class="sub-title">
+                                        <h3>Amicus Curiae</h3>
+                                    </div>
+                                    <div id="box-litigantes-amicus-curie" class="demandantes-demandados" hidden>
+                                        <!--div class="person">
+                                            <div class="title">
+                                                <h6>Henrique Alonso González Henriquez</h6>
+                                            </div>
+                                        </div-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:0px;" id="div-terceros" hidden>
+                                <div class="col-6">
+                                    <div class="sub-title">
+                                        <h3>Terceros</h3>
+                                    </div>
+
+                                    <h3 id="tit-box-litigantes-tercero" class="inner-sub-title" style="margin-top:10px;" hidden>Tercero</h3>
+                                    <div id="box-litigantes-tercero" class="abogados" hidden>
+                                    </div>
+
+                                    <h3 id="tit-box-litigantes-tercero-coadyuvante" class="inner-sub-title" style="margin-top:10px;" hidden>Tercero Coadyuvante</h3>
+                                    <div id="box-litigantes-tercero-coadyuvante" class="abogados" hidden>
+                                    </div>
+
+                                    <h3 id="tit-box-litigantes-tercero-independiente" class="inner-sub-title" style="margin-top:10px;" hidden>Tercero Independiente</h3>
+                                    <div id="box-litigantes-tercero-independiente" class="abogados" hidden>
+                                    </div>
+
+                                    <h3 id="tit-box-litigantes-tercero-excluyente" class="inner-sub-title" style="margin-top:10px;" hidden>Tercero Excluyente</h3>
+                                    <div id="box-litigantes-tercero-excluyente" class="abogados" hidden>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--TAB2-->
+
+                        <!--TAB3-->
+                        <div class="tab-content">
+                            <div id="administracion_general" style="display: none">
+                                <form class="filters">
+                                    <div class="col-2 question select">
+                                        <select id="lista-administracion-relatores" onchange="actualizaParticipantes(this)">
+                                            <option></option>
+                                        </select>
+                                        <label>Relator</label>
+                                    </div>
+                                    <div class="col-2 question select">
+                                        <select id="lista-administracion-redactores" onchange="actualizaParticipantes(this)">
+                                            <option></option>
+                                        </select>
+                                        <label>Redactor</label>
+                                    </div>
+                                    <div class="col-2 question select">
+                                        <select id="lista-administracion-asesoresCientificos" onchange="actualizaParticipantes(this)">
+                                            <option></option>
+                                        </select>
+                                        <label>Asesores Cientificos</label>
+                                    </div>
+                                </form>
+                                <div class="sub-section">
+                                    <h3>Ministros radicados</h3>
+                                    <div id="box-administracion-ministros" class="no-box fluid-list">
+                                        <!--Contenido del box-->
+                                    </div>
+                                </div>
+                                <div class="sub-section">
+                                    <h3>Caratula Causa</h3>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="question search-inside-field">
+                                                <div class="input-group mb-3 be-loading">
+                                                    <input id="p_caratulaCausa" type="text">
+                                                    <button class="btn btn-primary btn-search" type="button" onclick="btn_actualizar_caratula()"><img src="assets/img/account-search.svg"></button>
+                                                </div>
+                                                <label>Caratula</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sub-section">
+                                    <h3>Audiencias</h3>
+                                    <div class="box">
+                                        <table id="tabla-audiencias" class="table table-striped">
+                                            <thead>
+                                                <th style="width: 90px;">Fecha</th>
+                                                <th style="width: 90px;">Hora</th>
+                                                <th>Resolución</th>
+                                                <th>Modalidad</th>
+                                                <th style="width: 50%;">Link</th>
+                                                <th style="width: 10%;"></th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="row add" style="padding-top:10px;padding-left:15px;">
+                                            <span class="col-12 flex">
+                                                <div class="question date">
+                                                    <!--input type="text" /-->
+                                                    <a href="javascript:void(0)" class="add add-meet">
+                                                        <img src="assets/img/icon-plus-circle.svg"> Agregar audiencia
+                                                    </a>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sub-section">
+                                    <h3>Salidas a terreno</h3>
+                                    <div class="box">
+                                        <table id="tabla-salidas-terreno" class="table table-striped">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th>Fecha Hora inicio</th>
+                                                    <th>Fecha Hora fin</th>
+                                                    <th>Documento</th>
+                                                    <th style="width: 50%;">Motivo</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                        <!--Agregar salida a terreno-->
+                                        <div class="row add" style="padding-top:10px;padding-left:15px;">
+                                            <span class="col-12 flex">
+                                                <a href="javascript:void(0)" class="add add-comeout">
+                                                    <img src="assets/img/icon-plus-circle.svg"> Agregar salida a terreno
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <!--Agregar salida a terreno-->
+                                    </div>
+                                </div>
+                                <div class="sub-section">
+                                    <h3>Emplazamiento</h3>
+                                    <div class="box">
+                                        <table id="tabla-emplazamiento" class="table table-striped">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 90%;">Fecha inicio</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                        <!--Agregar emplazamiento -->
+                                        <div class="row add" style="padding-top:10px;padding-left:15px;" id="div-agregar-emplazamiento">
+                                            <span class="col-12 flex">
+                                                <a href="javascript:void(0)" class="add add-emplazamiento">
+                                                    <img src="assets/img/icon-plus-circle.svg"> Agregar emplazamiento
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sub-section">
+                                    <h3>Remisiones</h3>
+                                    <div class="box">
+                                        <div class="table-header hide-mobile">
+                                            <div class="row">
+                                                <span class="col-2">Fecha</span>
+                                                <span class="col-10">Entidad</span>
+                                            </div>
+                                        </div>
+                                        <div id="tabla-lista-audiencias" class="table-body">
+                                            
+                                        </div>
+                                        <!--Remitir Causa-->
+                                        <div class="row add" style="padding-top:15px;padding-left:15px;">
+                                            <div class="col-12 flex">
+                                                <a href="javascript:void(0)" class="send-causa add">
+                                                    <img src="assets/img/icon-plus-circle.svg"> Enviar causa a corte
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!--Remitir Causa-->
+                                    </div>
+                                </div>
+
+                                <div class="sub-section">
+                                    <h3>Causa Acumuladora (esta causa quedará acumulada a otra)</h3>
+                                    <div class="box">
+                                        <div class="table-header hide-mobile">
+                                            <div class="row">
+                                                <span class="col-2">Rol Causa</span>
+                                                <span class="col-10">Carátula</span>
+                                            </div>
+                                        </div>
+                                        <div id="tabla-lista-causa-acumulada" class="table-body">
+                                            <!--div class="row">
+                                                <span class="col-3 col-md-2 dark">R-1-2013</span>
+                                                <span class="col-9 col-md-10 dark">Carátula de causa 1</span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="col-3 col-md-2 dark">D-2-2022</span>
+                                                <span class="col-9 col-md-10 dark">Carátula de causa 2</span>
+                                            </div-->
+                                        </div>
+                                        <!--Remitir Causa-->
+                                        <div class="row add" style="padding-top:15px;padding-left:15px;">
+                                            <div class="col-12 flex">
+                                                <a id="btn-agregar-causa-acumuladora" href="javascript:void(0)" class="acumula-causa add">
+                                                    <img src="assets/img/icon-plus-circle.svg"> Agregar causa acumuladora
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!--Remitir Causa-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="administracion_antecedentes_adicionales" style="display: none">
+                                <div class="sub-section">
+                                    <h3>Antecedentes Adicionales</h3>
+                                    <div class="box">
+                                        <span id="box-antecedentesComplementarios" class="flex flow">
+                                            <!--Antecedentes adicionales-->
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="administracion_accion_cierre" style="display: none">
+                                <div class="toggles">
+                                    <label class="toggle">
+                                        <input id="check-causa-archivada" class="toggle-checkbox" type="checkbox" idEstado="" onchange="cambioEstadosFinalesCausa(this)">
+                                        <span class="toggle-label">Archivada</span>
+                                        <span class="toggle-switch"></span>
+                                    </label>
+                                    <label class="toggle">
+                                        <input id="check-causa-terminada" class="toggle-checkbox" type="checkbox" idEstado="" onchange="cambioEstadosFinalesCausa(this)">
+                                        <span class="toggle-label">Terminada</span>
+                                        <span class="toggle-switch"></span>
+                                    </label>
+                                    <label class="toggle">
+                                        <input id="check-causa-suspendida" class="toggle-checkbox" type="checkbox" idEstado="" onchange="cambioEstadosFinalesCausa(this)">
+                                        <span class="toggle-label">Suspendida</span>
+                                        <span class="toggle-switch"></span>
+                                    </label>
+                                    <label class="toggle">
+                                        <input id="check-causa-conciliacion" class="toggle-checkbox" type="checkbox" idEstado="" onchange="cambioEstadosFinalesCausa(this)">
+                                        <span class="toggle-label">En conciliación</span>
+                                        <span class="toggle-switch"></span>
+                                    </label>
+                                    <label id="boxDemandaEjecutiva" class="toggle" style="display: none">
+                                        <input id="check-causa-ejecucion" class="toggle-checkbox" type="checkbox" idEstado="" onchange="cambioEstadosFinalesCausa(this)">
+                                        <span class="toggle-label">En ejecución</span>
+                                        <span class="toggle-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--TAB3-->
+                    </div>
+                </div>
+                <!--PESTAÑAS-->
+
+                <!--BOTON VOLVER-->
+                <div style="margin-top:-10px; text-align:center;">
+                    <a style="width:200px;" href="javascript:void(0)" class="btn btn-secondary" onclick="btn_volver();">Volver</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Add Cuaderno -->
+    <div id="modal-addCuaderno" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Crear Cuaderno</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="question select">
+                        <select id="p-tipo-cuaderno">
+                            <option></option>
+                            <!--option value="principal">Cuaderno Principal</option-->
+                            <option value="apremio">Cuaderno de Apremio</option>
+                            <option value="cautelar">Cuaderno Cautelar</option>
+                        </select>
+                        <label>Selecciona tipo de cuaderno</label>
+                    </div>
+                    <div class="question">
+                        <input id="p-nombre-cuaderno" type="text" />
+                        <label>Ingresa el nombre del cuaderno</label>
+                    </div>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-secondary modal-close">Volver</a>
+                    <a class="btn btn-primary" onclick="guardarNuevoCuaderno();">Crear cuaderno</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add tipo de documento -->
+    <div id="modal-addDocument" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Cargar Documento</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="question select">
+                        <select id="p_tipoDocumentoLv2" onchange="cargarSubtipoDocumento()">
+                        </select>
+                        <label>Tipo de asiento</label>
+                    </div>
+                    <div id="box-subTipoDocumento" class="question select" style="display: none">
+                        <select id="p_tipoDocumentoLv3">
+                        </select>
+                        <label>Subtipo de documento</label>
+                    </div>
+                    <div id="box-escritoResuelve" class="question select">
+                        <select id="p_escritoResuelve">
+                        </select>
+                        <label>Escrito resuelve</label>
+                        <a id="btn_agrega_escrito" class="add" style="cursor: pointer" onclick="agregarEscritoResolucion()"><img src="assets/img/icon-plus-circle.svg">Agregar escrito</a>
+                        <div class="box">
+                            <div class="table-responsive noSwipe">
+                                <table id="tabla_escritosResolucion" class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:25%;">Código</th>
+                                            <th style="width:45%;">Nombre</th>
+                                            <th style="width:20%;">Fecha</th>
+                                            <th style="width:10%;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question select" style="display: none">
+                        <textarea id="p_descripcionPendiente" rows="4"></textarea>
+                        <label>Gestión de pendientes</label>
+                    </div>
+                    <!--div class="question" style="display: none">
+                        <input type="text" id="p_newDocumento_name"/>
+                        <label>Nombre del documento</label>
+                    </div-->
+                    <div class="question select">
+                        <input type="file" tipo="documento" id="p_uploadDocumentFile" accept=".pdf, .jpeg, .png, .mp3, .mp4, .mov, .wmv, .zip, .rar" onchange="cargarArchivos(this)">
+                        <!--image/png, image/jpeg-->
+                        <label>Documento</label>
+                    </div>
+                    <div class="question select">
+                        <input type="file" tipo="adjunto" id="p_uploadAttachmentFile" accept=".pdf, .jpeg, .png, .mp3, .mp4, .mov, .wmv, .zip, .rar" onchange="cargarArchivos(this)" multiple>
+                        <!--image/png, image/jpeg-->
+                        <label>Adjuntos</label>
+                    </div>
+
+                    <!--div class="upload">
+                        <label>Documento</label></br>
+                        <input type="file" tipo="documento" id="p_uploadDocumentFile" accept="application/pdf" onchange="cargarArchivos(this)">
+                    </div>
+                    <div class="upload">
+                        <label>Adjuntos</label></br>
+                        <input type="file" tipo="adjunto" id="p_uploadAttachmentFile" accept="application/pdf" onchange="cargarArchivos(this)" multiple>  
+                    </div-->
+                </div>
+                <div class="actions" style="padding-top:20px">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="cargarDocumento();">Crear documento</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add causas para enviar a la corte -->
+    <div id="modal-sendCausa" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Remisión</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-6 question select">
+                            <select>
+                                <option></option>
+                                <option value="2">Corte de Apelaciones</option>
+                                <option value="20">Corte Suprema</option>
+                            </select>
+                            <label>Selecciona corte</label>
+                        </div>
+                    </div>
+                    <h6>Documentos de la causa ROL {NUMERO-ROL}, {CARATULA}:</h6>
+                    <div class="box">
+                        <div class="table-responsive noSwipe">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width:2%;"></th>
+                                        <th style="width:25%;">Tipo</th>
+                                        <th style="width:73%;">Nombre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:3%;"><input type="checkbox" /></td>
+                                        <td class="cell-detail"><span class="cell-detail-description">Reclamación</span></td>
+                                        <td class="cell-detail"><span class="cell-detail-description">Lorem ipsum dolor sit amet - Estado de Chile</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 question date">
+                            <div class="question date">
+                                <input class="datetimepicker" id="fechaInicioTerreno" type="text" data-date-format="dd-mm-yyyy">
+                                <label>Fecha de envío</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separatorx2"></div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary">Enviar causa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal audiencia youtube -->
+    <div id="modal-verAudiencia" class="modal">
+        <div class="modal-content modal-video">
+            <div class="modal-header">
+                <h4>Video de la audiencia</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-6 question select">
+                            <select id="lista-modal-audiencias" onchange="cambioModalAudiencias()">
+                                <!--option value="https://www.youtube.com/embed/Kp4Mvapo5kc">Audiencia del 27/04/2021</option>
+                                <option value="https://www.youtube.com/embed/Kp4Mvapo5kc">Audiencia del 28/04/2021</option>
+                                <option value="https://www.youtube.com/embed/Kp4Mvapo5kc">Audiencia del 29/04/2021</option-->
+                            </select>
+                            <label>Selecciona la fecha de la audiencia</label>
+                        </div>
+                    </div>
+                    <div class="youtube-audiencia">
+                        <iframe id="player-modal-audiencias" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="separatorx2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal ubicacion mapa -->
+    <div id="modal-verUbicacion" class="modal">
+        <div class="modal-content modal-video">
+            <div class="modal-header">
+                <h4>Ver ubicación de la causa</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="map-audiencia">
+                        <iframe id="mapa-ubicacion_causa" src="" width="560" height="315" style="border:0;" allowfullscreen="no" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="separatorx2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal hacerse parte -->
+    <div id="modal-hacerseParte" class="modal">
+        <div class="modal-content modal-video">
+            <div class="modal-header">
+                <h4>Hacerse parte</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <select id="lista-modal-hacerseParte-roles">
+                                <option value="null"></option>
+                                <option value="4">Abogado Demandado</option>
+                                <option value="9">Amicus Curiae</option>
+                                <option value="10">Tercero</option>
+                            </select>
+                            <label>Comparecer como</label>
+                        </div>
+                    </div>
+                    <div class="separatorx2"></div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="guardarHacerseParte()">Hacerse parte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal ingreso certificacion -->
+    <div id="modal-ingresoCertificacion" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Ingreso de certificación</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="p_lista-documento-certificacion">
+                                    <option></option>
+                                </select>
+                                <label>Notificaci&oacute;n</label>
+                            </div>
+                        </div>
+                        <!--div class="col-sm-6">
+                            <div class="question select">
+                                <select id="p_lista-litigantes-certificacion">
+                                    <option></option>
+                                </select>
+                                <label>Litigante</label>
+                            </div>
+                        </div-->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <input type="file" tipo="documento" id="p_uploadCertificacionFile" accept=".pdf, .jpeg, .png, .mp3, .mp4, .mov, .wmv, .zip, .rar" onchange="cargarArchivos(this)">
+                                <!--image/png, image/jpeg-->
+                                <label>Adjunto</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <textarea id="p_informacionRelevante" rows="4"></textarea>
+                                <label>Información relevante</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <a href="" class="btn btn-secondary">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="guardarModalCertificaciones()">Ingresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal agregar audiencia -->
+    <div id="modal-agregarAudicncia" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Audiencia</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idAudiencia">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datetimepicker" id="fechaAudiencia" type="text" data-date-format="dd-mm-yyyy HH:ii">
+                                <label>Fecha</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="lista-documentos-audiencias">
+                                    <option></option>
+                                </select>
+                                <label>Resolución</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="lista-modalidades">
+                                    <option></option>
+                                    <option value="presencial">Presencial</option>
+                                    <option value="remoto">Remoto</option>
+                                </select>
+                                <label>Modalidad</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <input type="text" id="urlVideoAudiencia">
+                                <label>Link de audiencia en youtube</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" id="btnAgregarAudiencia" onclick="agregarAudiencia()">Agregar audiencia</a>
+                    <!-- Este boton se oculpa al "editar" una audiencia -->
+                    <a href="javascript:void(0)" class="btn btn-primary" id="btnActualizarAudiencia" onclick="actualizarAudiencia()" style="display:none">Actualizar audiencia</a>
+                    <!-- Este boton aparece al "editar" una audiencia-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal salida a terreno -->
+    <div id="modal-salidaTerreno" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Salida a terreno</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datepicker" id="fechaInicioSalida" type="text" data-date-format="dd-mm-yyyy">
+                                <label>Fecha y hora inicio</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datepicker" id="fechaTerminoSalida" type="text" data-date-format="dd-mm-yyyy">
+                                <label>Fecha y hora fin</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="lista-documentos-salida">
+                                    <option></option>
+                                </select>
+                                <label>Documento</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question ">
+                                <input type="text" id="motivo-salida">
+                                <label> Motivo de salida </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="agregarSalidaTerreno()">Agregar salida</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal ingreso certificacion -->
+    <div id="modal-ingresoCertificacion" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Ingreso de certificación</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    CONTENIDO
+                </div>
+                <div class="actions">
+                    <a href="" class="btn btn-secondary">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal agregar audiencia -->
+    <div id="modal-agregarAudicncia" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Agregar audiencia</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datetimepicker" id="fechaInicioTerreno" type="text" data-date-format="dd-mm-yyyy">
+                                <label>Fecha</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <input type="text">
+                                <label>Resolución</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <input type="text">
+                                <label>Link de audiencia en youtube</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+                <div class="actions">
+                    <a href="" class="btn btn-secondary">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary">Agregar audiencia</a>
+                    <!-- Este boton se oculpa al "editar" una audiencia -->
+                    <a href="javascript:void(0)" class="btn btn-primary">Actualiuzar audiencia</a>
+                    <!-- Este boton aparece al "editar" una audiencia-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal salida a terreno -->
+    <div id="modal-salidaTerreno" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Salida a terreno</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datetimepicker" id="fechaInicioTerreno" type="text" data-date-format="dd-mm-yyyy">
+                                <label>Fecha y hora inicio</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datetimepicker" id="fechaFinTerreno" type="text" data-date-format="dd-mm-yyyy">
+                                <label>Fecha y hora fin</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="lista-horario">
+                                    <option></option>
+                                </select>
+                                <label>Motivo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+                <div class="actions">
+                    <a href="" class="btn btn-secondary">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="agregarSalidaTerreno()">Agregar salida</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal emplazamiento -->
+    <div id="modal-emplazamiento" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Agregar emplazamiento</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="question date">
+                                <input class="datetimepicker" id="fechaInicioEmplazamiento" type="text" data-date-format="dd-mm-yyyy HH:ii">
+                                <label>Fecha</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                </div>
+                <div class="actions">
+                    <a href="" class="btn btn-secondary">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="agregarEmplazamiento()">Agregar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add causas para enviar a la corte -->
+    <div id="modal-acumularCausa" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Causa Acumula</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-12 question select">
+                            <select id="lista-administracion-causasPadre">
+                                <option></option>
+                            </select>
+                            <label>Selecciona causa</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="guardaCausaPadre()">Seleccionar causa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add causas para enviar a la corte -->
+    <div id="modal-agregar-litigante" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Agregar Litigante</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question search-inside-field">
+                                <div id="div-rut-litigante" class="input-group mb-3 be-loading">
+                                    <input id="p_rut" type="text">
+                                    <button class="btn btn-primary btn-search" id="btn-buscar-Litigante" type="button">
+                                        <img src="assets/img/account-search.svg">
+                                    </button>
+                                </div>
+                                <label>RUT</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question">
+                                <input type="text" id="p_nombre" disabled />
+                                <label>Nombre</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question">
+                                <input type="text" id="p_apellido" disabled/>
+                                <label>Apellido</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="p_tipoPersona">
+                                    <option value="null"></option>
+                                    <option value="N">Persona Natural</option>
+                                    <option value="J">Persona Jurídica</option>
+                                </select>
+                                <label>Tipo de Persona</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question select">
+                                <select id="p_rolJudicial">
+                                    <option value="null"></option>
+                                </select>
+                                <label>Rol judicial</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question">
+                                <input type="text" id="p_emailLitigante" disabled>
+                                <label>Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <input type="hidden" id="idCausaLitiganteUpdate">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" id="btnActualizarLitigante" class="btn btn-primary" onclick="actualizarLitigante()" style="display: none;">Actualizar</a>
+                    <a href="javascript:void(0)" id="btnAgregarLitigante" class="btn btn-primary" onclick="agregarLitigante()">Agregar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal requerir firma -->
+    <div id="modal-requerirFirma" class="modal">
+        <div class="modal-content modal-video">
+            <div class="modal-header">
+                <h4>Requerir Firmantes</h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="paginas-doc-firma">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-8 flex">
+                            <div class="question select">
+                                <select id="lista-modal-firmantes">
+                                    <option></option>
+                                </select>
+                                <label>Firmantes Disponibles</label>
+                            </div>
+                            <a onclick="agregarFirmanteLista()"><img src="assets/img/icon-plus-circle.svg"></a>
+                        </div>
+                    </div>
+                    <div class="box" style="height: 220px;">
+                        <div class="table-responsive noSwipe">
+                            <table id="table_modal_firmantes" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width:25%;">Pagina</th>
+                                        <th style="width:65%;">Nombre</th>
+                                        <th style="width:10%;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--tr>
+                                        <td class="cell-detail">
+                                            <span class="cell-detail-description">
+                                                <select id="tabla-modal-firmantesSeleccionados">
+                                                    <option name="posicionFirma" value="null"></option>
+                                                </select>
+                                            </span>
+                                        </td>
+                                        <td class="cell-detail">
+                                            <span class="cell-detail-description">
+                                                Lorem ipsum dolor sit amet - Estado de Chile
+                                            </span>
+                                        </td>
+                                    </tr-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="separatorx2"></div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="solicitarFirma()">Solicitar Firma</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add causas para enviar a la corte -->
+    <div id="modal-actualizar-notif" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Correo <span id="spanActualizarNotif"></span></h4>
+                <a href="javascript:void(0)" class="modal-close">X</a>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="question">
+                                <input type="text" id="emailNotif" />
+                                <label>Email</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <input type="hidden" id="idCausaNotif">
+                    <input type="hidden" id="idCausaLitiganteNotif">
+                    <a href="javascript:void(0)" class="btn btn-secondary modal-close">Volver</a>
+                    <a href="javascript:void(0)" id="btnEliminarEmailNotif" class="btn btn-primary" onclick="eliminarCorreoNotif()" style="display: none;">Eliminar</a>
+                    <a href="javascript:void(0)" id="btnActualizarEmailNotif" class="btn btn-primary" onclick="actualizarCorreoNotif()" style="display: none;">Actualizar</a>
+                    <a href="javascript:void(0)" id="btnAgregarEmailNotif" class="btn btn-primary" onclick="agregarCorreoNotif()">Agregar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODALES -->
+
+    <section class="footer"></section>
+</body>
+
+</html>

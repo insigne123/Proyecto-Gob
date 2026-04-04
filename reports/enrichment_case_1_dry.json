@@ -1,0 +1,113 @@
+
+> nextn@0.1.0 onboarding:enrich-corpus
+> tsx scripts/enrich-onboarding-corpus-by-anchors.ts 1d41328b-4470-4410-a83d-fd6ec51d05be --tribunal=1TA --rol=R-151-2026 --apply=false
+
+{
+  "action": "onboarding_anchor_corpus_enrichment",
+  "startedAt": "2026-03-06T01:48:46.150Z",
+  "completedAt": "2026-03-06T01:48:53.424Z",
+  "workspace": {
+    "id": "1d41328b-4470-4410-a83d-fd6ec51d05be",
+    "title": "QA CriticalAnchor Final5 R-151-2026 2026-03-06T00-50-08-908Z",
+    "runId": "6996679d-fd10-45b7-af34-033493935ade",
+    "tribunal": "1TA",
+    "rol": "R-151-2026"
+  },
+  "corpus": {
+    "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+    "workspaceTitle": "Base Jurisprudencial Tribunal Ambiental",
+    "created": false
+  },
+  "apply": false,
+  "terms": [
+    "pdc",
+    "sma",
+    "cumplimiento",
+    "efectos",
+    "ejecucion",
+    "analisis"
+  ],
+  "missingTermsBefore": [
+    "ejecucion"
+  ],
+  "coverage": {
+    "before": [
+      {
+        "term": "pdc",
+        "hits": 5,
+        "error": null
+      },
+      {
+        "term": "sma",
+        "hits": 91,
+        "error": null
+      },
+      {
+        "term": "cumplimiento",
+        "hits": 120,
+        "error": null
+      },
+      {
+        "term": "efectos",
+        "hits": 120,
+        "error": null
+      },
+      {
+        "term": "ejecucion",
+        "hits": 0,
+        "error": null
+      },
+      {
+        "term": "analisis",
+        "hits": 120,
+        "error": null
+      }
+    ],
+    "after": [
+      {
+        "term": "pdc",
+        "hits": 5,
+        "error": null
+      },
+      {
+        "term": "sma",
+        "hits": 91,
+        "error": null
+      },
+      {
+        "term": "cumplimiento",
+        "hits": 120,
+        "error": null
+      },
+      {
+        "term": "efectos",
+        "hits": 120,
+        "error": null
+      },
+      {
+        "term": "ejecucion",
+        "hits": 0,
+        "error": null
+      },
+      {
+        "term": "analisis",
+        "hits": 120,
+        "error": null
+      }
+    ]
+  },
+  "jobs": {
+    "queued": [],
+    "wait": {
+      "done": true,
+      "timedOut": false,
+      "jobs": []
+    },
+    "ingestWait": {
+      "done": true,
+      "timedOut": false,
+      "pending": 0
+    }
+  },
+  "poolRefresh": null
+}

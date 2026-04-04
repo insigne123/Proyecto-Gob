@@ -1,0 +1,159 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 59405,
+    "avgCitations": 1.83,
+    "mustIncludeAllMatchedRate": 0.8333,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "weak": 2,
+      "partial": 3,
+      "strong": 1
+    },
+    "totalTokens": 31653
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 6149,
+      "elapsedMs": 53159,
+      "preview": "Criterio util para la defensa del SEA: priorizar criterios tecnicos y de evaluacion ambiental que aparezcan en informes y documentos evacuados, y usar esos criterios como base de la respuesta.\n\nOrden recomendado para la defensa: 1) informe, 2) sentencia, 3) reclamacion solo como contexto.\n\nLa evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nEn R-118-2025, - [ ] Incluir como segundo bloque de defensa el fallo de R-44-2021, ya que ordena completar información y acoge reclamaciones administrativas, lo cual contextualiza límites de evaluación ambiental y las condiciones necesarias para aprobación o rechazo, con cita específica: \"acoge el recurso de reclamación administrativo parcialmente ordenando completar la información al Titular requerida por este órgano antes de comenzar la ejecución del proyecto\" (R-44-2021, p. 21). Esto fundamenta criterios de decisión y co",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6241,
+      "elapsedMs": 24601,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4671,
+      "elapsedMs": 160055,
+      "preview": "La evidencia recuperada no cubre suficientemente los documentos clave requeridos (sentencia) para responder con seguridad plena.\n\nLos riesgos al usar mal sentencias o precedentes favorables sin respaldo adecuado incluyen la potencial aplicabilidad incorrecta de criterios judiciales, la descontextualización de decisiones que puede llevar a errores interpretativos y la vulneración del principio de seguridad jurídica. La evidencia señala que la descontextualización y la aplicación inadecuada de sentencias pueden perjudicar la defensa.\n\n1. la utilización de sentencias sin respaldo documental sólido puede vulnerar el principio de seguridad jurídica y la legítima confianza en las decisiones judiciales.",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 6,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-mini-2025-08-07",
+      "totalTokens": 5673,
+      "elapsedMs": 53068,
+      "preview": "En R-118-2025, - [ ] El SEA especifica que el “espacio geográfico” del análisis de impacto ambiental puede incluir espacio terrestre, aéreo y/o acuático, criterio útil para definir el alcance espacial del AI del proyecto.\n\n- [ ] El SEA recomienda considerar distintos componentes que interactúan con los elementos del medio (entre ellos el componente Medio Humano) y sus atributos, incluyendo la dimensión socioeconómica y actividades productivas dependientes de recursos naturales, criterio útil para integrar impactos humanos y productivos en la defensa técnica.\n\n- [ ] El SEA y su Guía de AI exigen que sólo se analicen observaciones formuladas oportunamente en el proceso PAC; los Tribunales Ambientales están limitados a resolver sobre observaciones PAC no debidamente consideradas, criterio esencial para acotar el objeto de la defensa judicial.\n\n- [ ] El SEA señala que alegaciones sobre la in",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "weak",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4621,
+      "elapsedMs": 35326,
+      "preview": "La evidencia disponible es parcial y la respuesta debe leerse como preliminar.\n\nEn R-118-2025, Adicionalmente, las decisiones y análisis del SEA, como lo establece la misma sentencia, evidencian una interpretación de los procedimientos que contempla amplias facultades para conocer de los recursos de reclamación, permitiendo incluso retrotraer procedimientos y revisar aspectos de mérito, lo que fortalece la línea argumental basada en la autoridad de estos informes y resoluciones (chunkId=176f4c6a-3817-44bf-ab82-326d7e10d448). La jurisprudencia citada apunta a que los fallos de los tribunales ambientales han fortalecido esta postura, considerando el alcance de las facultades del Comité de Ministros en materia de reclamaciones en el contexto ambiental.",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4298,
+      "elapsedMs": 30219,
+      "preview": "En R-118-2025, El precedente más útil para mantener criterios consistentes del SEA parece ser aquel que proviene de informes del mismo sistema de evaluación ambiental, ya que estos contienen análisis y decisiones tomadas por órganos administrativos y tribunales que establecen criterios técnicos y jurídicos específicos. En particular, el informe R-44-2021, que evacúa informes y sentencias, puede proporcionar referencia sobre cómo el SEA ha abordado previamente cuestiones similares, permitiendo así mantener la coherencia en las decisiones. La evidencia indica que estos informes favorecen la estabilidad y homogeneidad en la línea de actuación del sistema, como se señala: \"el sistema jurídico basado en el precedente administrativo [...] permite que la actuación administrativa gane en previsibilidad\" (chunkId=d17f4037-006a-4f34-acab-5d76c441cc9c). Además, los informes del SEA ayudan a estruct",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

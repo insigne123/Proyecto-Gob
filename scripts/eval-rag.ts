@@ -7,6 +7,7 @@ import { z } from "zod"
 
 import { getRagProvider, type RagProvider } from "../src/lib/env"
 import { retrieveLocalEvidenceForQuestion } from "../src/lib/rag/local-retrieval"
+import { hydrateEvidenceDocumentContext } from "../src/lib/rag/evidence-document-context"
 import {
   getWorkspaceKnowledgeBase,
   mapResultsToEvidence,
@@ -34,6 +35,19 @@ function truthyEnv(name: string) {
   const raw = String(process.env[name] || "").trim().toLowerCase()
   if (!raw) return false
   return !(raw === "0" || raw === "false" || raw === "off" || raw === "no")
+}
+
+function evalAnswerBudget(mode: AnswerMode) {
+  if (mode === "checklist") {
+    return { maxCompletionTokens: 900, reasoningEffort: "minimal" as const }
+  }
+  if (mode === "comparison") {
+    return { maxCompletionTokens: 1100, reasoningEffort: "minimal" as const }
+  }
+  if (mode === "resolution") {
+    return { maxCompletionTokens: 950, reasoningEffort: "minimal" as const }
+  }
+  return { maxCompletionTokens: 750, reasoningEffort: "minimal" as const }
 }
 
 type EvalCase = {
@@ -425,6 +439,39 @@ function modeGuide(mode: AnswerMode) {
   return "- Modo Extractivo: sintesis minima, directa y verificable.\n"
 }
 
+function normalizeEvalDocType(value: string | null | undefined) {
+  const normalized = String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+  if (!normalized) return null
+  if (normalized.includes("reclam")) return "reclamacion"
+  if (normalized.includes("inform") || normalized.includes("evacua")) return "informe"
+  if (normalized.includes("sentenc") || normalized.includes("fallo")) return "sentencia"
+  return normalized
+}
+
+function filterEvidenceByDocTypes(evidence: EvidenceChunk[], filters: RetrievalFilters | null) {
+  const allowedDocTypes = Array.from(
+    new Set(
+      (Array.isArray(filters?.docTypes) ? filters!.docTypes : [])
+        .map((item) => normalizeEvalDocType(item))
+        .filter(Boolean)
+    )
+  )
+
+  if (!allowedDocTypes.length) return evidence
+
+  const filtered = evidence.filter((row: any) => {
+    const docRole = normalizeEvalDocType(row?.docRole ? String(row.docRole) : null)
+    const docType = normalizeEvalDocType(row?.documentType ? String(row.documentType) : null)
+    return allowedDocTypes.includes(docRole || docType || "")
+  })
+
+  return filtered.length ? filtered : evidence
+}
+
 function retryHintForMode(mode: AnswerMode) {
   if (mode === "checklist") {
     return "Reintento: hay evidencia suficiente. Entrega checklist completo y exhaustivo. No devuelvas notFound si puedes citar."
@@ -577,7 +624,7 @@ async function generateStrictAnswerWithOpenAI(params: {
     throw new Error("Missing OPENAI_API_KEY")
   }
 
-  const model = String(process.env.OPENAI_ANSWER_MODEL || process.env.OPENAI_RAG_MODEL || "gpt-4o-mini")
+  const model = resolveOpenAIAnswerModel()
   const baseUrl = String(process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "")
   const tempRaw = String(process.env.OPENAI_ANSWER_TEMPERATURE || "").trim()
   const tempParsed = tempRaw ? Number(tempRaw) : Number.NaN
@@ -585,6 +632,7 @@ async function generateStrictAnswerWithOpenAI(params: {
 
   const maxChunks = params.mode === "checklist" ? 16 : params.mode === "comparison" ? 14 : 10
   const evidenceBlock = buildEvidenceBlock(params.evidence, maxChunks)
+  const budget = evalAnswerBudget(params.mode)
   const system =
     "Eres un asistente documental. Regla critica: NO inventes. Responde SOLO usando EVIDENCE. Si no hay evidencia suficiente, responde con notFound=true y la frase exacta: 'No se encuentra en las fuentes disponibles.'"
 
@@ -648,6 +696,10 @@ async function generateStrictAnswerWithOpenAI(params: {
       type: "json_schema",
       json_schema: schema,
     },
+    max_completion_tokens: budget.maxCompletionTokens,
+  }
+  if (/^gpt-5/i.test(model)) {
+    requestBody.reasoning_effort = budget.reasoningEffort
   }
   if (useTemperature) {
     requestBody.temperature = tempParsed
@@ -679,9 +731,15 @@ async function generateStrictAnswerWithOpenAI(params: {
     const tempUnsupported =
       String(message).toLowerCase().includes("temperature") &&
       String(message).toLowerCase().includes("default")
+    const reasoningUnsupported =
+      String(message).toLowerCase().includes("reasoning_effort") ||
+      String(message).toLowerCase().includes("reasoning effort")
 
     if (typeof requestBody.temperature !== "undefined" && tempUnsupported) {
       delete requestBody.temperature
+      ;({ res, text, payload } = await send(requestBody))
+    } else if (typeof requestBody.reasoning_effort !== "undefined" && reasoningUnsupported) {
+      delete requestBody.reasoning_effort
       ;({ res, text, payload } = await send(requestBody))
     }
   }
@@ -717,7 +775,7 @@ async function generateAnswerWithProvider(params: {
   evidence: EvidenceChunk[]
   mode: AnswerMode
 }) {
-  if (params.provider === "openai") {
+  if (params.provider === "openai" && truthyEnv("EVAL_USE_LEGACY_OPENAI_STRICT")) {
     return generateStrictAnswerWithOpenAI({
       question: params.question,
       evidence: params.evidence,
@@ -729,6 +787,8 @@ async function generateAnswerWithProvider(params: {
     question: params.question,
     evidence: params.evidence,
     mode: params.mode,
+    responseProfile: "deep",
+    difficulty: params.mode === "extractive" ? "medium" : "complex",
   })
 }
 
@@ -985,6 +1045,9 @@ async function runRetrieval(params: {
             snapshotId: row.snapshotId ? String(row.snapshotId) : null,
             page: typeof row.page === "number" ? row.page : null,
             section: row.section ? String(row.section) : null,
+            docRole: row.docRole ? String(row.docRole) : null,
+            documentType: row.documentType ? String(row.documentType) : null,
+            documentTitle: row.documentTitle ? String(row.documentTitle) : null,
           }))
         )
 
@@ -1012,6 +1075,9 @@ async function runRetrieval(params: {
               snapshotId: row.snapshotId ? String(row.snapshotId) : null,
               page: typeof row.page === "number" ? row.page : null,
               section: row.section ? String(row.section) : null,
+              docRole: row.docRole ? String(row.docRole) : null,
+              documentType: row.documentType ? String(row.documentType) : null,
+              documentTitle: row.documentTitle ? String(row.documentTitle) : null,
             })),
           ])
         }
@@ -1031,6 +1097,7 @@ async function runRetrieval(params: {
           matchCount: profile.localMatchCount,
           minSimilarity: 0.25,
           textMatchCount: profile.localTextMatchCount,
+          filters: params.filters,
         })
       )
 
@@ -1042,6 +1109,7 @@ async function runRetrieval(params: {
           matchCount: Math.min(24, profile.localMatchCount + 6),
           minSimilarity: 0.2,
           textMatchCount: Math.min(30, profile.localTextMatchCount + 8),
+          filters: params.filters,
         })
         localEvidence = dedupeEvidence([...localEvidence, ...expandedLocal])
       }
@@ -1065,18 +1133,25 @@ async function runRetrieval(params: {
     evidence = managedEvidence
     providerUsed = "openai"
   } else {
-    evidence = [...managedEvidence]
-    if (evidence.length < 6 && localEvidence.length > 0) {
-      const seen = new Set(evidence.map((x) => x.chunkId))
-      for (const row of localEvidence) {
-        if (seen.has(row.chunkId)) continue
-        seen.add(row.chunkId)
-        evidence.push(row)
-      }
-      providerUsed = managedEvidence.length > 0 ? "hybrid" : "local"
+    evidence = dedupeEvidence([...localEvidence, ...managedEvidence]).slice(
+      0,
+      Math.max(16, Math.min(64, profile.maxResults * 3))
+    )
+    if (managedEvidence.length > 0 && localEvidence.length > 0) {
+      providerUsed = "hybrid"
+    } else if (managedEvidence.length > 0) {
+      providerUsed = "openai"
     } else {
-      providerUsed = managedEvidence.length > 0 ? "openai" : "local"
+      providerUsed = "local"
     }
+  }
+
+  if (evidence.length > 0) {
+    evidence = await hydrateEvidenceDocumentContext({
+      supabase: params.supabase,
+      evidence,
+    }).catch(() => evidence)
+    evidence = filterEvidenceByDocTypes(evidence, params.filters)
   }
 
   if (!evidence.length) {
@@ -1590,3 +1665,4 @@ main().catch((err) => {
   console.error("RAG eval failed:", err?.message ?? err)
   process.exit(1)
 })
+import { resolveOpenAIAnswerModel } from "../src/lib/openai-models"

@@ -1,0 +1,28 @@
+{
+  "summary": {
+    "cases": 1,
+    "avgLatencyMs": 1681,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null
+  },
+  "results": [
+    {
+      "id": "writing-smoke-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "task": "counterargue",
+      "textLength": 131,
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "model": null,
+      "evidenceChunks": 0,
+      "structuredMemory": false,
+      "outputPreview": "La reclamacion sostiene que el SEA no se hizo cargo de impactos relevantes ni respondio adecuadamente las observaciones ciudadanas.",
+      "elapsedMs": 1681,
+      "notes": "Smoke case for writing assistant with structured memory and tribunal evidence"
+    }
+  ]
+}

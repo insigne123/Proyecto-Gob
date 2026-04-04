@@ -17,11 +17,13 @@ import {
 import {
   Activity,
   ChevronDown,
-  FileSpreadsheet,
+  Database,
   FileText,
   Leaf,
   LogOut,
   PanelsTopLeft,
+  Search,
+  Sparkles,
 } from "lucide-react"
 
 export function Topbar({
@@ -42,6 +44,14 @@ export function Topbar({
     await supabase.auth.signOut()
     router.replace("/login")
     router.refresh()
+  }
+
+  function openNotebookPanel(eventName: string) {
+    try {
+      window.dispatchEvent(new CustomEvent(eventName))
+    } catch {
+      // ignore
+    }
   }
 
   return (
@@ -68,6 +78,21 @@ export function Topbar({
         </div>
 
         <div className="ml-auto flex items-center gap-2">
+          <div className="hidden items-center gap-2 lg:flex">
+            <Button variant="ghost" size="sm" className="gap-2" onClick={() => openNotebookPanel("ca:open-sources")}>
+              <Database className="h-4 w-4" />
+              Fuentes
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-2" onClick={() => openNotebookPanel("ca:open-traces")}>
+              <Search className="h-4 w-4" />
+              Trazas
+            </Button>
+            <Button variant="outline" size="sm" className="gap-2" onClick={() => openNotebookPanel("ca:open-add-source")}>
+              <Sparkles className="h-4 w-4" />
+              Agregar fuente
+            </Button>
+          </div>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="gap-2">
@@ -90,6 +115,9 @@ export function Topbar({
                 <Link href="/alerts">Alertas</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
+                <Link href="/estado-diario">Estado Diario</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link
                   href={`/projects/${workspaceId}/expediente`}
                   className="flex items-center"
@@ -102,12 +130,6 @@ export function Topbar({
                 <Link href={`/projects/${workspaceId}/ops`} className="flex items-center">
                   <Activity className="mr-2 h-4 w-4" />
                   Operaciones
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={`/excel/${workspaceId}`} className="flex items-center">
-                  <FileSpreadsheet className="mr-2 h-4 w-4" />
-                  Monitor Excel
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />

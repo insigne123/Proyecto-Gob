@@ -1,0 +1,63 @@
+﻿Resumen de la conversación (qué problema están resolviendo)
+Rosario (área de juicios) explica que reciben reclamaciones/demandas sobre proyectos con RCA/autorización, y tienen plazos acotados (15 días hábiles) para evacuar informes. Hoy gran parte del tiempo se les va en buscar, leer y recordar precedentes (informes previos y sentencias), porque dependen de la memoria y de herramientas que “se quedan cortas” (alucinaciones, dificultad para encontrar la fuente correcta).
+La idea que conversaron es construir un sistema en dos fases:
+1. Fase “marco teórico / biblioteca” (chat + repositorio):
+   * Subir/ingestar documentos desde fuentes confiables (idealmente tribunales) y permitir búsqueda inteligente + filtros (tipo de proyecto, región, temas, años).
+   * Entregar resultados con citas, links y extractos relevantes, y además un documento resumen del material encontrado para acelerar lectura.
+2. Fase “producción / notebook LLM”:
+   * Usar lo encontrado para apoyar la escritura: hoy escriben “a mano”, pero el sistema puede ayudar al menos con revisión/gramática/claridad y, a futuro, incluso co-redacción (argumentar/refutar, sugerir contraargumentos).
+Además, aparece un segundo módulo: una planilla (Excel) de seguimiento de causas donde hoy alguien revisa diariamente el estado en los tribunales y envía un correo reporte; quieren automatizar ese monitoreo (diario para todas, e inmediato para algunas causas críticas).
+________________
+
+
+Lista de ajustes / cosas por hacer (lo que hay que implementar)
+A) Ingesta de datos y fuentes (tribunales)
+1. Conector / scraping a las páginas de los Tribunales Ambientales (al menos 1°, 2° y 3°), con sus diferencias de UX/estructura.
+2. Definir una fuente “más confiable”: priorizar documentos desde tribunales (porque ahí está la versión final de informes y sentencias).
+3. Implementar un filtro para SOLO causas donde SEA es parte reclamada (evitar documentos del reclamante/empresa u otras instituciones). Esto depende de:
+   * Carátula que contenga variantes: “Servicio de Evaluación Ambiental”, “Dirección Ejecutiva…”, “Dirección Regional…”, “Comité de Ministros”, etc.
+4. En cada causa, identificar y extraer tres piezas clave:
+   * Escrito inicial / reclamación (temas reclamados)
+   * Evacúa informe (lo que “ustedes” escribieron)
+   * Sentencia (del Tribunal Ambiental; y eventualmente Corte Suprema)
+5. Manejo de adjuntos masivos (especialmente 3er tribunal): asegurar que el sistema se quede con el documento principal y no se ahogue en anexos.
+6. Manejo de PDFs tipo OCR/no seleccionables (3er tribunal): asegurar pipeline que pueda leerlos (descarga + extracción robusta).
+7. Registrar/usar metadatos por documento: tribunal, rol, carátula, fecha, estado, tipo de documento (demanda/informe/sentencia), etc.
+B) Búsqueda, filtros y “marco teórico” (experiencia tipo ChatGPT)
+8. Crear una pantalla previa (tipo chat/biblioteca) antes del “notebook”, donde:
+   * Se cargue el caso nuevo (demanda/reclamación)
+   * Se puedan aplicar filtros (p.ej. tipo de proyecto “hidroeléctrica”, región “Araucanía”, rango de años, temas)
+9. Primer filtro recomendado: por tipo de proyecto (porque suelen repetir conflictos), y luego por tema en paralelo o después.
+10. Resultados del chat deben devolver:
+* Lista priorizada de casos/documentos relacionados
+* Citas textuales donde aparece lo relevante
+* Link al documento/fuente
+* (Ideal) un resumen consolidado (“documento resumen”) que conecte hilos y permita validar sin leer todo.
+C) Analítica jurisprudencial / tabla de resultados
+11. Construir una “tablita histórica” por tema/rol con:
+* Rol, tema, resultado (favorable/desfavorable o “confirmó/no confirmó”), y/o notas de qué argumentos el tribunal valida o rechaza repetidamente.
+D) Corte Suprema y continuidad del caso
+12. Detectar cuando hay recurso de casación (y cuál) y que el caso “salta” a Corte Suprema.
+13. Implementar (o dejar diseñado) un conector adicional para buscar el estado/sentencia en Corte Suprema usando rol u otro identificador, porque en Tribunal Ambiental ya no queda toda la trazabilidad.
+E) Módulo de monitoreo tipo planilla + alertas
+14. Rehacer la lógica del Excel como una vista configurable:
+* Columnas mínimas: Tribunal + Rol (evitar confundir el mismo rol en distintos tribunales).
+15. Programar monitoreo:
+* Reporte diario para todas las causas
+* Alertas inmediatas solo para “2 o 3” causas prioritarias (configurable por el usuario).
+16. Salida del monitoreo: generar y enviar un correo tipo “informe de actividad” similar al que hoy mandan manualmente. Rosario ofreció reenviar un ejemplo.
+17. Soportar el flujo de nuevos ingresos: cuando aparece una causa nueva, hoy se agrega manualmente y requiere “más detalle”; el sistema debería facilitar ese alta/actualización.
+F) Notebook/LLM (asistencia de escritura)
+18. En la fase actual, el notebook se usaría principalmente para:
+* Revisión de redacción/gramática/claridad (tipo Grammarly, pero integrado)
+19. En fase futura:
+* Asistente de argumentación: “este es mi argumento, refútamelo”, “dame ideas para refutar esta reclamación”, y potencialmente co-redacción iterativa.
+G) Pruebas y datos para validar
+20. Rosario propuso usar como dataset de prueba un repositorio armado por un pasante (Word/PDF con resúmenes de 2–3 años) para testear.
+21. También acordaron que ella enviaría:
+* Un extracto de 4–5 filas de la planilla (para entender columnas y testear el monitoreo).
+________________
+
+
+Resultado esperado (cómo se vería “listo” según la conversación)
+* Un flujo donde cargas una reclamación/caso → el chat arma el marco teórico (casos similares + citas + links + resumen) → tú redactas con apoyo (y el notebook ayuda a revisar) → paralelamente el sistema monitorea causas desde la planilla y manda reportes/alertas por correo.

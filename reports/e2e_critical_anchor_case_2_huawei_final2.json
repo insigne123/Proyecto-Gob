@@ -1,0 +1,29 @@
+{
+  "caseLabel": "R-202-2026 (2TA)",
+  "startedAt": "2026-03-05T18:49:18.453Z",
+  "finishedAt": "2026-03-05T18:55:00.674Z",
+  "durationMs": 342221,
+  "appUrl": "http://localhost:9002",
+  "pdfPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\0._Reclamacion_Huawei_2TA_-_Firmada.pdf",
+  "rol": "R-202-2026",
+  "tribunal": "2TA",
+  "workspaceId": "52b02c8d-1e7e-4776-9b69-75d9380cbf8a",
+  "recommendStatus": 200,
+  "recommendationCount": 8,
+  "hasUiResults": true,
+  "continueEnabled": true,
+  "redirectedToNotebook": true,
+  "sourceCount": 1,
+  "snapshotCount": 1,
+  "chunksCount": 180,
+  "notesCount": 1,
+  "retrievalTracesCount": 1,
+  "onboardingCompleted": false,
+  "warnings": [
+    "Sync corpus warning: TypeError: fetch failed",
+    "Pool defensivo activo: 240 causas SEA elegibles."
+  ],
+  "success": false,
+  "markdownReportPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\reports\\reporte_e2e_proyectos_2026-03-05T18-55-00-670Z.md",
+  "screenshotPath": "C:\\Users\\nicog\\OneDrive\\Escritorio\\Proyecto-Gob-Ambiental\\Proyecto-Gob\\reports\\e2e_onboarding_52b02c8d-1e7e-4776-9b69-75d9380cbf8a.png"
+}

@@ -1,0 +1,110 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 28239,
+    "avgCitations": 1.5,
+    "mustIncludeAllMatchedRate": 0.75,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 4
+    },
+    "totalTokens": 0
+  },
+  "results": [
+    {
+      "id": "factual-chat-001",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "question": "Para R-107-2024, existe una sentencia en el corpus?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 3,
+      "mustIncludeMatched": 3,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "deterministic:factual",
+      "totalTokens": null,
+      "elapsedMs": 35587,
+      "preview": "Sí, existe una sentencia en el corpus para R-107-2024.",
+      "notes": "Debe resolver existencia de sentencia en forma directa"
+    },
+    {
+      "id": "factual-chat-002",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "question": "En R-27-2019, que fojas se mencionan en el documento de desistimiento?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia",
+        "reclamacion"
+      ],
+      "model": "deterministic:factual",
+      "totalTokens": null,
+      "elapsedMs": 25465,
+      "preview": "En R-27-2019, se mencionan las fojas 3691, 3692 y 11.",
+      "notes": "Debe devolver las fojas exactas"
+    },
+    {
+      "id": "factual-chat-003",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "question": "En R-113-2024, quien figura como reclamante segun el escrito inicial?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "reclamacion"
+      ],
+      "model": "deterministic:factual",
+      "totalTokens": null,
+      "elapsedMs": 26137,
+      "preview": "En R-113-2024, figura como reclamante presentó una reclamación administrativa en contra de la RCA N° 20240200125/2024.",
+      "notes": "Debe identificar al reclamante desde la reclamacion"
+    },
+    {
+      "id": "factual-chat-004",
+      "workspaceId": "0d7ff8bd-5171-496d-a64e-b98a7a46b31c",
+      "question": "En la causa R-53-2021, que resolucion aparece respecto del informe?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "deterministic:factual",
+      "totalTokens": null,
+      "elapsedMs": 25767,
+      "preview": "En R-53-2021, la resolución relevante indica: A lo principal, téngase por evacuado el informe.",
+      "notes": "Debe extraer la formula resolutiva"
+    }
+  ]
+}

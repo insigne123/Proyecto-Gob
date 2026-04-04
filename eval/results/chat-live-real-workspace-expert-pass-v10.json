@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 54772,
+    "avgCitations": 3.17,
+    "mustIncludeAllMatchedRate": 0.5,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "partial": 3,
+      "strong": 3
+    },
+    "totalTokens": 39566
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 7279,
+      "elapsedMs": 47728,
+      "preview": "1. Criterio util para la defensa del SEA:\n2. priorizar criterios tecnicos y de evaluacion ambiental que aparezcan en informes y documentos evacuados, y usar esos criterios como base de la respuesta.\n3. Orden recomendado para la defensa:\n4. 1) informe, 2) sentencia, 3) reclamacion solo como contexto.\n\nCitas textuales adicionales:\n- \"su ejercicio sea conforme a derecho, controlando los supuestos de procedencia y sus elementos reglados, así como su razonabilidad, proporcionalidad y debida fundamentación.\"",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 7312,
+      "elapsedMs": 30238,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.\n\nCitas textuales adicionales:\n- \"1 PROCEDIMIENTO: Reclamación del artículo 17 N°6 Ley 20.600 RECLAMANTE: OCEANA INC.\"",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6204,
+      "elapsedMs": 100679,
+      "preview": "1. extrapolar un precedente o una sentencia favorable fuera de su contexto factico, normativo y procesal.\n2. util para extraer ratio decidendi, estandar de control y criterios de rechazo/acogida.\n3. En R-118-2025, El marco teórico advierte que el uso indebido o malinterpretado de sentencias puede afectar la defensa legal, ya que podría conducir a una interpretación errónea o a la aplicación fuera de su contexto.\n4. En particular, la sentencia R-95-2023 señala que la cosa juzgada formal se aplica a decisiones firmes pero no definitivas, lo que implica que una lectura apresurada de esos efectos puede generar errores en la argumentación.",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 4,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6240,
+      "elapsedMs": 61690,
+      "preview": "1. En R-118-2025, El marco teórico indica que los actos del Comité de Ministros deben ejercer dentro de su competencia y basarse en la normativa sectorial, lo que condiciona los criterios de defensa en torno a la competencia y la legalidad del proceso de evaluación.\n2. Los criterios técnicos del SEA se relacionan con la evaluación del impacto en el espacio geográfico y en los componentes del medio ambiente, incluyendo aspectos socioeconómicos y actividades relativas a recursos naturales, como se describe en las guías del SEA y en antecedentes del EIA.\n3. En relación con los criterios de cumplimiento y revisión de programas de cumplimiento, estos deben ser integrados, eficaces y verificables, presentando un plan de acciones y metas, información técnica y costos, conforme a las instrucciones del SMA y a los requisitos legales.",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6905,
+      "elapsedMs": 57909,
+      "preview": "1. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n2. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5626,
+      "elapsedMs": 30386,
+      "preview": "1. En R-118-2025, Además, la cuestión de la previsibilidad y uniformidad de la actuación administrativa se refuerza con referencias a precedentes administrativos que buscan “interpretación uniforme de una misma regla” y previsibilidad para la Administración, que son conceptos citados en el marco analizado (EVIDENCE 1-3).\n2. Esto apoya la idea de que el marco teórico debe fundamentarse en criterios de igualdad y seguridad jurídica para evitar interpretaciones parciales de decisiones previas.\n3. “el sistema jurídico basado en el precedente administrativo -esto es, la interpretación uniforme de una misma regla-, permite que la actuación administrativa gane en previsibilidad” (EVIDENCE 1).\n\nCitas textuales adicionales:\n- \"52 diferencias arbitrarias (art.\"\n- \"52 diferencias arbitrarias (art.\"",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

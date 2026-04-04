@@ -617,7 +617,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
             </TabsContent>
 
             <TabsContent value="upload" className="mt-4 space-y-3">
-              <Label>Subir PDFs</Label>
+              <Label>Subir documentos</Label>
               <div className="rounded-xl border border-dashed border-border/70 bg-background/20 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
@@ -637,7 +637,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
                               1024 /
                               1024
                             ).toFixed(2)} MB en total`
-                          : "PDF hasta 50MB por archivo"}
+                          : "PDF o DOCX hasta 50MB por archivo"}
                       </div>
                     </div>
                   </div>
@@ -651,7 +651,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
                       <label className="cursor-pointer">
                         <input
                           type="file"
-                          accept="application/pdf"
+                          accept="application/pdf,.pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx"
                           multiple
                           className="hidden"
                           onChange={(e) => {
@@ -703,7 +703,7 @@ export function SourcesPanel({ workspaceId }: { workspaceId: string }) {
                 )}
               </div>
               <p className="text-xs text-muted-foreground">
-                Luego de agregar, la fuente se procesa en background. Si queda en "Pendiente", revisa que el worker
+                Luego de agregar, la fuente se procesa en background. Si queda en {"\""}Pendiente{"\""}, revisa que el worker
                 este corriendo (`npm run worker:dev`).
               </p>
             </TabsContent>

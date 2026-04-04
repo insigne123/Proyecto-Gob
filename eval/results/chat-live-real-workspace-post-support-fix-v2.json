@@ -1,0 +1,158 @@
+{
+  "summary": {
+    "cases": 6,
+    "avgLatencyMs": 47087,
+    "avgCitations": 2.33,
+    "mustIncludeAllMatchedRate": 1,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "partial": 5,
+      "strong": 1
+    },
+    "totalTokens": 32079
+  },
+  "results": [
+    {
+      "id": "real-chat-001",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para sostener la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6205,
+      "elapsedMs": 46630,
+      "preview": "Los documentos prioritarios para sostener la defensa del SEA son los informes y sentencias del Tribunal, específicamente aquellos que contienen criterios técnicos y de decisión que apoyan su actuar dentro del marco legal y normativo.\n\n1. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n2. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n3. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.",
+      "notes": "Debe priorizar informe y sentencia; reclamacion solo como contexto"
+    },
+    {
+      "id": "real-chat-002",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Como deberia usarse la reclamacion dentro del marco teorico: como contexto o como prueba principal?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia",
+        "informe",
+        "reclamacion"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 6261,
+      "elapsedMs": 33066,
+      "preview": "En el marco teorico, la recomendacion operativa es usar la reclamacion como contexto, no como prueba principal; la evidencia recuperada para esta respuesta sigue siendo parcial y conviene verificarla contra informe y sentencia antes de cerrar el escrito.",
+      "notes": "Debe dejar claro que la reclamacion es secundaria"
+    },
+    {
+      "id": "real-chat-003",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que riesgos advierte el marco teorico al usar mal sentencias o precedentes favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4687,
+      "elapsedMs": 123708,
+      "preview": "La evidencia recuperada no cubre plenamente todos los documentos clave para esta consulta.\n\nEl marco teórico advierte que un mal uso de sentencias o precedentes favorables puede llevar a riesgos como la sobreinterpretación de la aplicabilidad de las decisiones judiciales, la omisión de diferencias procedimentales y contextuales importantes, y la utilización de precedentes sin un respaldo de sentencias concluyentes específicas. Estos riesgos pueden fortalecer argumentos falsos, afectar la coherencia de la defensa y generar interpretaciones erróneas.\n\n1. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n2. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.\n\n3. Se identifica evidencia relacionada que puede apoyar la respuesta, pero requiere validacion final humana.",
+      "notes": "Debe advertir contra extrapolacion o uso fuera de contexto"
+    },
+    {
+      "id": "real-chat-004",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que criterios utiles para defensa del SEA menciona el marco teorico?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5751,
+      "elapsedMs": 24289,
+      "preview": "En R-118-2025, - [ ] Utilizar como insumos principales los informes y resoluciones del SEA que contengan criterios explícitos (ratio decidendi) y que delimiten las competencias del Comité de Ministros, tal como lo señalan las resoluciones y guías citadas en el marco teórico. Cita: “delimitado a la resolución del Comité de Ministros en lo referido justamente a las observaciones que no hubieren sido debidamente consideradas” (R-35-2019).\n\n- [ ] Ante reclamos sobre cumplimiento, priorizar criterios de integridad, eficacia y verificabilidad de programas de cumplimiento, respaldando con los antecedentes de la normativa aplicable (artículo 9° del Reglamento) y su implementación práctica (Plan de acciones y costos). Cita: “Los antecedentes presentados buscan dar cumplimiento a los criterios de aprobación del programa de cumplimiento a que se refiere el artículo 9° del Reglamento, esto es, integ",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "real-chat-005",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Si tuvieras que construir un informe evacuado a partir del marco teorico, que dos lineas de defensa priorizarias?",
+      "mode": "resolution",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe",
+        "sentencia"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 4547,
+      "elapsedMs": 28163,
+      "preview": "Lineas de defensa prioritarias:\n1. En R-118-2025, La estrategia de defensa propone priorizar informes y sentencias del Tribunal Ambiental como base de la argumentación, destacando en primer lugar las decisiones de fallo en materia de reclamaciones ambientales.\n2. Se cita que el Tribunal admitió a trámite la reclamación y ordenó informar a la reclamada, y que el SEA evacúa informe solicitando el rechazo de la reclamación, lo que ilustra la importancia de los informes técnicos en el ámbito judicial ambiental.",
+      "notes": "Debe bajar el marco teorico a estrategia util"
+    },
+    {
+      "id": "real-chat-006",
+      "workspaceId": "8d9a162f-e9d2-4246-8fbe-d0a70533931d",
+      "question": "Que precedente del marco teorico parece mas util para mantener criterios consistentes del SEA y por que?",
+      "mode": "comparison",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4628,
+      "elapsedMs": 26668,
+      "preview": "En R-118-2025, Comparando las evidencias disponibles, el marco teórico se apoya en la idea de que el SEA utiliza precedentes para lograr previsibilidad y consistencia en la actuación administrativa. En particular, las fuentes citan explícitamente la necesidad de que la actuación sea uniforme y esté fundamentada en precedentes administrativos, con énfasis en la obligatoriedad y la previsibilidad de las decisiones. Se afirma que el precedente administrativo permite que la actuación administrativa gane en previsibilidad y que la interpretación uniforme de una misma regla es clave para que las decisiones sean armónicas con criterios anteriores.\n\nOtra evidencia relevante es la discusión sobre la obligación de uniformidad y la previsibilidad como efectos prácticos del precedente. En múltiples fragmentos se sostiene que la estabilidad, homogeneidad y previsibilidad permiten la eficacia y eficie",
+      "notes": "Debe elegir precedent utility con explicacion"
+    }
+  ]
+}

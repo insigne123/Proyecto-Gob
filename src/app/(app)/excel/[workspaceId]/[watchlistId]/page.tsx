@@ -46,7 +46,7 @@ export default async function ExcelWatchlistPage({
     <div className="mx-auto w-full max-w-5xl px-4 py-8">
       <div className="mb-6">
         <Link
-          href={`/excel/${workspaceId}`}
+          href="/excel"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -90,7 +90,7 @@ export default async function ExcelWatchlistPage({
                 watchlistId={watchlistId}
                 status={String(watch.status || "")}
                 fileName={String(watch.file_name || watch.file_id || "Archivo")}
-                basePath={`/excel/${workspaceId}`}
+                basePath="/excel"
               />
             </div>
           </CardContent>
@@ -115,7 +115,9 @@ export default async function ExcelWatchlistPage({
                     </div>
                   </div>
                   <div className="mt-1 text-xs text-muted-foreground">
-                    {r.summary ? JSON.stringify(r.summary) : ""}
+                    {r.summary && typeof r.summary === "object" && !Array.isArray(r.summary)
+                      ? `+${Number((r.summary as any).added || 0)} ~${Number((r.summary as any).modified || 0)} -${Number((r.summary as any).removed || 0)} | tribunal: ${Number((r.summary as any)?.tribunal_monitoring?.changed_cases || 0)}`
+                      : ""}
                   </div>
                   {r.error ? <div className="mt-2 text-xs text-destructive">{r.error}</div> : null}
                 </Link>

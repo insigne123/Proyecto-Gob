@@ -1,0 +1,76 @@
+{
+  "threadId": "80ee7701-9510-4169-871c-65a1365dc96b",
+  "count": 4,
+  "totals": {
+    "retrieval_ms": 33447,
+    "generation_ms": 66545,
+    "total_ms": 103037,
+    "answer_tokens": 10035
+  },
+  "rows": [
+    {
+      "id": "bc8b205b-930e-4b7e-bd4b-dbe047ae81a4",
+      "timestamp": "2026-03-06T02:31:19.311+00:00",
+      "question": "Antes de comenzar, ¿qué puedes hacer en este expediente y cómo manejas respuestas sin evidencia?",
+      "retrieval_provider": "hybrid",
+      "evidence_count": 0,
+      "retrieval_ms": 0,
+      "generation_ms": 0,
+      "total_ms": 0,
+      "answer_model": null,
+      "answer_tokens": 0,
+      "mode": "resolution",
+      "response_profile": "fast",
+      "retrieval_rerank_applied": false,
+      "retrieval_deepened": false
+    },
+    {
+      "id": "778209bb-6846-406c-b3fe-90df2bd17e11",
+      "timestamp": "2026-03-06T02:31:20.88+00:00",
+      "question": "Con base en la reclamación adjunta, resume en máximo 5 bullets los hechos centrales y cita al menos 2 fragmentos textuales.",
+      "retrieval_provider": "local",
+      "evidence_count": 42,
+      "retrieval_ms": 2,
+      "generation_ms": 18504,
+      "total_ms": 19815,
+      "answer_model": "gpt-4o-mini-2024-07-18",
+      "answer_tokens": 1897,
+      "mode": "resolution",
+      "response_profile": "fast",
+      "retrieval_rerank_applied": false,
+      "retrieval_deepened": false
+    },
+    {
+      "id": "152d0b7d-3bd0-475a-840a-2e90a5476da6",
+      "timestamp": "2026-03-06T02:31:41.77+00:00",
+      "question": "Propón hasta 3 líneas de defensa priorizadas para este caso ante SMA, indicando para cada una: riesgo y sustento documental disponible.",
+      "retrieval_provider": "hybrid",
+      "evidence_count": 48,
+      "retrieval_ms": 15487,
+      "generation_ms": 23543,
+      "total_ms": 39954,
+      "answer_model": "gpt-5-nano-2025-08-07",
+      "answer_tokens": 4067,
+      "mode": "resolution",
+      "response_profile": "fast",
+      "retrieval_rerank_applied": true,
+      "retrieval_deepened": false
+    },
+    {
+      "id": "443db554-2b2b-4710-8d93-ffdeb767b472",
+      "timestamp": "2026-03-06T02:32:23.016+00:00",
+      "question": "¿Existen precedentes específicos de Huawei en las fuentes disponibles? Si no existen, indícalo explícitamente y sugiere qué documentación falta cargar.",
+      "retrieval_provider": "hybrid",
+      "evidence_count": 48,
+      "retrieval_ms": 17958,
+      "generation_ms": 24498,
+      "total_ms": 43268,
+      "answer_model": "gpt-5-nano-2025-08-07",
+      "answer_tokens": 4071,
+      "mode": "resolution",
+      "response_profile": "fast",
+      "retrieval_rerank_applied": true,
+      "retrieval_deepened": true
+    }
+  ]
+}

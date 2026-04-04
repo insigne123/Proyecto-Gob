@@ -1,0 +1,108 @@
+{
+  "summary": {
+    "cases": 4,
+    "avgLatencyMs": 46268,
+    "avgCitations": 3,
+    "mustIncludeAllMatchedRate": 0.5,
+    "mustNotIncludePassRate": null,
+    "supportStrengths": {
+      "strong": 2,
+      "partial": 2
+    },
+    "totalTokens": 18688
+  },
+  "results": [
+    {
+      "id": "chat-sea-001",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Segun el marco teorico del proyecto, que documentos deberian priorizarse para construir la defensa del SEA y por que?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 1,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 6,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-4.1-nano-2025-04-14",
+      "totalTokens": 5424,
+      "elapsedMs": 63461,
+      "preview": "Se recomienda priorizar los documentos relacionados con las atribuciones y competencias del SEA en el proceso de evaluación ambiental, ya que esto establece claramente el alcance y los límites de sus funciones en la evaluación y control, como se indica en el párrafo que explica las atribuciones del SEA Atacama en el marco del SEIA y su rol en la evaluación ambiental del Proyecto.\n\nEs crucial revisar los informes que proporcionan una evaluación respecto a la información relevante y esencial del proyecto, ya que en el párrafo se señala que la Dirección Regional del SEA de Arica informó que 'en el marco de las reuniones realizadas en virtud del artículo 86 a grupos humanos pertenecientes a pueblos indígenas, reiteradas denuncias y reclamos respecto a olores, vectores y ruidos en el área de emplazamiento de las unidades productivas del Titular', lo cual es relevante para la defensa pues indi",
+      "notes": "Debe priorizar informe y sentencia por sobre reclamacion"
+    },
+    {
+      "id": "chat-sea-002",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que criterios defensivos del SEA aparecen en los antecedentes y como ayudan a sostener la evaluacion ambiental?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 3,
+      "supportStrength": "strong",
+      "preferredDocRoles": [
+        "informe"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 5213,
+      "elapsedMs": 18382,
+      "preview": "- [ ] Criterios defensivos del SEA presentes en los antecedentes: se destacan referencias al uso del RSEIA y la Guía para la Descripción del Área de Influencia en el SEA para confirmar que la línea de base fue determinada correctamente y que no se encontraba dentro del área de influencia de la reclamante, descartando afectación directa que requería PCI. Como se indica:\n\n- [ ] Criterios defensivos del SEA relacionados con la evaluación de impactos por olores y la vinculación con umbrales de percepción sensorial, que permiten delimitar áreas de influencia sin asumir efectos en salud cuando no corresponde. Se cita: \"Umbral de Olor, es un valor teórico obtenido a partir de la percepción sensorial realizada por un porcentaje especificado de la población... 1 UO/m3\" y la indicación de que se debe considerar normas de calidad ambiental vigentes para efectos de salud.\n\n- [ ] Criterios defensivos",
+      "notes": "Debe responder en clave defensiva institucional"
+    },
+    {
+      "id": "chat-sea-003",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Como debe usarse la reclamacion dentro del marco teorico: como prueba principal o como contexto?",
+      "mode": "extractive",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 1,
+      "mustIncludeMatched": 0,
+      "mustIncludeAllMatched": false,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 1,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "reclamacion"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 3578,
+      "elapsedMs": 21161,
+      "preview": "La reclamación puede ser utilizada dentro del marco teórico como parte de la revisión y ponderación del acto administrativo, permitiendo ampliar la evaluación de impactos y establecer condiciones para su ejecución, según la jurisprudencia que señala que el CM “no sólo aprobar o rechazar lo resuelto por la COEVA, sino que también identificar nuevos impactos ambientales y establecer medidas adecuadas para hacerse cargo de tales impactos.”",
+      "notes": "Debe decir que la reclamacion sirve como contexto, no como prueba principal"
+    },
+    {
+      "id": "chat-sea-004",
+      "workspaceId": "1ebbe1e3-a3bb-4195-a129-9628cfcaea9c",
+      "question": "Que riesgos menciona el marco teorico al usar mal precedentes o sentencias favorables?",
+      "mode": "checklist",
+      "responseProfile": "balanced",
+      "mustIncludeTotal": 2,
+      "mustIncludeMatched": 2,
+      "mustIncludeAllMatched": true,
+      "mustNotIncludeTotal": 0,
+      "mustNotIncludeViolations": 0,
+      "mustNotIncludePass": null,
+      "citations": 2,
+      "supportStrength": "partial",
+      "preferredDocRoles": [
+        "sentencia"
+      ],
+      "model": "gpt-5-nano-2025-08-07",
+      "totalTokens": 4473,
+      "elapsedMs": 82067,
+      "preview": "- [ ] Riesgo de usar mal precedentes o sentencias favorables: puede generar analogías excesivas que se desvían del contexto fáctico y procesal, afectando la legalidad desde el origen y causando perjuicio al regulado. Como se señala en el material disponible, el uso indebido de precedentes puede implicar errores que deben ser advertidos y corregidos, ya que no se trata de simples irregularidades formales, sino de vicios que comprometen elementos esenciales del procedimiento.\n\n- [ ] El marco teórico advierte que el PdC es aplicable al régimen sancionatorio de la Ley REP desde una interpretación sistemática, teleológica y conforme a principios del derecho ambiental chileno (cumplimiento normativo, preventivo y regulación responsiva). Este respaldo impone cautela al citar directamente ante precedentes para evitar desalineación con el contexto fáctico. \"Tal como se ha demostrado extensamente ",
+      "notes": "Debe advertir sobre extrapolar precedentes fuera de contexto"
+    }
+  ]
+}
